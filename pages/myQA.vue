@@ -573,14 +573,14 @@ export default {
     // 下記の storeheader は store/storeheader.js のファイル名
     this.$store.dispatch('storeheader/init')
 
-    this.$nuxt.$on('MYDATA', (myData) => {
+    this.$nuxt.$on('mydata', (myData) => {
       this.myData = myData
     })
   },
   // elementへのマウントが行われた後処理される。
   // SSR(Firebase等)では使えない。
   mounted() {
-    this.$nuxt.$on('COMMONDATA', (commonData) => {
+    this.$nuxt.$on('commondata', (commonData) => {
       this.commonData = commonData
     })
   },

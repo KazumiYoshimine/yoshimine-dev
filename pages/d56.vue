@@ -373,7 +373,7 @@ export default {
   // ③ mounted はelementへのマウントが行われた後処理される。
   // SSR(Firebase等)では使えない。
   mounted() {
-    this.$nuxt.$on('COMMONDATA', (commonData) => {
+    this.$nuxt.$on('commondata', (commonData) => {
       this.commonData = commonData
     })
   },

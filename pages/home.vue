@@ -637,23 +637,10 @@ export default {
   // elementへのマウントが行われた後処理される。
   // SSR(Firebase等)では使えない。
   mounted() {
-    // this.$nuxt.$on('MANFLG', (manFlg) => {
-    //   this.manFlg = manFlg
-    //   console.log('home-1 ++++++++++++ manFlg: ', this.manFlg)
-    // })
-
-    // this.$nuxt.$on('ISLOGGED', (isLogged) => {
-    //   this.isLogged = isLogged
-    //   console.log('home-3 ------ isLogged: ', isLogged)
-    // })
-
-    this.$nuxt.$on('COMMONDATA', (commonData) => {
+    this.$nuxt.$on('commondata', (commonData) => {
       this.commonData = commonData
     })
   },
-  // beforeDestroy() {
-  //   this.$nuxt.$off('MANFLG')
-  // },
   // created は画面を開いたとき呼ばれる。
   created() {
     // 下記の storehome は store/storehome.js のファイル名
@@ -666,13 +653,6 @@ export default {
     // const testData = this.$store.getters['storeheader/getDbHeadersInterval']
     // console.log('testData ------ in created(): ' + testData)
   },
-
-  // updated() {
-  //   this.$nuxt.$on('MANFLG', (manFlg) => {
-  //     this.manFlg = manFlg
-  //     console.log('home-2 ++++++++++++ manFlg: ', this.manFlg)
-  //   })
-  // },
 
   methods: {
     // test1() {

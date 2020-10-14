@@ -360,13 +360,10 @@ export default {
   // elementへのマウントが行われた後処理される。
   // SSR(Firebase等)では使えない。
   mounted() {
-    this.$nuxt.$on('MANFLG', (manFlg) => {
-      this.manFlg = manFlg
-      // console.log('header components からのデータ: ' + manFlg)
-    })
+    // console.log('test: ')
   },
   beforeDestroy() {
-    this.$nuxt.$off('MANFLG')
+    // console.log('test: ')
   },
 
   // ④ updated 画面が更新された後、呼び出される。

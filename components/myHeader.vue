@@ -3,10 +3,13 @@
     <!-- <div class="header m-0 p-0"> -->
     <!-- <div class="m-0 p-0"> -->
     <div class="row m-0 p-0">
-      <div class="col-12 d-flex justify-content-between" :style="commonData.buttonHeaderRGB">
+      <div class="col-12 d-flex justify-content-between align-items-center" :style="commonData.buttonHeaderRGB">
         <!-- <b-link to="/" class="text-dark font-weight-bold" style="font-size:24px" @click="selnum(0)"> -->
-        <b-link to="/home" class="d-flex flex-row m-0 p-0" @click="selnum(0)">
-          <img :src="commonData.headerLogo" style="position: relative; left: 1px; bottom: 1px" alt="Header image" width="32" height="32" title="building" align="bottom" />
+        <b-link to="/home" class="d-flex flex-row align-items-center m-0 p-0" @click="selnum(0)">
+          <!-- <b-link to="/home" class="d-flex flex-row m-0 p-0" @click="selnum(0)"> -->
+          <!-- <img :src="commonData.headerLogo" style="position: relative; left: 1px; bottom: 1px" alt="Header image" width="32" height="32" title="building" align="bottom" /> -->
+          <!-- <img :src="commonData.headerLogo" class="d-flex align-items-center" alt="Header image" width="36" height="36" title="building" /> -->
+          <img :src="commonData.headerLogo" alt="Header image" width="36" height="36" title="building" />
           <span class="myTitle text-dark font-weight-bold m-0 p-1">{{ commonData.topTitle }}</span>
         </b-link>
         <!-- <h5 class="d-flex align-items-center mr-3">{{ myData.mHome3 }}</h5> -->
@@ -378,8 +381,8 @@ export default {
   },
   data() {
     return {
-      manFlg: true,
-      // manFlg: false,
+      // manFlg: true,
+      manFlg: false,
       selected: 0,
       numBorder: 0,
       visible: true,
@@ -457,11 +460,11 @@ export default {
 
   // マウント後のフックが呼び出される
   mounted() {
-    this.$nuxt.$on('SELNUM', (selected) => {
+    this.$nuxt.$on('selnum', (selected) => {
       this.selected = selected
       // console.log('header components からのデータ: ' + selected)
     })
-    // this.$nuxt.$on('SELNUMSIDE', (selected) => {
+    // this.$nuxt.$on('selnumside', (selected) => {
     // this.selected = selected
     // this.numBorder = Math.floor(this.selected / 10)
     // })
@@ -488,8 +491,8 @@ export default {
   methods: {
     // test1() {
     //   this.selnum(21)
-    //   // this.$nuxt.$emit('SELNUMSIDE', '21')
-    //   // this.$nuxt.$emit('SELNUM', '21')
+    //   // this.$nuxt.$emit('selnumside', '21')
+    //   // this.$nuxt.$emit('selnum', '21')
     // },
 
     logout() {
@@ -563,7 +566,7 @@ export default {
     // selnumSide(num) {
     // this.selected = num
     // console.log('header selnum selected: ' + num)
-    // this.$nuxt.$emit('SELNUMSIDE', num)
+    // this.$nuxt.$emit('selnumside', num)
     // },
 
     isSelected(i) {

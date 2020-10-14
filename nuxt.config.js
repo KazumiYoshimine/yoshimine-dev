@@ -11,7 +11,7 @@ export default {
    */
   head: {
     // title: process.env.npm_package_name || 'タブのタイトル',
-    title: 'MyHomepage',
+    title: 'Yad',
     htmlAttrs: {
       lang: 'ja',
     },
@@ -42,7 +42,8 @@ export default {
         rel: 'icon',
         type: 'image/x-icon',
         // ブラウザのタイトルTabのicon
-        href: '/building-regular.svg',
+        href: '/logo-yad-s-waku2.ico',
+        // href: '/building-regular.svg',
         // href: '/icon-run.svg'
         // href: 'https://firebasestorage.googleapis.com/v0/b/hi-223af.appspot.com/o/icon-run.svg?alt=media&token=6f6172d8-5aff-4450-80b5-bd6410eaadc3'
         // href: process.env.NUXT_CONFIG_JS_ICON

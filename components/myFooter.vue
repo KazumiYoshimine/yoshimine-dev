@@ -282,16 +282,16 @@
       <!-- コピーライト -->
       <!-- <div class="col-sm-12 col-md-6 col-lg-4 text-white copyright-box m-0 mt-2">&copy; 2020 {{ topTitle }}</div> -->
       <!-- <div class="col-md-6 col-lg-4 text-white copyright-box m-0 mt-2">&copy; 2020 {{ topTitle }}</div> -->
-      <div class="col-sm-6 col-md-4 text-white copyright-box m-0 mt-2">&copy; 2020 {{ topTitle }}</div>
+      <div class="col-sm-6 col-md-4 text-white copyright-box m-0 mt-2 d-flex justify-content-center">&copy; 2020 {{ topTitle }}</div>
       <!-- <div class="col-sm-4 text-white copyright-box m-0 mt-2">&copy; 2020 {{ topTitle }}</div> -->
 
       <!-- サイトマップ 表示/非表示 start -->
       <!-- <div class="col-sm-12 col-md-6 col-lg-4 m-0 p-0"> -->
       <!-- <div class="col-md-6 col-lg-4 m-0 p-0"> -->
-      <div class="col-sm-6 col-md-4 m-0 p-0">
+      <div class="col-sm-6 col-md-4 m-0 p-0 pr-1">
         <!-- <div class="col-sm-4 m-0 p-0"> -->
         <!-- <b-input-group class="m-1 p-0" prepend="サイトマップ 表示/非表示" variant="my-midnightblue"> -->
-        <b-input-group class="m-0 p-0" prepend="サイトマップ表示">
+        <b-input-group class="m-0 p-0 d-flex justify-content-end" prepend="サイトマップ表示">
           <b-input-group-prepend is-text>
             <input type="checkbox" :checked="showSitemap" @change="toggleChk()" />
           </b-input-group-prepend>
@@ -313,7 +313,7 @@
 export default {
   data() {
     return {
-      showSitemap: true,
+      showSitemap: false,
       selected: 0,
       numBorder: 0,
       myData: {},
@@ -334,38 +334,38 @@ export default {
     },
   },
   mounted() {
-    // this.$nuxt.$on('SELNUMSIDE', (selected) => {
+    // this.$nuxt.$on('selnumside', (selected) => {
     // this.selected = selected
     // console.log('header components からのデータ: ' + selected)
     // })
-    this.$nuxt.$on('SELNUM', (selected) => {
+    this.$nuxt.$on('selnum', (selected) => {
       this.selected = selected
       // console.log('header components からのデータ: ' + selected)
     })
-    this.$nuxt.$on('MYDATA', (myData) => {
+    this.$nuxt.$on('mydata', (myData) => {
       this.myData = myData
       // console.log('header components からのデータ: ' + myData.m11)
     })
-    // this.$nuxt.$on('MYSIDE', (myData) => {
+    // this.$nuxt.$on('myside', (myData) => {
     //   this.mySide = myData
     // })
-    this.$nuxt.$on('TOPTITLE', (topTitle) => {
+    this.$nuxt.$on('toptitle', (topTitle) => {
       this.topTitle = topTitle
       // console.log('header components からのデータ: ' + topTitle)
     })
-    this.$nuxt.$on('HOME1', (home1) => {
+    this.$nuxt.$on('home1', (home1) => {
       this.home1 = home1
     })
-    this.$nuxt.$on('COMMONDATA', (commonData) => {
+    this.$nuxt.$on('commondata', (commonData) => {
       this.commonData = commonData
     })
-    // this.$nuxt.$on('DBSIDEDATA', (dbSideData) => {
+    // this.$nuxt.$on('dbsidedata', (dbSideData) => {
     //   this.dbSideData = dbSideData
     // })
   },
   beforeDestroy() {
-    this.$nuxt.$off('TOPTITLE')
-    this.$nuxt.$off('HOME1')
+    this.$nuxt.$off('toptitle')
+    this.$nuxt.$off('home1')
   },
   created() {
     // 下記の firestore は store/firestore.js のファイル名
@@ -393,8 +393,8 @@ export default {
 
   methods: {
     // test1() {
-    //   this.$nuxt.$emit('SELNUMSIDE', '21')
-    //   // this.$nuxt.$emit('SELNUM', '21')
+    //   this.$nuxt.$emit('selnumside', '21')
+    //   // this.$nuxt.$emit('selnum', '21')
     // },
 
     // ----------------------------------------
@@ -456,7 +456,7 @@ export default {
     // selnumSide(num) {
     // this.selected = num
     // console.log('header selnum selected: ' + num)
-    // this.$nuxt.$emit('SELNUMSIDE', num)
+    // this.$nuxt.$emit('selnumside', num)
     // },
     isBorder(i) {
       this.numBorder = Math.floor(this.selected / 10)
