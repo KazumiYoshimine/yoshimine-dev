@@ -12,9 +12,14 @@
           <img :src="commonData.headerLogo" alt="Header image" width="36" height="36" title="building" />
           <span class="myTitle text-dark font-weight-bold m-0 p-1">{{ commonData.topTitle }}</span>
         </b-link>
-        <!-- <h5 class="d-flex align-items-center mr-3">{{ myData.mHome3 }}</h5> -->
-        <!--   mHome3 = 連絡先等   -->
-        <p class="m-0 mt-2 mr-3">{{ commonData.mHome3 }}</p>
+        <!--   連絡先等   -->
+        <!-- <p class="m-0 mt-2 mr-3">{{ commonData.mContact }}</p> -->
+        <div v-if="commonData.mLink" class="m-0 p-0">
+          <a class="m-0 mt-2 mr-3" :href="commonData.mLink" target="_blank">{{ commonData.mContact }}</a>
+        </div>
+        <div v-else class="m-0 p-0">
+          <a class="m-0 mt-2 mr-3">{{ commonData.mContact }}</a>
+        </div>
       </div>
 
       <!-- ログイン -->
@@ -320,7 +325,7 @@
             <!-- 管理 man start -->
             <div v-show="isLogin" class="m-0 p-0">
               <b-navbar-nav variant="info">
-                <b-button to="/DB" variant="dark" :size="commonData.selectedBtnSize" :class="{ 'border border-danger rounded-lg': isBorder(90) }" class="m-1 p-1" @click="selnum(901)">{{ commonData.mHome2 }}</b-button>
+                <b-button to="/DB" variant="dark" :size="commonData.selectedBtnSize" :class="{ 'border border-danger rounded-lg': isBorder(90) }" class="m-1 p-1" @click="selnum(901)">{{ commonData.mArchiveDB }}</b-button>
                 <b-button to="/man" variant="dark" :size="commonData.selectedBtnSize" :class="{ 'border border-danger rounded-lg': isBorder(91) }" class="m-1 p-1" @click="selnum(911)">共通設定</b-button>
                 <b-button to="/man1" variant="dark" :size="commonData.selectedBtnSize" :class="{ 'border border-danger rounded-lg': isBorder(92) }" class="m-1 p-1" @click="selnum(921)">メニュー設定</b-button>
                 <b-button to="/man2" variant="dark" :size="commonData.selectedBtnSize" :class="{ 'border border-danger rounded-lg': isBorder(93) }" class="m-1 p-1" @click="selnum(931)">Side Menu設定</b-button>
@@ -381,8 +386,8 @@ export default {
   },
   data() {
     return {
-      // manFlg: true,
-      manFlg: false,
+      manFlg: true,
+      // manFlg: false,
       selected: 0,
       numBorder: 0,
       visible: true,

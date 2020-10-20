@@ -5,7 +5,7 @@
     <div class="row m-0 p-0">
       <div class="col-12 m-0 p-1 bg-info">
         <div v-for="dbHeader in dbHeaders" :key="dbHeader.id" class="m-0 p-0">
-          <h5 class="text-light bg-info text-center m-0 p-1">{{ dbHeader.myData.mHome2 }}</h5>
+          <h5 class="text-light bg-info text-center m-0 p-1">{{ dbHeader.myData.mArchiveDB }}</h5>
           <!-- <h3 class="text-light text-center m-0 p-0">資料データベース</h3> -->
         </div>
         <p class="text-light text-center m-0 p-0">各種ファイル、写真、ビデオ等をDBに保存したり、DBからダウンロードできます。</p>

@@ -25,14 +25,19 @@
           <b-form-input v-model="myData2.mTopics"></b-form-input>
         </b-input-group>
 
-        <!-- 資料DB (ｍHome2) -->
+        <!-- 資料DB (mArchiveDB) -->
         <b-input-group class="mb-2" prepend="資料DB">
-          <b-form-input v-model="myData2.mHome2"></b-form-input>
+          <b-form-input v-model="myData2.mArchiveDB"></b-form-input>
         </b-input-group>
 
         <!-- 連絡先等 -->
         <b-input-group class="mb-2" prepend="連絡先等">
-          <b-form-input v-model="myData2.mHome3"></b-form-input>
+          <b-form-input v-model="myData2.mContact"></b-form-input>
+        </b-input-group>
+
+        <!-- 連絡先等のLink -->
+        <b-input-group class="mb-2" prepend="連絡先のリンク">
+          <b-form-input v-model="myData2.mLink" placeholder="<例1>https://www.yourpage.com <例2>mailto:youremail@gmail.com?subject=件名"></b-form-input>
         </b-input-group>
 
         <!-- headerLogo -->
@@ -591,8 +596,9 @@ export default {
 
           // 以下の６行、 初期データの登録時にコメントアウトを外し、終わったら元に戻す
           // this.myData2.mHome1 = 'a'
-          // this.myData2.mHome2 = 'a'
-          // this.myData2.mHome3 = 'a'
+          // this.myData2.mArchiveDB= 'a'
+          // this.myData2.mContact = 'a'
+          // this.myData2.mLink = 'a'
           // this.myData2.topTitle = 'a'
           // this.myData2.myDataNo = '1'
           // this.myData2.headerLogo = 'https://firebasestorage.googleapis.com/v0/b/demo1a-c99ca.appspot.com/o/building-regular.svg?alt=media&token=9e236a8e-a49e-4450-b604-e90a2d89ad35'
@@ -601,8 +607,9 @@ export default {
           this.myData2.headerLogo = this.myData.headerLogo
           this.myData2.mTopics = this.myData.mTopics
           this.myData2.mHome1 = this.myData.mHome1
-          this.myData2.mHome2 = this.myData.mHome2
-          this.myData2.mHome3 = this.myData.mHome3
+          this.myData2.mArchiveDB = this.myData.mArchiveDB
+          this.myData2.mContact = this.myData.mContact
+          this.myData2.mLink = this.myData.mLink
           this.myData2.topTitle = this.myData.topTitle
           this.myData2.bodyFontSize = this.myData.bodyFontSize
           this.myData2.selectedBtnSize = this.myData.selectedBtnSize
