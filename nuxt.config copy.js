@@ -118,19 +118,19 @@ export default {
     以下は * core- js / modules / es6 関連エラーのため追加
     参考： https://tech.moyashidaisuke.com/entry/nuxt-core-js-error
      */
-    // babel: {
-    //   presets({ isServer }) {
-    //     return [
-    //       [
-    //         require.resolve('@nuxt/babel-preset-app'),
-    //         // require.resolve('@nuxt/babel-preset-app-edge'), // For nuxt-edge users
-    //         {
-    //           buildTarget: isServer ? 'server' : 'client',
-    //           corejs: { version: 3 },
-    //         },
-    //       ],
-    //     ]
-    //   },
-    // },
+    babel: {
+      presets({ isServer }) {
+        return [
+          [
+            require.resolve('@nuxt/babel-preset-app'),
+            // require.resolve('@nuxt/babel-preset-app-edge'), // For nuxt-edge users
+            {
+              buildTarget: isServer ? 'server' : 'client',
+              corejs: { version: 3 },
+            },
+          ],
+        ]
+      },
+    },
   },
 }

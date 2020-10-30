@@ -6,10 +6,99 @@
         <h3 class="text-light text-center m-0 p-0">管理： 共通設定</h3>
         <!-- <p class="text-light text-center m-0 p-0">タイトル等の名称を変更できます。</p> -->
       </div>
+
       <hr class="col-12 m-0 p-0" color="#000000" />
 
-      <!-- ------------------- Group 1 start -->
+      <!-- ------------------- Group 1 (ボタンの色) start -->
+      <div class="row m-1 p-0">
+        <!-- ボタンの色 Size -->
+        <p class="col-12 m-0 my-1 p-0 text-white">カラー設定（各行の[通常時の色]の右側をクリックして、お好みの色を設定してください。)</p>
+
+        <!-- 1 テーマカラー -->
+        <b-input-group class="col-12 m-0 mt-1 p-0" prepend="テーマカラー:">
+          <b-input-group-prepend is-text><b>通常時の色</b></b-input-group-prepend>
+          <b-form-input v-model="myData2.buttonColorBasic" type="color"></b-form-input>
+          <!-- ○○のHoverカラー -->
+          <!-- <b-input-group-prepend is-text><b>Hover時の色</b></b-input-group-prepend> -->
+          <!-- <b-form-input v-model="myData2.buttonColorMenu2" type="color"></b-form-input> -->
+        </b-input-group>
+        <!-- 1 end -->
+
+        <!-- 2 Menu Barのカラー -->
+        <b-input-group class="col-12 m-0 mt-1 p-0" prepend="Menu Ber:" append="%">
+          <b-input-group-prepend is-text><b>通常時の色</b></b-input-group-prepend>
+          <!-- <b-form-input v-model="myData2.buttonColorMenuBar" :formatter="formatterMenu" type="color"></b-form-input> -->
+          <b-form-input v-model="myData2.buttonColorMenuBar" type="color"></b-form-input>
+          <!-- 透明度 -->
+          <b-input-group-prepend is-text><b>不透明度</b></b-input-group-prepend>
+          <!-- <b-form-input v-model="myData2.buttonOpacityBar" type="range"></b-form-input> -->
+          <!-- <b-form-input v-model="myData2.buttonOpacityBar" type="number"></b-form-input> -->
+          <b-form-input v-model="buttonOpacityBarTemp" type="range"></b-form-input>
+          <b-form-input v-model="buttonOpacityBarTemp" type="number" min="0" max="100"></b-form-input>
+
+          <!-- <b-input-group-prepend is-text><b>{{ myData2.buttonOpacityBar }}</b></b-input-group-prepend> -->
+        </b-input-group>
+        <!-- 2 end -->
+
+        <!-- 3 Menuボタンのカラー -->
+        <b-input-group class="col-12 m-0 mt-1 p-0" prepend="Menuボタン:">
+          <b-input-group-prepend is-text><b>通常時の色</b></b-input-group-prepend>
+          <b-form-select v-model="selectedMenuBtnColor" :options="optionsColor"></b-form-select>
+          <b-button :variant="selectedMenuBtnColor">{{ selectedMenuBtnColor }}</b-button>
+        </b-input-group>
+        <!-- 3 end -->
+
+        <!-- 4 登録ボタンのカラー -->
+        <b-input-group class="col-12 m-0 my-1 p-0" prepend="登録ボタン:">
+          <b-input-group-prepend is-text><b>通常時の色</b></b-input-group-prepend>
+          <b-form-input v-model="myData2.buttonColorReg1" type="color"></b-form-input>
+          <!-- ○○のHoverカラー -->
+          <b-input-group-prepend is-text><b>Hover時の色</b></b-input-group-prepend>
+          <b-form-input v-model="myData2.buttonColorReg2" type="color"></b-form-input>
+        </b-input-group>
+        <!-- 4 end -->
+
+        <!-- 5 編集ボタンのカラー -->
+        <!-- <b-input-group class="col-12 m-0 my-1 p-0" prepend="編集ボタン:"> -->
+        <!-- <b-input-group-prepend is-text><b>通常時の色</b></b-input-group-prepend> -->
+        <!-- <b-form-input v-model="myData2.buttonColorEdit1" type="color"></b-form-input> -->
+        <!-- ○○のHoverカラー -->
+        <!-- <b-input-group-prepend is-text><b>Hover時の色</b></b-input-group-prepend> -->
+        <!-- <b-form-input v-model="myData2.buttonColorEdit2" type="color"></b-form-input> -->
+        <!-- </b-input-group> -->
+        <!-- 5 end -->
+
+        <!-- 6 削除ボタンのカラー -->
+        <!-- <b-input-group class="col-12 m-0 my-1 p-0" prepend="削除ボタン:"> -->
+        <!-- <b-input-group-prepend is-text><b>通常時の色</b></b-input-group-prepend> -->
+        <!-- <b-form-input v-model="myData2.buttonColorDel1" type="color"></b-form-input> -->
+        <!-- ○○のHoverカラー -->
+        <!-- <b-input-group-prepend is-text><b>Hover時の色</b></b-input-group-prepend> -->
+        <!-- <b-form-input v-model="myData2.buttonColorDel2" type="color"></b-form-input> -->
+        <!-- </b-input-group> -->
+        <!-- 6 end -->
+
+        <!-- 7 取消ボタンのカラー -->
+        <!-- <b-input-group class="col-12 m-0 my-1 p-0" prepend="取消ボタン:"> -->
+        <!-- <b-input-group-prepend is-text><b>通常時の色</b></b-input-group-prepend> -->
+        <!-- <b-form-input v-model="myData2.buttonColorCancel1" type="color"></b-form-input> -->
+        <!-- ○○のHoverカラー -->
+        <!-- <b-input-group-prepend is-text><b>Hover時の色</b></b-input-group-prepend> -->
+        <!-- <b-form-input v-model="myData2.buttonColorCancel2" type="color"></b-form-input> -->
+        <!-- </b-input-group> -->
+        <!-- 7 end -->
+      </div>
+      <!-- ------------------- Group 1 end -->
+
+      <hr class="col-12 m-0 p-0" color="#000000" />
+
+      <!-- ------------------- Group 2 start -->
       <div class="col-sm-6 m-0 mt-0 p-2">
+        <!-- Tabタイトル -->
+        <b-input-group class="mb-2" prepend="Tab タイトル">
+          <b-form-input v-model="myData2.tabTitle"></b-form-input>
+        </b-input-group>
+
         <!-- タイトル -->
         <b-input-group class="mb-2" prepend="タイトル">
           <b-form-input v-model="myData2.topTitle"></b-form-input>
@@ -40,15 +129,8 @@
           <b-form-input v-model="myData2.mLink" placeholder="<例1>https://www.yourpage.com <例2>mailto:youremail@gmail.com?subject=件名"></b-form-input>
         </b-input-group>
 
-        <!-- headerLogo -->
-        <b-input-group class="mb-2" prepend="ロゴ">
-          <b-form-input v-model="myData2.headerLogo"></b-form-input>
-        </b-input-group>
-      </div>
-      <!-- ------------------- Group 1 end -->
+        <!-- <hr class="m-0 p-0" color="#000000" /> -->
 
-      <!-- ------------------- Group 2 start -->
-      <div class="col-sm-6 m-0 mt-0 p-2">
         <!-- 全体の Font Size -->
         <b-input-group class="mb-2" prepend="フォント サイズ(6〜14)">
           <b-form-input v-model="myData2.bodyFontSize" type="number" required placeholder="デフォルト: 10"></b-form-input>
@@ -58,109 +140,206 @@
         <b-input-group class="mb-2" prepend="ボタン サイズ(選択)">
           <b-form-radio-group v-model="myData2.selectedBtnSize" :options="optionsBtnSize" buttons button-variant="outline-info" size="md" style="background-color: honeydew"></b-form-radio-group>
         </b-input-group>
+        <!-- ------------------- Group 2 end -->
       </div>
-      <!-- ------------------- Group 2 end -->
 
-      <hr class="col-12 m-0 p-0" color="#000000" />
+      <!-- <hr class="col-12 m-0 p-0" color="#000000" /> -->
 
-      <!-- ------------------- Group 3 (ボタンの色) start -->
-      <div class="row m-1 p-0">
-        <!-- ボタンの色 Size -->
-        <p class="col-12 m-0 my-1 p-0 text-white">カラー設定（下の□をクリックして色を選択してください。)</p>
+      <!-- ------------------- Group 3 start -->
 
-        <!-- 1 テーマカラー -->
-        <b-input-group class="col-12 m-0 mt-1 p-0" prepend="テーマカラー:">
-          <b-input-group-prepend is-text><b>通常時の色</b></b-input-group-prepend>
-          <b-form-input v-model="myData2.buttonColorBasic" type="color"></b-form-input>
-          <!-- ○○のHoverカラー -->
-          <!-- <b-input-group-prepend is-text><b>Hover時の色</b></b-input-group-prepend> -->
-          <!-- <b-form-input v-model="myData2.buttonColorMenu2" type="color"></b-form-input> -->
-        </b-input-group>
-        <!-- 1 end -->
+      <div class="col-sm-6 m-0 mt-0 p-2">
+        <div class="m-0 mt-0 p-2" style="background-color: #405080">
+          <h5 class="text-white">Tabアイコン</h5>
 
-        <!-- 2 Menu Barのカラー -->
-        <b-input-group class="col-12 m-0 mt-1 p-0" prepend="Menu Ber:" append="%">
-          <b-input-group-prepend is-text><b>通常時の色</b></b-input-group-prepend>
-          <!-- <b-form-input v-model="myData2.buttonColorMenuBar" :formatter="formatterMenu" type="color"></b-form-input> -->
-          <b-form-input v-model="myData2.buttonColorMenuBar" type="color"></b-form-input>
-          <!-- 透明度 -->
-          <b-input-group-prepend is-text><b>不透明度</b></b-input-group-prepend>
-          <!-- <b-form-input v-model="myData2.buttonOpacityBar" type="range"></b-form-input> -->
-          <!-- <b-form-input v-model="myData2.buttonOpacityBar" type="number"></b-form-input> -->
-          <b-form-input v-model="buttonOpacityBarTemp" type="range"></b-form-input>
-          <b-form-input v-model="buttonOpacityBarTemp" type="number" min="0" max="100"></b-form-input>
+          <!-- Tabアイコン -->
+          <!-- <b-input-group class="mb-2" prepend="Tab アイコン"> -->
+          <b-input-group class="mb-2">
+            <!-- <b-input-group-prepend is-text> -->
+            <b-input-group-prepend>
+              <b-button variant="info" @click="imageListIcon()">設定</b-button>
+            </b-input-group-prepend>
+            <b-form-input v-model="myData2.tabIcon" style="height: 37px"></b-form-input>
+            <b-input-group-append>
+              <b-input-group-text>
+                <b-img :src="myData2.tabIcon" width="24" height="24" class="m-0 p-0" alt="file"> </b-img>
+              </b-input-group-text>
+            </b-input-group-append>
+          </b-input-group>
 
-          <!-- <b-input-group-prepend is-text><b>{{ myData2.buttonOpacityBar }}</b></b-input-group-prepend> -->
-        </b-input-group>
-        <!-- 2 end -->
+          <!-- Tabアイコン 新規登録 start -->
+          <div v-show="showTabReg" class="col-12 m-0 p-0">
+            <div class="m-2 text-white">
+              下の画像から選択してください。: <strong>{{ selected }}</strong>
+            </div>
 
-        <!-- 3-1 Menuボタンのカラー -->
-        <!-- <b-input-group class="col-12 m-0 mt-1 p-0" prepend="Menuボタン:">
-          <b-input-group-prepend is-text><b>通常時の色</b></b-input-group-prepend>
-          <b-form-input v-model="myData2.buttonColorMenu1" type="color"></b-form-input> -->
-        <!-- ○○のHoverカラー -->
-        <!-- <b-input-group-prepend is-text><b>Hover時の色</b></b-input-group-prepend>
-          <b-form-input v-model="myData2.buttonColorMenu2" type="color"></b-form-input>
-        </b-input-group> -->
-        <!-- 3-1 end -->
+            <div class="row no-gutters">
+              <b-form-group v-for="(myImage, index2) in myImages" :key="myImage.id" class="col-3">
+                <div class="image_box" @click="selIcon(myImage.url, index2)">
+                  <b-embed v-model="selected" :src="myImage.url" fluid type="embed" class="m-0" alt="file"> </b-embed>
+                  <b-form-radio v-model="selected" :value="'No.' + ++index2" class="positionRadioBtn ml-4 p-0"> </b-form-radio>
+                </div>
+              </b-form-group>
+            </div>
+            <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-1 ml-2 px-1 py-0" @click="tabReg()">設定完了</b-button>
+            <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-1 ml-2 px-1 py-0" @click="tabCancel()">取消</b-button>
 
-        <!-- 3-2 Menuボタンのカラー -->
-        <!-- <b-input-group class="col-12 m-0 mt-1 p-0" prepend="Menuボタン:" :append="selectedMenuBtnColor"> -->
-        <b-input-group class="col-12 m-0 mt-1 p-0" prepend="Menuボタン:">
-          <b-input-group-prepend is-text><b>通常時の色</b></b-input-group-prepend>
-          <b-form-select v-model="selectedMenuBtnColor" :options="optionsColor"></b-form-select>
-          <!-- <b-input-group-prepend is-text>{{ selectedMenuBtnColor }}</b-input-group-prepend> -->
-          <!-- <div class="m-0 p-0" style="background-color:honeydew;" variant="primary">{{ selectedMenuBtnColor }}</div> -->
-          <!-- <div class="m-0 p-0" style="background-color:honeydew;">{{ selectedMenuBtnColor }}</div> -->
-          <b-button :variant="selectedMenuBtnColor">{{ selectedMenuBtnColor }}</b-button>
-        </b-input-group>
-        <!-- 3-2 end -->
+            <!-- 以下の float-cb について： 上記の float-left の解除ができないので、style で設定 -->
+            <div class="float-cb p-2 text-white">以下の「アイコン、ロゴの新規登録・削除」から、新たに画像を追加したり、 不要な画像を削除することができます。</div>
+          </div>
+          <!-- Tabアイコン 新規登録 End -->
+        </div>
 
-        <!-- 4 登録ボタンのカラー -->
-        <b-input-group class="col-12 m-0 my-1 p-0" prepend="登録ボタン:">
-          <b-input-group-prepend is-text><b>通常時の色</b></b-input-group-prepend>
-          <b-form-input v-model="myData2.buttonColorReg1" type="color"></b-form-input>
-          <!-- ○○のHoverカラー -->
-          <b-input-group-prepend is-text><b>Hover時の色</b></b-input-group-prepend>
-          <b-form-input v-model="myData2.buttonColorReg2" type="color"></b-form-input>
-        </b-input-group>
-        <!-- 4 end -->
+        <br />
 
-        <!-- 5 編集ボタンのカラー -->
-        <b-input-group class="col-12 m-0 my-1 p-0" prepend="編集ボタン:">
-          <!-- <p class="col-2 m-0 p-0 px-2 text-white">編集ボタン</p> -->
-          <b-input-group-prepend is-text><b>通常時の色</b></b-input-group-prepend>
-          <b-form-input v-model="myData2.buttonColorEdit1" type="color"></b-form-input>
-          <!-- ○○のHoverカラー -->
-          <!-- <b-input-group class="col-5 m-0 p-0" prepend="Hover時の色"> -->
-          <b-input-group-prepend is-text><b>Hover時の色</b></b-input-group-prepend>
-          <b-form-input v-model="myData2.buttonColorEdit2" type="color"></b-form-input>
-        </b-input-group>
-        <!-- 5 end -->
+        <div class="m-0 mt-0 p-2" style="background-color: #505080">
+          <h5 class="text-white">ロゴ</h5>
 
-        <!-- 6 削除ボタンのカラー -->
-        <b-input-group class="col-12 m-0 my-1 p-0" prepend="削除ボタン:">
-          <!-- <p class="col-2 m-0 p-0 px-2 text-white">削除ボタン</p> -->
-          <b-input-group-prepend is-text><b>通常時の色</b></b-input-group-prepend>
-          <b-form-input v-model="myData2.buttonColorDel1" type="color"></b-form-input>
-          <!-- ○○のHoverカラー -->
-          <!-- <b-input-group class="col-5 m-0 p-0" prepend="Hover時の色"> -->
-          <b-input-group-prepend is-text><b>Hover時の色</b></b-input-group-prepend>
-          <b-form-input v-model="myData2.buttonColorDel2" type="color"></b-form-input>
-        </b-input-group>
-        <!-- 6 end -->
+          <!-- header Logo 1 -->
+          <b-input-group class="mb-2">
+            <b-input-group-prepend is-text>
+              <!-- <b-input-group-prepend> -->
+              <!-- <b-form-radio v-model="myData2.logoRadio" name="some-radios" value="selfRegFile" style="height: 37px"></b-form-radio> -->
+              <b-form-radio v-model="myData2.logoRadio" name="some-radios" value="selfRegFile"></b-form-radio>
+              <!-- <b-form-radio v-model="myData2.logoRadio" name="some-radios" value="selfRegFile"></b-form-radio> -->
+            </b-input-group-prepend>
+            <b-button variant="info" @click="imageListLogo()">設定</b-button>
+            <b-form-input v-model="myData2.headerLogo" style="height: 37px"></b-form-input>
+            <b-input-group-append>
+              <b-input-group-text>
+                <b-img :src="myData2.headerLogo" width="24" height="24" class="m-0 p-0" alt="file"> </b-img>
+              </b-input-group-text>
+            </b-input-group-append>
+          </b-input-group>
 
-        <!-- 7 取消ボタンのカラー -->
-        <b-input-group class="col-12 m-0 my-1 p-0" prepend="取消ボタン:">
-          <!-- <p class="col-2 m-0 p-0 px-2 text-white">取消ボタン</p> -->
-          <b-input-group-prepend is-text><b>通常時の色</b></b-input-group-prepend>
-          <b-form-input v-model="myData2.buttonColorCancel1" type="color"></b-form-input>
-          <!-- ○○のHoverカラー -->
-          <!-- <b-input-group class="col-5 m-0 p-0" prepend="Hover時の色"> -->
-          <b-input-group-prepend is-text><b>Hover時の色</b></b-input-group-prepend>
-          <b-form-input v-model="myData2.buttonColorCancel2" type="color"></b-form-input>
-        </b-input-group>
-        <!-- 7 end -->
+          <!-- Logoアイコン 新規登録 start -->
+          <div v-show="showLogoReg" class="col-12 m-0 p-0">
+            <div class="m-2 text-white">
+              下の画像から選択してください。: <strong>{{ selected }}</strong>
+            </div>
+
+            <div class="row no-gutters">
+              <b-form-group v-for="(myImage, index2) in myImages" :key="myImage.id" class="col-3">
+                <div class="image_box" @click="selLogo(myImage.url, index2)">
+                  <b-embed v-model="selected" :src="myImage.url" fluid type="embed" class="m-0" alt="file"> </b-embed>
+                  <b-form-radio v-model="selected" :value="'No.' + ++index2" class="positionRadioBtn ml-4 p-0"> </b-form-radio>
+                </div>
+              </b-form-group>
+            </div>
+            <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-1 ml-2 px-1 py-0" @click="logoReg()">設定完了</b-button>
+            <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-1 ml-2 px-1 py-0" @click="logoCancel()">取消</b-button>
+
+            <!-- 以下の float-cb について： 上記の float-left の解除ができないので、style で設定 -->
+            <div class="float-cb p-2 text-white">以下の「アイコン、ロゴの新規登録・削除」から、新たに画像を追加したり、 不要な画像を削除することができます。</div>
+          </div>
+          <!-- Logoアイコン 新規登録 End -->
+
+          <!-- header Logo 2 -->
+          <b-input-group class="mb-2">
+            <!-- <b-input-group-prepend> -->
+            <!-- <b-button variant="info">設定</b-button> -->
+            <!-- <input type="checkbox" aria-label="Checkbox for following text input"> -->
+            <!-- <input type="checkbox" /> -->
+            <!-- </b-input-group-prepend> -->
+
+            <b-input-group-prepend is-text>
+              <!-- <input type="checkbox" aria-label="Checkbox for following text input" /> -->
+              <!-- <input type="checkbox" /> -->
+              <b-form-radio v-model="myData2.logoRadio" name="some-radios" value="bootstrapIcon"></b-form-radio>
+            </b-input-group-prepend>
+
+            <b-button variant="info" @click="setLogo()">設定</b-button>
+
+            <b-form-input v-model="myData2.topTitleLogo" style="height: 42px"></b-form-input>
+            <b-input-group-append>
+              <b-input-group-text>
+                <!-- <b-icon :icon="myData2.topTitleLogo" class="rounded bg-primary p-1" variant="a28-azure" animation="throb" font-scale="2" /> -->
+                <b-icon :icon="myData2.topTitleLogo" :class="myData2.myClass" :variant="myData2.myVariant" :animation="myData2.myAnimation" :font-scale="myData2.myFontScale" />
+              </b-input-group-text>
+            </b-input-group-append>
+          </b-input-group>
+
+          <!-- Logoアイコン(Bootstrap Icon) 新規登録 start -->
+          <div v-show="showLogoReg2" class="col-12 m-0 p-0">
+            <br />
+            <div class="m-2 text-white">
+              <span>以下の <b>Name</b> は「</span>
+              <b-link target="_blank" href="https://bootstrap-vue.org/docs/icons#icons" class="col-3 m-0 p-0 px-1 align-self-center">Icons</b-link>
+              <span>」をクリックして、開いたページを参考に Icon の名前を記入してください。</span>
+              <h6>入力例：alarm-fill</h6>
+            </div>
+            <!-- アイコン名 -->
+            <b-input-group class="mb-2" prepend="Name">
+              <b-form-input v-model="myData2.topTitleLogo" type="text"></b-form-input>
+              <b-input-group-append>
+                <b-button variant="info" @click="topTitleLogoReset()">Reset</b-button>
+              </b-input-group-append>
+            </b-input-group>
+
+            <br />
+            <div class="m-2 text-white">
+              <span>以下の <b>Color</b> は「</span>
+              <b-link target="_blank" href="https://bootstrap-vue.org/docs/icons#variants" class="col-3 m-0 p-0 px-1 align-self-center">Variants</b-link>
+              <span>」をクリックして、開いたページを参考に記入してください。</span>
+              <h6>入力例：success</h6>
+            </div>
+            <!-- variant ←アイコン自体の色を設定 -->
+            <b-input-group class="mb-2" prepend="Color">
+              <b-form-input v-model="myData2.myVariant" type="text"></b-form-input>
+              <b-input-group-append>
+                <b-button variant="info" @click="myVariantReset()">Reset</b-button>
+              </b-input-group-append>
+            </b-input-group>
+
+            <br />
+            <div class="m-2 text-white">
+              <span>以下の <b>Styling</b> は「</span>
+              <b-link target="_blank" href="https://bootstrap-vue.org/docs/icons#styling" class="col-3 m-0 p-0 px-1 align-self-center">Styling</b-link>
+              <span>」をクリックして、開いたページを参考に記入してください。</span>
+              <h6>入力例：rounded bg-warning p-1</h6>
+            </div>
+            <!-- class ←アイコンのbg-color,枠線等を設定 -->
+            <b-input-group class="mb-2" prepend="Styling">
+              <b-form-input v-model="myData2.myClass" type="text"></b-form-input>
+              <b-input-group-append>
+                <b-button variant="info" @click="myClassReset()">Reset</b-button>
+              </b-input-group-append>
+            </b-input-group>
+
+            <br />
+            <div class="m-2 text-white">
+              <span>以下の <b>Amimation</b> は「</span>
+              <b-link target="_blank" href="https://bootstrap-vue.org/docs/icons#animated-icons" class="col-3 m-0 p-0 px-1 align-self-center">Animated icons</b-link>
+              <span>」をクリックして、開いたページを参考に記入してください。</span>
+              <h6>入力例：cylon</h6>
+            </div>
+            <!-- amimation ←アイコンのアニメーションを設定 -->
+            <b-input-group class="mb-2" prepend="Amimation">
+              <b-form-input v-model="myData2.myAnimation" type="text"></b-form-input>
+              <b-input-group-append>
+                <b-button variant="info" @click="myAnimationReset()">Reset</b-button>
+              </b-input-group-append>
+            </b-input-group>
+
+            <!-- <br />
+            <div class="m-2 text-white">
+              <span>以下の <b>Name</b> は「</span>
+              <b-link target="_blank" href="https://bootstrap-vue.org/docs/icons#sizing" class="col-3 m-0 p-0 px-1 align-self-center"></b-link>
+              <span>」をクリックして、開いたページを参考に記入してください。</span>
+              <h6>Icons の名前＜例：alarm-fill＞</h6>
+            </div> -->
+            <!-- font-scale ←アイコンのスケールを設定 -->
+            <!-- <b-input-group class="mb-2" prepend="Icon scale">
+              <b-form-input v-model="myData2.myFontScale" type="text"></b-form-input>
+              <b-input-group-append>
+                <b-button variant="info" @click="myFontScaleReset()">Reset</b-button>
+              </b-input-group-append>
+            </b-input-group> -->
+
+            <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-1 ml-2 px-1 py-0" @click="logoReg2()">設定完了</b-button>
+            <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-1 ml-2 px-1 py-0" @click="logoCancel2()">取消</b-button>
+          </div>
+          <!-- Logoアイコン (Bootstrap Icon) 新規登録 End -->
+        </div>
       </div>
       <!-- ------------------- Group 3 end -->
 
@@ -184,44 +363,116 @@
       </div>
       <!-- ------------------- 登録 end -->
 
-      <div class="row m-0 my-2 p-0">
+      <!-- <div class="row m-0 my-2 p-0">
         <hr class="m-0 p-0 col-12" color="#000000" />
+      </div> -->
+    </div>
 
-        <div class="col-6 m-0 p-2">
-          <h5 class="text-light mt-2">Logoの登録方法：</h5>
-          <br />
-          <span class="text-light m-0 ml-2">①ロゴの取得または作成する</span>
-          <a href="https://www.iconfinder.com/iconsets/fruity-3" target="_blank" class="m-0">ロゴ取得＜例＞</a>
-          <p class="text-light m-0 ml-2">②「資料DB」（右図1参照）</p>
-          <p class="text-light m-0 ml-2">③「ファイル選択」（右図1参照）にてロゴを登録</p>
-          <p class="text-light m-0 ml-2">④「画像一覧表示」（右図1参照）</p>
-          <p class="text-light m-0 ml-2">⑤ロゴを右クリックして、画像アドレスをコピー</p>
-        </div>
-        <div class="col-6 m-0 p-2">
-          <b-img src="../assets/logoReg1.jpg" class="img-fluid" />
-          <!-- <b-img src="../assets/logoReg2.png" class="img-fluid mt-2" /> -->
-        </div>
+    <!-- ====  アイコン、ロゴの登録  start  ========================================= -->
+    <div class="row m-0 mt-2 p-2" style="background-color: midnightblue">
+      <!-- <h5 class="col-12 mx-2 m-0 p-0 py-1 text-white">以下は管理機能です。</h5>
+        <h6 class="col-12 mx-2 m-0 p-0 py-1 text-white">画像ファイル(.jpeg等)を表示することができます。</h6>
+        <h6 class="col-12 mx-2 m-0 p-0 py-1 text-white">画像ファイルの作成例: Powerpointのファイルメニューからエクスポート</h6> -->
 
-        <div class="col-6 m-0 p-2">
-          <br />
-          <p class="text-light m-0 ml-2">⑥「メニュー設定」（右図2参照）</p>
-          <p class="text-light m-0 ml-2">⑦「ロゴ」欄（右図2参照）に貼付ける</p>
-          <p class="text-light m-0 ml-2">⑧「登録」（右図2参照）</p>
+      <!-- 登録状況 -->
+
+      <!-- 現在の登録状況 ＆ 削除 start -->
+      <!-- <div class="col-12 m-0 mt-2 p-0" style="background-color: lightsteelblue">
+          <h5 class="mx-2 mb-0 p-0 pt-1">現在の登録状況 ＆ 削除</h5>
+          <p class="mx-2 mb-0 p-0">「日付」が新しい順にソートされます。</p>
+
+          <div class="row no-gutters">
+            <div v-for="dbPage in dbPages" :key="dbPage.id" class="col-4">
+              <div class="m-1 mt-2 border">
+                <b-embed :src="dbPage.page.fileUrl" fluid class="m-0" type="embed" alt="file" />
+                <b-button :size="commonData.selectedBtnSize" class="px-1 py-0 m-1" @click="remove(dbPage.id)">削除</b-button>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+      <!-- 新規登録 start -->
+      <!-- <div v-show="showReg" class="col-12 m-0 p-0">
+        <div class="m-0 p-0 mt-2" style="background-color: #405080">
+          <h4 class="text-white mx-2 mb-0 p-0 py-1">Tab アイコンの設定</h4>
+
+          <button :size="commonData.selectedBtnSize" class="ml-2 mb-2" @click="imageList()">画像表示</button>
+          <div v-show="toggleShow">
+            <div class="m-2">
+              下の画像から選択してください。: <strong>{{ selected }}</strong>
+            </div>
+
+            <div class="row no-gutters">
+              <b-form-group v-for="(myImage, index2) in myImages" :key="myImage.id" class="col-4">
+                <div class="image_box" @click="selImage(myImage.url, index2)">
+                  <b-embed v-model="selected" :src="myImage.url" fluid type="embed" class="m-0" alt="file"> </b-embed>
+                  <b-form-radio v-model="selected" :value="'No.' + ++index2" class="positionRadioBtn ml-4 p-0"> </b-form-radio>
+                </div>
+              </b-form-group>
+            </div>
+            <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-1 ml-2 px-1 py-0" @click="myReg()">登録</b-button>
+
+            <div class="float-cb p-2">以下の「画像新規登録・削除」から、新たに画像を追加したり、 不要な画像を削除することができます。</div>
+          </div>
         </div>
-        <div class="col-6 m-0 p-2">
-          <!-- <b-img src="../assets/logoReg1.png" class="img-fluid" /> -->
-          <b-img src="../assets/logoReg2.jpg" class="img-fluid mt-2" />
+      </div> -->
+      <!-- 新規登録 End -->
+
+      <div class="col-12 m-0 p-0">
+        <div class="m-0 p-3 mt-3" style="background-color: steelblue">
+          <h4 class="text-white">アイコン、ロゴの新規登録・削除</h4>
+          <!-- 画像登録 Start -->
+          <div class="col-12 m-0 p-2 mt-3" style="background-color: honeydew">
+            <h5>画像登録</h5>
+            <input ref="input" type="file" accept="image/*, .pdf" @change="fileExtension($event)" />
+            <br />
+          </div>
+          <!-- 画像登録 End -->
+
+          <!-- 画像削除 Start -->
+          <div class="col-12 m-0 p-2 mt-2" style="background-color: honeydew">
+            <h5>画像削除</h5>
+            <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-0 ml-2 px-1 py-0" @click="imageListDel()">画像リスト表示</b-button>
+            <b-button :size="commonData.selectedBtnSize" class="m-0 ml-2 px-1 py-0" @click="imageListDelClose()">閉じる</b-button>
+          </div>
+
+          <!-- 画像リスト表示 -->
+          <div v-show="toggleDel" class="m-0 p-0">
+            <div class="col-12 m-0 p-0 mt-2" style="background-color: honeydew">
+              <div class="row no-gutters">
+                <div v-for="myImage in myImages" :key="myImage.id" class="m-0 p-1 col-3">
+                  <div class="border m-0 p-0">
+                    <b-embed :src="myImage.url" fluid class="m-0" type="embed" alt="file" />
+                    <!-- <b-button :size="commonData.selectedBtnSize" class="m-1 ml-2 px-1 py-0 d-flex" @click="deleteImage(myImage.name, myImage.url)">削除</b-button> -->
+                    <b-button :size="commonData.selectedBtnSize" class="m-0 ml-1 px-1 py-0 d-flex" @click="deleteImage(myImage.name)">削除</b-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <!-- </div> -->
     </div>
+    <!-- ====  アイコン、ロゴの登録  end  ============================================== -->
+
     <p>{{ myDataSet() }}</p>
     <!-- <br /> -->
   </div>
 </template>
 
 <script>
-// import { firestore } from 'firebase'
+import Vue from 'vue'
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
+import firebase from '~/plugins/firebase'
+
+Vue.use(BootstrapVue)
+Vue.use(BootstrapVueIcons)
+
+const storage = firebase.storage()
+const storageRef = storage.ref()
+const imagesRef = storageRef.child('dbMan')
+// const db = firebase.firestore()
+
 export default {
   // el: '#listGroup',
   data() {
@@ -230,8 +481,41 @@ export default {
 
       myDataSetFlg: false,
       myData: {},
-      myData2: {},
+      myData2: {
+        headerLogo: '',
+        topTitleLogo: '',
+        myClass: '',
+        myVariant: '',
+        myAnimation: '',
+        myFontScale: '',
+      },
       commonData: {},
+
+      // add new ------- start
+      // topTitleLogo: 'building',
+      // topTitleLogoTemp: '',
+      // tabIconRadio: 'selfRegFile',
+      selected: '選択されていません。',
+      // showReg: true,
+      showTabReg: false,
+      showLogoReg: false,
+      showLogoReg2: false,
+      toggleDel: false,
+      // toggleShow: false,
+      // page: {
+      //   fileUrl: '',
+      // },
+      myImages: [
+        {
+          name: '',
+          url: '',
+        },
+      ],
+      // newImage: '',
+      newFile: '',
+      fileName: '',
+      // fileType: '',
+      // add new ------- end
 
       // カラー設定
       // colorInput: {},
@@ -424,11 +708,11 @@ export default {
   },
   // created は画面を開いたとき呼ばれる。
   created() {
-    // 下記の firestore は store/firestore.js のファイル名
-    // this.$store.dispatch('firestore/init')
-
     // 下記の commonDB は store/commonDB.js のファイル名
     this.$store.dispatch('commonDB/init')
+
+    // 下記の commonDB は store/commonDB.js のファイル名
+    this.$store.dispatch('manDB/init')
   },
 
   // ④ updated 画面が更新された後、呼び出される。
@@ -511,11 +795,11 @@ export default {
         this.buttonColorCancel = 'background-color: ' + this.myData2.buttonColorCancel1 + ';'
       }
     },
-    test1() {
-      // console.log('myData.chkNemu1 in test1(): ' + this.myData.chkMenu1)
-      // console.log('myData2.chkNemu1 in test1(): ' + this.myData2.chkMenu1)
-      // this.$router.go()
-    },
+    // test1() {
+    // console.log('myData.chkNemu1 in test1(): ' + this.myData.chkMenu1)
+    // console.log('myData2.chkNemu1 in test1(): ' + this.myData2.chkMenu1)
+    // this.$router.go()
+    // },
     myReg() {
       this.myData2.bodyFontSize = Number(this.myData2.bodyFontSize)
 
@@ -601,15 +885,22 @@ export default {
           // this.myData2.mLink = 'a'
           // this.myData2.topTitle = 'a'
           // this.myData2.myDataNo = '1'
-          // this.myData2.headerLogo = 'https://firebasestorage.googleapis.com/v0/b/demo1a-c99ca.appspot.com/o/building-regular.svg?alt=media&token=9e236a8e-a49e-4450-b604-e90a2d89ad35'
 
           // 以下の６行、 初期データの登録時にコメントアウトし、終わったら元に戻す
           this.myData2.headerLogo = this.myData.headerLogo
+          this.myData2.topTitleLogo = this.myData.topTitleLogo
+          this.myData2.myClass = this.myData.myClass
+          this.myData2.myVariant = this.myData.myVariant
+          this.myData2.myAnimation = this.myData.myAnimation
+          this.myData2.myFontScale = this.myData.myFontScale
           this.myData2.mTopics = this.myData.mTopics
           this.myData2.mHome1 = this.myData.mHome1
           this.myData2.mArchiveDB = this.myData.mArchiveDB
           this.myData2.mContact = this.myData.mContact
           this.myData2.mLink = this.myData.mLink
+          this.myData2.tabIcon = this.myData.tabIcon
+          this.myData2.logoRadio = this.myData.logoRadio
+          this.myData2.tabTitle = this.myData.tabTitle
           this.myData2.topTitle = this.myData.topTitle
           this.myData2.bodyFontSize = this.myData.bodyFontSize
           this.myData2.selectedBtnSize = this.myData.selectedBtnSize
@@ -674,6 +965,300 @@ export default {
         }
       }
     },
+
+    // ===== タブ、ロゴ start ==========================================
+    tabReg() {
+      this.showTabReg = false
+    },
+
+    tabCancel() {
+      this.showTabReg = false
+      this.myData2.tabIcon = this.myData.tabIcon
+      this.selected = ''
+      // console.log('1-1 -------------- tabIcon: ', this.myData.tabIcon)
+    },
+
+    logoReg() {
+      this.showLogoReg = false
+    },
+
+    logoCancel() {
+      this.showLogoReg = false
+      this.myData2.headerLogo = this.myData.headerLogo
+      this.selected = ''
+    },
+
+    // アイコン名
+    topTitleLogoReset() {
+      this.myData2.topTitleLogo = this.myData.topTitleLogo
+      // console.log('2-1 -------- topTitleLogo: ', this.myData2.topTitleLogo)
+    },
+
+    // class ←アイコンのbg-color,枠線等を設定
+    myClassReset() {
+      this.myData2.myClass = this.myData.myClass
+    },
+
+    // variant ←アイコン自体の色を設定
+    myVariantReset() {
+      this.myData2.myVariant = this.myData.myVariant
+    },
+
+    // amimation ←アイコンのアニメーションを設定
+    myAnimationReset() {
+      this.myData2.myAnimation = this.myData.myAnimation
+    },
+
+    // font-scale ←アイコンのスケールを設定
+    myFontScaleReset() {
+      this.myData2.myFontScale = this.myData.myFontScale
+    },
+
+    logoReg2() {
+      this.showLogoReg2 = false
+    },
+
+    logoCancel2() {
+      this.showLogoReg2 = false
+      this.myData2.topTitleLogo = this.myData.topTitleLogo
+      this.myData2.myClass = this.myData.myClass
+      this.myData2.myVariant = this.myData.myVariant
+      this.myData2.myAnimation = this.myData.myAnimation
+      this.myData2.myFontScale = this.myData.myFontScale
+    },
+    // ===== タブ、ロゴ end ==========================================
+
+    //  ====== 画像関連 start =====================================
+    fileExtension(e) {
+      const file = (e.target.files || e.dataTransfer.files)[0]
+
+      if (typeof file === 'undefined') {
+        // this.reserve = false
+        this.selected = '選択されていません。'
+        return
+      }
+
+      this.fileName = file.name
+      // const pos = this.fileName.lastIndexOf('.')
+
+      // this.fileType = this.fileName.slice(pos + 1)
+
+      // const vm = this
+
+      this.newFile = file
+      this.uploadPop()
+    },
+
+    // 画像アップロードのポップアップ
+    uploadPop() {
+      this.$swal({
+        title: '画像登録',
+        text: '登録してよろしいでしょうか？',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonText: '登録',
+        cancelButtonText: 'キャンセル',
+        focusCancel: false,
+      }).then((result) => {
+        if (result.value) {
+          // DBに画像を保存
+          this.uploadNotImage()
+        } else {
+          // 入力データをリセット
+          this.reset()
+        }
+      })
+    },
+
+    // 画像をアップロードする
+    // upload() {
+    //   if (this.fileType === 'png' || this.fileType === 'jpg' || this.fileType === 'jpeg') {
+    //     // console.log('file 拡張子は 画像: ' + fileType)
+    //     this.uploadImage()
+    //   } else {
+    //     // console.log('file 拡張子は 画像以外: ' + fileType)
+    //     // this.reserve = true
+    //     this.uploadNotImage()
+    //   }
+    // },
+
+    // 画像ファイル以外の保存
+    uploadNotImage() {
+      // const photo = this.newImage
+
+      // アップロード先のフォルダ、ファイル名を指定
+      // const dateNow = Date.now()
+      // const fileNameDate = moment(dateNow).format('YYYYMMDD-HHmms)
+      // const fileNameDate = this.todaySet3()
+      // this.fileName = fileNameDate + this.fileName
+      // console.log('1-1 ------------ fileName: ' + this.fileName)
+      // console.log('1-2 ------------ newFile: ' + this.newFile)
+      const fileImage = imagesRef.child(this.fileName)
+
+      // ファイルをアップロード
+      // fileImage.putString(this.newFile, 'data_url').then((snapshot) => {
+      fileImage.put(this.newFile).then((snapshot) => {
+        // console.log('photo uploaded')
+
+        // 入力データをリセット
+        this.reset()
+        // トースト: ファイル アップデート完了しました。
+        this.toastFileUpdate('ファイル アップロード', '完了しました。')
+      })
+      // 画像リスト 表示
+      this.imageList()
+    },
+
+    // fileName で指定した画像ファイルの Path = Url を取得
+    getImageUrl(fileName) {
+      const nameUrl = { name: fileName, url: '' }
+
+      firebase
+        .storage()
+        .ref()
+        .child(fileName)
+        // .child('images/' + fileName)
+        .getDownloadURL()
+        .then((url) => {
+          nameUrl.url = url
+          this.myImages.push(nameUrl)
+          // console.log('myImages.length in getImageUrl: ' + this.myImages.length)
+
+          // ソート
+          // this.myImages.sort(function(a, b) {
+          //   if (a.name > b.name) {
+          //     return 1
+          //   } else {
+          //     return -1
+          //   }
+          // })
+        })
+    },
+
+    imageListIcon() {
+      this.showTabReg = true
+      this.imageList()
+    },
+
+    imageListLogo() {
+      this.showLogoReg = true
+      this.imageList()
+    },
+
+    imageList() {
+      // FireStrage のフォルダとファイルのリストを取得
+
+      this.myImages = []
+      const vm = this
+
+      // this.showTabReg = true
+
+      imagesRef
+        .listAll()
+        .then(function (res) {
+          for (let i = 0; i < res.prefixes.length; i++) {}
+          for (let i = 0; i < res.items.length; i++) {
+            vm.getImageUrl(res.items[i].location.path)
+          }
+        })
+        .catch(function (error) {
+          alert('error in imageList: ' + error)
+        })
+    },
+
+    setLogo() {
+      this.showLogoReg2 = true
+    },
+
+    selIcon(imageUrl, index2) {
+      this.selected = 'No.' + index2
+      this.myData2.tabIcon = imageUrl
+    },
+
+    selLogo(imageUrl, index2) {
+      this.selected = 'No.' + index2
+      this.myData2.headerLogo = imageUrl
+    },
+
+    imageListDelClose() {
+      this.toggleDel = false
+    },
+
+    imageListDel() {
+      // FireStrage のフォルダとファイルのリストを取得
+
+      this.myImages = []
+      const vm = this
+
+      this.toggleDel = true
+
+      imagesRef
+        .listAll()
+        .then(function (res) {
+          // res.prefixes.forEach(function(folderRef) {
+          for (let i = 0; i < res.prefixes.length; i++) {
+            // console.log('res.prefixes[i]: ', res.prefixes[i])
+          }
+          // res.items.forEach(function(itemRef) {
+          for (let i = 0; i < res.items.length; i++) {
+            vm.getImageUrl(res.items[i].location.path)
+          }
+        })
+        .catch(function (error) {
+          alert('error in imageListDel: ' + error)
+          // console.error('error in imageListDel: ', error)
+        })
+    },
+
+    // 削除用 画像リスト表示
+    deleteImage(deleteImageName) {
+      this.$swal({
+        title: '画像を削除します。よろしいでしょうか？',
+        text: 'この操作は取り消しできません。',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '削除',
+        cancelButtonText: 'キャンセル',
+        focusCancel: true,
+      }).then((result) => {
+        if (result.value) {
+          // DBに保存されている画像削除
+
+          // console.log('3-1 ------------ deleteImagePath: ' + deleteImageName)
+          const desertRef = storageRef.child(deleteImageName)
+
+          desertRef
+            .delete()
+            .then(() => {
+              // alert('ファイル削除完了')
+              this.toastFileUpdate('ファイル 削除', '完了しました。')
+              // this.toggleDel = false
+              this.imageListShow = false
+              this.imageList()
+            })
+            .catch((error) => {
+              alert('ファイル削除 error in deleteImage: ' + error)
+            })
+        }
+      })
+    },
+
+    // 入力データをリセット
+    reset() {
+      // const canvas = this.$refs.thumbnail
+      // this.newImage = ''
+      this.newFile = ''
+
+      // サムネイル用canvasのサイズを0に
+      // canvas.height = 0
+      // canvas.width = 0
+
+      // inputの入力をリセット
+      this.$refs.input.value = ''
+      // this.reserve = false
+      this.toggleDel = false
+    },
+    //  ====== 画像関連 end =====================================
   },
 }
 </script>
@@ -682,6 +1267,14 @@ export default {
 .float-cb {
   clear: both;
 }
+
+/* .positionRadioBtn { */
+.image_box .positionRadioBtn {
+  position: absolute;
+  top: 5px;
+  right: 20px;
+}
+
 /* .btn-pink {
   background-color: #ff7bff;
 }

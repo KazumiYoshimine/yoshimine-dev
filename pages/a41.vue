@@ -88,7 +88,7 @@
           <div class="m-0 p-3 mt-3" style="background-color: midnightblue">
             <h4 class="text-white">画像新規登録・削除</h4>
             <!-- 画像登録 Start -->
-            <div class="col-12 m-0 p-2 mt-3" style="background-color:;honeydew">
+            <div class="col-12 m-0 p-2 mt-3" style="background-color: honeydew">
               <h5>画像登録</h5>
               <!-- <input ref="input" type="file" accept=".jpg, .png, .pdf" @change="fileExtension($event)" /> -->
               <input ref="input" type="file" accept="image/*, .pdf" @change="fileExtension($event)" />

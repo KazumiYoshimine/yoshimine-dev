@@ -15,9 +15,9 @@
             <b-form-input id="input-1" v-model="form.name" required placeholder="山田  太郎"></b-form-input>
           </b-form-group>
 
-          <b-form-group id="input-group-2" label="棟名・部屋番号（必須）:" label-for="input-2" class="mt-2">
+          <!-- <b-form-group id="input-group-2" label="棟名・部屋番号（必須）:" label-for="input-2" class="mt-2">
             <b-form-input id="input-2" v-model="form.organization" required placeholder="A 123"></b-form-input>
-          </b-form-group>
+          </b-form-group> -->
 
           <b-form-group id="input-group-3" label="件名（必須）:" label-for="input-3" class="mt-2">
             <b-form-input id="input-3" v-model="form.subject" required placeholder="○○について"></b-form-input>
@@ -28,14 +28,15 @@
           </b-form-group>
           <!-- <pre class="mt-3 mb-0">{{ form.message }}</pre> -->
 
-          <!-- <b-form-ckbox id="checkbox-1" v-model="status" name="checkbox-1" value="accepted" unchecked-value="not_accepted">メールで回答希望</b-form-cckbox> -->
-          <b-form-checkbox id="checkbox-1" v-model="showMailFlg" name="checkbox-1" class="my-2">メールで回答希望</b-form-checkbox>
+          <div @click="clearEmail()">
+            <b-form-checkbox v-model="showMailFlg" class="my-2">メールで回答希望</b-form-checkbox>
+          </div>
 
           <div v-show="showMailFlg">
             <!-- <b-form-group id="input-group-5" label="メールアドレス（回答希望の場合は入力願います。）:" label-for="input-5" description="" class="mt-2"> -->
             <b-form-group label="メールアドレス（メールにて連絡希望の場合は入力願います。）:" description="" class="mt-2">
               <!-- <b-form-input id="input-5" v-model="form.email" type="email" required placeholder="name@example.com"></b-form-input> -->
-              <b-form-input v-model="form.email" type="email" required placeholder=""></b-form-input>
+              <b-form-input v-model="form.email" type="email" required placeholder="<例>name@example.com"></b-form-input>
             </b-form-group>
           </div>
 
@@ -55,17 +56,17 @@
         <h4 class="col-12 mx-2 m-0 p-0 py-2 text-white">※ 本ページをご利用について</h4>
 
         <div class="col-12 m-0 p-2" style="background-color: lightsteelblue">
-          <p class="mx-2 m-0 p-0">本サービスでは、送信用と受信用の２つのメールアドレスを設定する必要がありますので、開発者へメールアドレスをご連絡ください。</p>
-          <p class="mx-2 m-0 p-0">送信用として、Googleのメールアドレスを新たに取得してください。</p>
-          <p class="mx-2 m-0 p-0">受信用は既存のメールアドレスでも結構ですが、できるだけ本サービス専用のメールアドレスをご用意ください。</p>
+          <!-- <p class="mx-2 m-0 p-0">本サービスは、送信用と受信用の２つのメールアドレスを設定する必要がありますので、開発者へメールアドレスをご連絡ください。</p> -->
+          <p class="mx-2 m-0 p-0">本サービスは、受信用のメールアドレスを設定する必要がありますので、下記の開発者へメールにてご連絡願います。</p>
+          <!-- <p class="mx-2 m-0 p-0">送信用として、Googleのメールアドレスを新たに取得してください。</p> -->
+          <!-- <p class="mx-2 m-0 p-0">受信用は既存のメールアドレスでも結構ですが、できるだけ本サービス専用のメールアドレスをご用意ください。</p> -->
+          <!-- <br /> -->
+          <!-- <p class="mx-2 m-0 p-0">なお受信用メールアドレスがGoogleのメールアドレスの場合、以下のページと共用可能です。</p> -->
+          <!-- <p class="mx-2 m-0 ml-3 p-0">・ 駐車場予約状況</p> -->
+          <p class="mx-2 m-0 p-0">問合せ内容（例：お名前等）を変更したい場合も下記の開発者へご連絡願います。</p>
           <br />
-          <p class="mx-2 m-0 p-0">なお受信用メールアドレスがGoogleのメールアドレスの場合、以下のページと共用可能です。</p>
-          <p class="mx-2 m-0 ml-3 p-0">・ 駐車場予約状況</p>
-          <br />
-          <span class="mx-2 m-0 p-0">問合せ内容（例：お名前、棟名等）は修正する必要がありますので、開発者</span>
-          <b-link href="#foo">(Ady)</b-link>
-          <span class="mx-2 m-0 p-0">へご連絡ください。</span>
-          <!-- <h6 class="mx-2 m-0 ml-3 p-0">・ アクセスマップ</h6> -->
+          <b-link href="mailto:mail@yoshimine.dev?subject=問合せ" class="mx-2 m-0 p-0">開発者(mail@yoshimine.dev)</b-link>
+          <!-- <span class="mx-2 m-0 p-0">へご連絡ください。</span> -->
         </div>
       </div>
     </div>
@@ -83,7 +84,7 @@ export default {
   data: () => ({
     form: {
       name: '',
-      organization: '',
+      // organization: '',
       email: 'name@example.com',
       subject: '',
       message: '',
@@ -131,6 +132,18 @@ export default {
   // ⑨ methods は呼び出される度に実行
   // データが変更された時、反映したくない場合はmethodsを利用
   methods: {
+    clearEmail() {
+      if (this.showMailFlg) {
+        // this.form.email = ''
+        this.form.email = 'name@example.com'
+        // console.log('1 email ++++++++ clearEmail: ', this.form.email)
+      } else {
+        // this.form.email = 'name@example.com'
+        this.form.email = ''
+        // console.log('2 email ++++++++ clearEmail: ', this.form.email)
+      }
+    },
+
     selnum(num) {
       // this.selected = num
       // console.log('header selnum selected: ' + num)
@@ -146,7 +159,7 @@ export default {
       evt.preventDefault()
       // Reset our form values
       this.form.name = ''
-      this.form.organization = ''
+      // this.form.organization = ''
       this.form.email = 'name@example.com'
       this.form.subject = ''
       this.form.message = ''
@@ -173,13 +186,31 @@ export default {
 
       if (form.email === 'name@example.com') {
         // console.log('問合せ者へのメール送信スキップ: ' + form.email)
-        alert('問合せの登録が完了しました。')
+        // alert('問合せの登録が完了しました。')
+        this.$swal({
+          title: '登録完了',
+          text: '問合せ内容の登録が完了しました。',
+          icon: 'info',
+          // showCancelButton: true,
+          confirmButtonText: 'OK',
+          // cancelButtonText: 'キャンセル',
+          // focusCancel: true
+        }).then((result) => {})
       } else {
         // const sendMail2 = firebase.functions().httpsCallable('sendMail2')
         const sendMail2 = functions.httpsCallable('sendMail2')
         sendMail2({ form })
           .then((response) => {
-            alert('問合せの登録が完了しました。\n確認のため登録内容をメールで自動送信しました。\n\n３分たってもメールが届かない場合は\n登録いただいたメールアドレスの誤りや\n通信エラーが考えられます。\n\nお手数ですが再登録をお願いいたします。')
+            // alert('問合せの登録が完了しました。\n確認のため登録内容をメールで自動送信しました。\n\n３分たってもメールが届かない場合は\n登録いただいたメールアドレスの誤りや\n通信エラーが考えられます。\n\nお手数ですが再登録をお願いいたします。')
+            this.$swal({
+              title: '登録完了',
+              text: '確認のため登録内容をメールで自動送信しました。\n\n３分たってもメールが届かない場合は\n登録いただいたメールアドレスの誤りや\n通信エラーが考えられます。\n\nお手数ですが再登録をお願いいたします。',
+              icon: 'info',
+              // showCancelButton: true,
+              confirmButtonText: 'OK',
+              // cancelButtonText: 'キャンセル',
+              // focusCancel: true
+            }).then((result) => {})
             // console.log('問合せ者へのメール送信sendMail2 OK: ')
           })
           .catch((error) => {

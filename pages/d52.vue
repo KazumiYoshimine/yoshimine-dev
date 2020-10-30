@@ -9,7 +9,7 @@
       <!-- main表示 -->
       <!-- 以下の :key="dbPage.id" でソートされる -->
       <!-- <div v-b-modal="'data-' + index" class="m-1 mt-2 border float-left"> -->
-      <div v-for="(dbPage, index) in dbPages" :key="dbPage.id" class="col-4">
+      <div v-for="(dbPage, index) in dbPages" :key="dbPage.id" class="col-sm-6 col-md-4">
         <div v-b-modal="'data-' + index" class="m-1 mt-2 border">
           <!-- <b-embed type="iframe" aspect="16by9" :src="dbPage.page.fileUrl" allowfullscreen preload="none"></b-embed> -->
           <b-embed type="iframe" aspect="16by9" :src="dbPage.page.fileUrl" allowfullscreen></b-embed>

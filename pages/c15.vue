@@ -7,7 +7,7 @@
     <div class="row no-gutters">
       <!-- main表示 -->
       <!-- 以下の :key="dbPage.id" でソートされる -->
-      <div v-for="(dbPage, index) in dbPages" :key="dbPage.id" class="col-4">
+      <div v-for="(dbPage, index) in dbPages" :key="dbPage.id" class="col-sm-6 col-md-4">
         <div v-b-modal="'data-' + index" class="m-1 mt-2 border">
           <!-- <b-img :src="dbPage.page.fileUrl" class="m-0" alt="file" fluid> </b-img> -->
           <b-embed :src="dbPage.page.fileUrl" class="m-0" type="embed" alt="file" fluid />

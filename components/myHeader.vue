@@ -9,7 +9,15 @@
           <!-- <b-link to="/home" class="d-flex flex-row m-0 p-0" @click="selnum(0)"> -->
           <!-- <img :src="commonData.headerLogo" style="position: relative; left: 1px; bottom: 1px" alt="Header image" width="32" height="32" title="building" align="bottom" /> -->
           <!-- <img :src="commonData.headerLogo" class="d-flex align-items-center" alt="Header image" width="36" height="36" title="building" /> -->
-          <img :src="commonData.headerLogo" alt="Header image" width="36" height="36" title="building" />
+          <!-- ロゴ set start -->
+          <div v-if="commonData.logoRadio === 'selfRegFile'" class="m-0 p-0">
+            <img :src="commonData.headerLogo" alt="Header image" width="36" height="36" title="building" />
+          </div>
+          <div v-else class="m-0 p-0">
+            <b-icon :icon="commonData.topTitleLogo" :class="commonData.myClass" :variant="commonData.myVariant" :animation="commonData.myAnimation" :font-scale="commonData.myFontScale" alt="Header image" width="36" height="36" title="building" />
+          </div>
+          <!-- ロゴ set end -->
+
           <span class="myTitle text-dark font-weight-bold m-0 p-1">{{ commonData.topTitle }}</span>
         </b-link>
         <!--   連絡先等   -->
@@ -371,19 +379,20 @@
 
 <script>
 // IconsPlugin を使用するには、以下の Vue も import する必要がある
-import Vue from 'vue'
-import { IconsPlugin } from 'bootstrap-vue'
+// import Vue from 'vue'
+// import { IconsPlugin } from 'bootstrap-vue'
 
 // const storage = firebase.storage()
 // const storageRef = storage.ref()
 // const imagesRef = storageRef.child('images')
-Vue.use(IconsPlugin)
+// Vue.use(IconsPlugin)
 
 export default {
   components: {
     // myFooter
     //   IconsPlugin
   },
+
   data() {
     return {
       manFlg: true,
@@ -410,6 +419,28 @@ export default {
       buttonColorCancel: '',
     }
   },
+
+  head() {
+    return {
+      // titleTemplate: '',
+      // title: 'index',
+      title: this.commonData.tabTitle,
+      link: [
+        {
+          rel: 'icon',
+          type: 'image/x-icon',
+
+          // ブラウザのタイトルTabのicon
+          href: this.commonData.tabIcon,
+          // href: '/logo-yad-s-waku2.ico',
+          // href: '/building-regular.svg',
+          // href: '/icon-run.svg'
+          // href: 'https://firebasestorage.googleapis.com/v0/b/hi-223af.appspot.com/o/icon-run.svg?alt=media&token=6f6172d8-5aff-4450-80b5-bd6410eaadc3'
+        },
+      ],
+    }
+  },
+
   // firestore DB からのデータ取得
   // computedは、値が変わるとその値に依存しているすべてのバインディングが更新される
   computed: {

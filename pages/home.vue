@@ -38,7 +38,7 @@
     <!-- main表示 -->
     <div class="row m-0 mt-3 p-0">
       <!-- 以下の :key="dbHome.id" でソートされる -->
-      <div v-for="(dbHome, index) in dbHomes" :key="dbHome.id" class="col-4 m-0 p-1">
+      <div v-for="(dbHome, index) in dbHomes" :key="dbHome.id" class="col-sm-6 col-md-4 m-0 p-1">
         <!-- <div v-b-modal="'data-' + index" class="border m-0"> -->
         <div class="border m-0">
           <div class="m-0 p-0 d-flex justify-content-between">
