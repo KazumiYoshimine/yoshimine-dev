@@ -87,6 +87,15 @@
         <!-- <b-form-input v-model="myData2.buttonColorCancel2" type="color"></b-form-input> -->
         <!-- </b-input-group> -->
         <!-- 7 end -->
+
+        <!-- 8 ボタン枠のカラー -->
+        <b-input-group class="col-12 m-0 my-1 p-0" prepend="ボタン枠線の色:">
+          <b-input-group-prepend is-text><b>選択されている時の色</b></b-input-group-prepend>
+          <!-- <b-form-input v-model="myData2.myBorder" type="color"></b-form-input> -->
+          <b-form-select v-model="selectedBtnBorderColor" :options="optionsColor"></b-form-select>
+          <b-button :variant="selectedBtnBorderColor">{{ selectedBtnBorderColor }}</b-button>
+        </b-input-group>
+        <!-- 7 end -->
       </div>
       <!-- ------------------- Group 1 end -->
 
@@ -488,6 +497,7 @@ export default {
         myVariant: '',
         myAnimation: '',
         myFontScale: '',
+        myBorder: '',
       },
       commonData: {},
 
@@ -521,6 +531,7 @@ export default {
       // colorInput: {},
       selectedMenuBtnColor: 'a35-royalblue',
       selectedMenuBtnColor2: '',
+      selectedBtnBorderColor: '',
       optionsColor: [
         // { value: null, text: 'Please select an color' },
         // { value: 'a1-black', text: '1 black' },
@@ -833,6 +844,7 @@ export default {
       this.myData2.buttonColorEdit = 'background-color: ' + this.myData2.buttonColorEdit1 + ';'
       this.myData2.buttonColorCancel = 'background-color: ' + this.myData2.buttonColorCancel1 + ';'
       this.myData2.buttonColorDel = 'background-color: ' + this.myData2.buttonColorDel1 + ';'
+      this.myData2.myBorder = this.selectedBtnBorderColor
 
       if (this.myData2.bodyFontSize >= 6 && this.myData2.bodyFontSize <= 14) {
         // console.log('bodyFontSize: ', this.myData2.bodyFontSize)
@@ -893,6 +905,7 @@ export default {
           this.myData2.myVariant = this.myData.myVariant
           this.myData2.myAnimation = this.myData.myAnimation
           this.myData2.myFontScale = this.myData.myFontScale
+          this.myData2.myBorder = this.myData.myBorder
           this.myData2.mTopics = this.myData.mTopics
           this.myData2.mHome1 = this.myData.mHome1
           this.myData2.mArchiveDB = this.myData.mArchiveDB
@@ -910,8 +923,13 @@ export default {
           this.myData2.buttonColorBasic = this.myData.buttonColorBasic
           // this.buttonColorBasicSet = 'background-color: ' + this.myData.buttonColorBasic + ';'
           this.buttonColorBasicSet = this.myData.buttonColorBasicSet
+
           this.selectedMenuBtnColor = this.myData.selectedMenuBtnColor
           this.myData2.selectedMenuBtnColor = this.myData.selectedMenuBtnColor
+
+          // ボタン枠線の色
+          this.selectedBtnBorderColor = this.myData.myBorder
+          this.myData2.myBorder = this.myData.myBorder
 
           // 2 Menu Bar
           this.myData2.buttonColorMenuBar = this.myData.buttonColorMenuBar

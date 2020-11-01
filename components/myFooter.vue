@@ -7,7 +7,7 @@
     <div v-show="showSitemap" class="m-0 p-0">
       <div class="row m-0 p-0 pt-3 d-flex justify-content-between" style="background-color: black">
         <h5 class="m-0 mx-2 text-white">サイトマップ</h5>
-        <b-button :size="commonData.selectedBtnSize" to="/home" :variant="commonData.selectedMenuBtnColor" class="m-0 mr-3 px-1 py-0" :class="{ 'border border-danger rounded-lg': isBorder(0) }" @click="selnum(0)">{{ home1 }}</b-button>
+        <b-button :size="commonData.selectedBtnSize" to="/home" :variant="commonData.selectedMenuBtnColor" class="m-0 mr-3 px-1 py-0" :class="isBorder2(0, commonData.myBorder)" @click="selnum(0)">{{ home1 }}</b-button>
         <!-- 以下の１行は消すな！ -->
         <!-- <b-button :size="commonData.selectedBtnSize" to="/notCreated" :variant="commonData.selectedMenuBtnColor" class="m-0 mr-3 px-1 py-0">このウェブサイトについて</b-button> -->
       </div>
@@ -463,6 +463,15 @@ export default {
       // console.log('isBorder-tempNum:  ' + tempNum)
       return i === this.numBorder
     },
+
+    isBorder2(i, myBorder) {
+      this.numBorder = Math.floor(this.selected / 10)
+
+      if (i === this.numBorder) {
+        return 'border rounded-lg border-' + myBorder
+      }
+    },
+
     selnum(num) {
       // console.log('header selnum selected: ' + num)
       this.$nuxt.$emit('selnum', num)

@@ -4,11 +4,7 @@
     <!-- <div class="m-0 p-0"> -->
     <div class="row m-0 p-0">
       <div class="col-12 d-flex justify-content-between align-items-center" :style="commonData.buttonHeaderRGB">
-        <!-- <b-link to="/" class="text-dark font-weight-bold" style="font-size:24px" @click="selnum(0)"> -->
         <b-link to="/home" class="d-flex flex-row align-items-center m-0 p-0" @click="selnum(0)">
-          <!-- <b-link to="/home" class="d-flex flex-row m-0 p-0" @click="selnum(0)"> -->
-          <!-- <img :src="commonData.headerLogo" style="position: relative; left: 1px; bottom: 1px" alt="Header image" width="32" height="32" title="building" align="bottom" /> -->
-          <!-- <img :src="commonData.headerLogo" class="d-flex align-items-center" alt="Header image" width="36" height="36" title="building" /> -->
           <!-- ロゴ set start -->
           <div v-if="commonData.logoRadio === 'selfRegFile'" class="m-0 p-0">
             <img :src="commonData.headerLogo" alt="Header image" width="36" height="36" title="building" />
@@ -21,7 +17,6 @@
           <span class="myTitle text-dark font-weight-bold m-0 p-1">{{ commonData.topTitle }}</span>
         </b-link>
         <!--   連絡先等   -->
-        <!-- <p class="m-0 mt-2 mr-3">{{ commonData.mContact }}</p> -->
         <div v-if="commonData.mLink" class="m-0 p-0">
           <a class="m-0 mt-2 mr-3" :href="commonData.mLink" target="_blank">{{ commonData.mContact }}</a>
         </div>
@@ -29,21 +24,13 @@
           <a class="m-0 mt-2 mr-3">{{ commonData.mContact }}</a>
         </div>
       </div>
-
-      <!-- ログイン -->
-      <!-- <div class="col-2 d-flex justify-content-start">
-          <b-dropdown variant="light" class="p-0 m-0">
-            <template v-slot:button-content><em>User</em></template>
-            <b-dropdown-item href="#"><strong>Sign In</strong></b-dropdown-item>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-          </b-dropdown>
-        </div> -->
     </div>
 
     <div class="mb-3">
       <b-navbar toggleable="md" type="light" class="m-0 p-1" :style="commonData.buttonBarRGB">
         <!-- <b-button to="/" :variant="commonData.selectedMenuBtnColor" :size="commonData.selectedBtnSize" :class="{ 'border border-danger rounded-lg': isBorder(0) }" class="m-1 p-1" @click="selnum(0)">{{ commonData.mHome1 }}</b-button> -->
-        <b-button to="/home" :variant="commonData.selectedMenuBtnColor" :size="commonData.selectedBtnSize" :class="{ 'border border-danger rounded-lg': isBorder(0) }" class="m-1 p-1" @click="selnum(0)">{{ commonData.mHome1 }}</b-button>
+        <!-- <b-button to="/home" :variant="commonData.selectedMenuBtnColor" :size="commonData.selectedBtnSize" :class="{ 'border border-danger rounded-lg': isBorder(0) }" class="m-1 p-1" @click="selnum(0)">{{ commonData.mHome1 }}</b-button> -->
+        <b-button id="idBorder" to="/home" :variant="commonData.selectedMenuBtnColor" :size="commonData.selectedBtnSize" :class="isBorder2(0, commonData.myBorder)" class="m-1 p-1" @click="selnum(0)">{{ commonData.mHome1 }}</b-button>
 
         <b-navbar-toggle target="nav-collapse" />
         <b-collapse id="nav-collapse" is-nav>
@@ -51,9 +38,8 @@
             <!-- 1 -->
             <div class="m-0 p-0" @mouseover="onOver(1)" @mouseleave="onLeave(1)">
               <div v-show="myData.chkMenu1">
-                <b-dropdown id="dropdown-menu-1" ref="dropdown1" :size="commonData.selectedBtnSize" :text="myData.m1" :variant="commonData.selectedMenuBtnColor" :class="{ 'border border-danger rounded-lg': isBorder(1) }" class="m-1 p-0">
+                <b-dropdown id="dropdown-menu-1" ref="dropdown1" :size="commonData.selectedBtnSize" :text="myData.m1" :variant="commonData.selectedMenuBtnColor" :class="isBorder2(1, commonData.myBorder)" class="m-1 p-0">
                   <div v-show="myData.chkMenu11">
-                    <!-- <b-dropdown-item to="/c11" :active="isSelected(11)" @click="selnum(11)">{{ myData.m11 }}</b-dropdown-item> -->
                     <b-dropdown-item to="/c11" :active="isSelected(11)">{{ myData.m11 }}</b-dropdown-item>
                   </div>
                   <div v-show="myData.chkMenu12">
@@ -78,7 +64,7 @@
             <!-- 2 -->
             <div @mouseover="onOver(2)" @mouseleave="onLeave(2)">
               <div v-show="myData.chkMenu2">
-                <b-dropdown id="dropdown-menu-2" ref="dropdown2" :size="commonData.selectedBtnSize" :text="myData.m2" :variant="commonData.selectedMenuBtnColor" :class="{ 'border border-danger rounded-lg': isBorder(2) }" class="m-1">
+                <b-dropdown id="dropdown-menu-2" ref="dropdown2" :size="commonData.selectedBtnSize" :text="myData.m2" :variant="commonData.selectedMenuBtnColor" :class="isBorder2(2, commonData.myBorder)" class="m-1">
                   <div v-show="myData.chkMenu21">
                     <b-dropdown-item to="/c21" :active="isSelected(21)">{{ myData.m21 }}</b-dropdown-item>
                   </div>
@@ -104,7 +90,7 @@
             <!-- 3 -->
             <div @mouseover="onOver(3)" @mouseleave="onLeave(3)">
               <div v-show="myData.chkMenu3">
-                <b-dropdown id="dropdown-menu-3" ref="dropdown3" :size="commonData.selectedBtnSize" :text="myData.m3" :variant="commonData.selectedMenuBtnColor" :class="{ 'border border-danger rounded-lg': isBorder(3) }" class="m-1">
+                <b-dropdown id="dropdown-menu-3" ref="dropdown3" :size="commonData.selectedBtnSize" :text="myData.m3" :variant="commonData.selectedMenuBtnColor" :class="isBorder2(3, commonData.myBorder)" class="m-1">
                   <div v-show="myData.chkMenu31">
                     <b-dropdown-item to="/b31" :active="isSelected(31)">{{ myData.m31 }}</b-dropdown-item>
                   </div>
@@ -130,7 +116,7 @@
             <!-- 4 -->
             <div @mouseover="onOver(4)" @mouseleave="onLeave(4)">
               <div v-show="myData.chkMenu4">
-                <b-dropdown id="dropdown-menu-4" ref="dropdown4" :size="commonData.selectedBtnSize" :text="myData.m4" :variant="commonData.selectedMenuBtnColor" :class="{ 'border border-danger rounded-lg': isBorder(4) }" class="m-1">
+                <b-dropdown id="dropdown-menu-4" ref="dropdown4" :size="commonData.selectedBtnSize" :text="myData.m4" :variant="commonData.selectedMenuBtnColor" :class="isBorder2(4, commonData.myBorder)" class="m-1">
                   <div v-show="myData.chkMenu41">
                     <b-dropdown-item to="/a41" :active="isSelected(41)">{{ myData.m41 }}</b-dropdown-item>
                   </div>
@@ -156,7 +142,7 @@
             <!-- 5 動画コレクション用 -->
             <div @mouseover="onOver(5)" @mouseleave="onLeave(5)">
               <div v-show="myData.chkMenu5">
-                <b-dropdown id="dropdown-menu-5" ref="dropdown5" :size="commonData.selectedBtnSize" :text="myData.m5" :variant="commonData.selectedMenuBtnColor" :class="{ 'border border-danger rounded-lg': isBorder(5) }" class="m-1">
+                <b-dropdown id="dropdown-menu-5" ref="dropdown5" :size="commonData.selectedBtnSize" :text="myData.m5" :variant="commonData.selectedMenuBtnColor" :class="isBorder2(5, commonData.myBorder)" class="m-1">
                   <div v-show="myData.chkMenu51">
                     <b-dropdown-item to="/d51" :active="isSelected(51)">{{ myData.m51 }}</b-dropdown-item>
                   </div>
@@ -182,7 +168,7 @@
             <!-- 6 カスタマイズ -->
             <div @mouseover="onOver(6)" @mouseleave="onLeave(6)">
               <div v-show="myData.chkMenu6">
-                <b-dropdown id="dropdown-menu-6" ref="dropdown6" :size="commonData.selectedBtnSize" :text="myData.m6" :variant="commonData.selectedMenuBtnColor" :class="{ 'border border-danger rounded-lg': isBorder(6) }" class="m-1">
+                <b-dropdown id="dropdown-menu-6" ref="dropdown6" :size="commonData.selectedBtnSize" :text="myData.m6" :variant="commonData.selectedMenuBtnColor" :class="isBorder2(6, commonData.myBorder)" class="m-1">
                   <div v-show="myData.chkMenu61">
                     <b-dropdown-item to="/myQA" :active="isSelected(61)">{{ myData.m61 }}</b-dropdown-item>
                   </div>
@@ -333,10 +319,10 @@
             <!-- 管理 man start -->
             <div v-show="isLogin" class="m-0 p-0">
               <b-navbar-nav variant="info">
-                <b-button to="/DB" variant="dark" :size="commonData.selectedBtnSize" :class="{ 'border border-danger rounded-lg': isBorder(90) }" class="m-1 p-1" @click="selnum(901)">{{ commonData.mArchiveDB }}</b-button>
-                <b-button to="/man" variant="dark" :size="commonData.selectedBtnSize" :class="{ 'border border-danger rounded-lg': isBorder(91) }" class="m-1 p-1" @click="selnum(911)">共通設定</b-button>
-                <b-button to="/man1" variant="dark" :size="commonData.selectedBtnSize" :class="{ 'border border-danger rounded-lg': isBorder(92) }" class="m-1 p-1" @click="selnum(921)">メニュー設定</b-button>
-                <b-button to="/man2" variant="dark" :size="commonData.selectedBtnSize" :class="{ 'border border-danger rounded-lg': isBorder(93) }" class="m-1 p-1" @click="selnum(931)">Side Menu設定</b-button>
+                <b-button to="/DB" variant="dark" :size="commonData.selectedBtnSize" :class="isBorder2(90, commonData.myBorder)" class="m-1 p-1" @click="selnum(901)">{{ commonData.mArchiveDB }}</b-button>
+                <b-button to="/man" variant="dark" :size="commonData.selectedBtnSize" :class="isBorder2(91, commonData.myBorder)" class="m-1 p-1" @click="selnum(911)">共通設定</b-button>
+                <b-button to="/man1" variant="dark" :size="commonData.selectedBtnSize" :class="isBorder2(92, commonData.myBorder)" class="m-1 p-1" @click="selnum(921)">メニュー設定</b-button>
+                <b-button to="/man2" variant="dark" :size="commonData.selectedBtnSize" :class="isBorder2(93, commonData.myBorder)" class="m-1 p-1" @click="selnum(931)">Side Menu設定</b-button>
                 <!-- ****** 本コメント、及び下記の2行(add, set) は消すな！ -->
                 <!-- <b-button variant="dark" class="m-1 p-1" @click="add()">add</b-button> -->
                 <!-- <b-button variant="dark" class="m-1 p-1" @click="set()">set</b-button> -->
@@ -379,9 +365,11 @@
 
 <script>
 // IconsPlugin を使用するには、以下の Vue も import する必要がある
-// import Vue from 'vue'
-// import { IconsPlugin } from 'bootstrap-vue'
+import Vue from 'vue'
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 
+Vue.use(BootstrapVue)
+Vue.use(BootstrapVueIcons)
 // const storage = firebase.storage()
 // const storageRef = storage.ref()
 // const imagesRef = storageRef.child('images')
@@ -504,10 +492,26 @@ export default {
     // this.selected = selected
     // this.numBorder = Math.floor(this.selected / 10)
     // })
+
+    // const classBorder = document.getElementsByClassName('border-danger')
+    // const classBorder = document.getElementById('myBorder')
+    // classBorder.forEach((myBorder, myIndex) => {
+    // console.log('1-1 --------- No : myBorder: ', myIndex, ' : ', myBorder)
+    // console.log('1-1 --------- myBorder: ', classBorder)
+    // classBorder[myIndex].className = 'border-warning'
+
+    // classBorder.className = 'btn m-1 p-1 nuxt-link-exact-active nuxt-link-active btn-a34-steelblue btn-md border border-warning rounded-lg'
+    // console.log('1-2 --------- myBorder: ', classBorder)
+    // })
   },
-  // mounted() {
   // beforeUpdate() {
   updated() {
+    // const classBorder = document.getElementsByClassName('border-danger')
+    // classBorder.forEach((myBorder, myIndex) => {
+    // console.log('1-2 --------- No : myBorder: ', myIndex, ' : ', myBorder)
+    // classBorder[myIndex].className = 'border-warning'
+    // })
+
     // console.log('0-1 --- buttonColorMenu: ', this.buttonColorMenu)
     if (!this.isInitCalorSet) {
       if (this.commonData.buttonColorMenu !== undefined) {
@@ -596,7 +600,7 @@ export default {
     selnum(num) {
       this.selected = num
       // console.log('header selnum selected: ' + num)
-      this.$nuxt.$emit('selmun', num)
+      this.$nuxt.$emit('selnum', num)
     },
 
     // selnumSide(num) {
@@ -610,15 +614,43 @@ export default {
       // console.log('i === selected : ', i, ' === ', this.selected)
       return i === this.selected
     },
+
     isBorder(i) {
       this.numBorder = Math.floor(this.selected / 10)
-      // console.log('isBorder-tempNum:  ', this.numBorder)
-      // console.log('i === numBorder : ', i, ' === ', this.numBorder)
       return i === this.numBorder
     },
+
+    isBorder2(i, myBorder) {
+      this.numBorder = Math.floor(this.selected / 10)
+
+      if (i === this.numBorder) {
+        return 'border rounded-lg border-' + myBorder
+      }
+    },
+
+    isBorder3(i, myBorder) {
+      this.numBorder = Math.floor(this.selected / 10)
+      if (i === this.numBorder) {
+        // 以下は getElementById の利用例で、getElemetsByClassName とどちらかの方法を選ぶ
+        document.addEventListener('DOMContentLoaded', function () {
+          const idBorder = document.getElementById('idBorder')
+          idBorder.className = 'active border border-warning rounded-lg'
+        })
+
+        // 以下は getElemetsByClassName の利用例で、getElementById とどちらかの方法を選ぶ
+        // const classBorder = document.getElementsByClassName('border-danger')
+        // console.log('2-2 +++++++ classBorder.length ', classBorder.length)
+        // classBorder.forEach((myBorder, myIndex) => {
+        // classBorder[myIndex].className = 'border-warning'
+        // console.log('2-3 +++++++ No : myBorder: ', myIndex, ' : ', myBorder)
+        // })
+      }
+    },
+
     onOver(num) {
       this.$refs['dropdown' + num].visible = true
     },
+
     onLeave(num) {
       this.$refs['dropdown' + num].visible = false
     },
