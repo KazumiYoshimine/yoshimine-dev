@@ -89,8 +89,8 @@
         <!-- 7 end -->
 
         <!-- 8 ボタン枠のカラー -->
-        <b-input-group class="col-12 m-0 my-1 p-0" prepend="ボタン枠線の色:">
-          <b-input-group-prepend is-text><b>選択されている時の色</b></b-input-group-prepend>
+        <b-input-group class="col-12 m-0 my-1 p-0" prepend="ボタンの枠線:">
+          <b-input-group-prepend is-text><b>選択箇所の色</b></b-input-group-prepend>
           <!-- <b-form-input v-model="myData2.myBorder" type="color"></b-form-input> -->
           <b-form-select v-model="selectedBtnBorderColor" :options="optionsColor"></b-form-select>
           <b-button :variant="selectedBtnBorderColor">{{ selectedBtnBorderColor }}</b-button>

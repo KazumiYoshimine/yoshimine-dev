@@ -7,20 +7,28 @@ import 'firebase/firebase-firestore' // ここには使用するFirebaseSDKモ�
 
 const db = firebase.firestore()
 const cccRef = db.collection('ccc')
+const commonRef = db.collection('cccCommon')
 
 export const state = () => ({
   ccc: [],
+  cccCommon: [],
 })
 
 export const actions = {
   // nuxtClientInit({ commit, state, dispatch }, { req }) {
   //   createPersistedState()(this)
   // },
-  // init: firestoreAction(({ bindFirestoreRef }) => {
+
   init: firestoreAction(({ bindFirestoreRef }, ref) => {
     // bindFirestoreRef('ccc', cccRef)
     bindFirestoreRef('ccc', ref)
   }),
+
+  initCommon: firestoreAction(({ bindFirestoreRef }) => {
+    bindFirestoreRef('cccCommon', commonRef)
+    // bindFirestoreRef('ccc')
+  }),
+
   // add: firestoreAction((context, page) => {
   add: firestoreAction((context, { pageNo, page }) => {
     // console.log('titleName in store/firestore.js: ' + page.titleName)
@@ -29,6 +37,14 @@ export const actions = {
       created: firebase.firestore.FieldValue.serverTimestamp(),
     })
   }),
+  addCommon: firestoreAction((context, cCommon) => {
+    // console.log('titleName in store/firestore.js: ' + page.titleName)
+    commonRef.add({
+      cCommon,
+      // created: firebase.firestore.FieldValue.serverTimestamp(),
+    })
+  }),
+
   // update: firestoreAction((context, { id, page }) => {
   update: firestoreAction((context, { pageNo, id, page }) => {
     // console.log('id in db_update: ' + id)
@@ -37,26 +53,39 @@ export const actions = {
       page,
     })
   }),
+
+  updateCommon: firestoreAction((context, cCommon) => {
+    // console.log('id in updateCommon: ', cCommon)
+    // commonRef.doc('common').update({
+    commonRef.doc('common').set({
+      cCommon,
+    })
+  }),
+
   // remove: firestoreAction((context, id) => {
   remove: firestoreAction((context, { pageNo, id }) => {
     // cccRef.doc(id).delete()
     cccRef.doc(pageNo).collection(pageNo).doc(id).delete()
   }),
-  toggle: firestoreAction((context, dbPage) => {
-    cccRef.doc(dbPage.id).update({
-      done: !dbPage.done,
-    })
-  }),
 }
 
 export const getters = {
   getMyPageById: (state) => (id) => {
-    // console.log('id in getMyPageById: ' + id)
+    // console.log('id -------- in getMyPageById ccc.js: ' + id)
     // 以下は全検索
     // getMyPageById: (state) => {
     // return state.ccc
-    return state.ccc.find((dbPage) => dbPage.id === id)
+    return state.ccc.find((key) => key.id === id)
   },
+
+  // getCommonById: (state) => (id) => {
+  // 以下は全検索
+  // getCommonById: (state) => {
+  getCommonById: (state) => (id) => {
+    // console.log('myTemp -------- in getCommonById ccc.js: ' + myTemp)
+    return state.cccCommon.find((key) => key.id === id)
+  },
+
   // 多分以下の orderdDbPages は使われていない
   orderdDbPages: (state) => {
     // eslint-disable-next-line no-undef

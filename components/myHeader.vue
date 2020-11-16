@@ -329,10 +329,11 @@
 
                 <!-- <div @mouseover="onOver(9)" @mouseleave="onLeave(9)"> -->
                 <!-- <b-dropdown id="dropdown-menu-9" ref="dropdown9" :size="commonData.selectedBtnSize" text="管理メニュー" variant="dark" class="m-0"> -->
-                <!-- <b-dropdown-item to="/test2" @click="selnum(92)">test2</b-dropdown-item> -->
+                <!-- <b-dropdown-item to="/test5" @click="selnum(95)">test5</b-dropdown-item> -->
                 <!-- <b-dropdown-item to="/test6" @click="selnum(96)">test6</b-dropdown-item> -->
                 <!-- <b-dropdown-item to="/test7" @click="selnum(97)">test7</b-dropdown-item> -->
                 <!-- <b-dropdown-item to="/test8" @click="selnum(98)">test8</b-dropdown-item> -->
+                <!-- <b-dropdown-item to="/test9" @click="selnum(99)">test9</b-dropdown-item> -->
                 <!-- </b-dropdown> -->
                 <!-- </div> -->
               </b-navbar-nav>

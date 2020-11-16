@@ -10,18 +10,38 @@
       <div v-for="(dbPage, index) in dbPages" :key="dbPage.id" class="col-sm-6 col-md-4">
         <div v-b-modal="'data-' + index" class="m-1 mt-2 border">
           <!-- <b-img :src="dbPage.page.fileUrl" class="m-0" alt="file" fluid> </b-img> -->
-          <b-embed :src="dbPage.page.fileUrl" class="m-0" type="embed" alt="file" fluid />
           <p class="m-0 p-0 pl-1">{{ dbPage.page.titleName }}</p>
-          <span class="m-0 p-0 pl-1">{{ dbPage.page.mainDate }}</span>
-          <b-button :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">拡大表示</b-button>
+          <b-embed :src="dbPage.page.fileUrl" class="m-0" type="embed" alt="file" fluid />
+
+          <div class="d-flex justify-content-between align-items-center">
+            <p :hidden="cCommonData.hiddenDate" class="m-0 p-0 pl-1">{{ dbPage.page.mainDate }}</p>
+            <b-button :hidden="cCommonData.hiddenBtn" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">拡大表示</b-button>
+          </div>
+
+          <div class="row m-0 p-0">
+            <p :hidden="cCommonData.hiddenText1" class="col-4 m-0 p-0 px-1">{{ cCommonData.text1name }}</p>
+            <p :hidden="cCommonData.hiddenText1" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text1 }}</p>
+          </div>
+
+          <div class="row m-0 p-0">
+            <p :hidden="cCommonData.hiddenText2" class="col-4 m-0 p-0 px-1">{{ cCommonData.text2name }}</p>
+            <p :hidden="cCommonData.hiddenText2" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text2 }}</p>
+          </div>
+
+          <div class="row m-0 p-0">
+            <p :hidden="cCommonData.hiddenText3" class="col-4 m-0 p-0 px-1">{{ cCommonData.text3name }}</p>
+            <p :hidden="cCommonData.hiddenText3" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text3 }}</p>
+          </div>
         </div>
 
         <!-- 。。。。。。。。。。。 モーダル表示 start 。。。。。。。。。。。 -->
         <b-modal :id="'data-' + index" hide-header size="xl">
           <!-- タイトル表示 -->
-          <div class="border m-1 mt-3 p-2" style="background-color: honeydew">
-            <h5 class="m-0 px-1 float-left">{{ dbPage.page.titleName }}</h5>
-            <p class="text-right m-0 pl-2 pr-2">{{ dbPage.page.mainDate }}</p>
+          <div class="border m-1 mt-3 p-2 d-flex justify-content-between" style="background-color: honeydew">
+            <!-- <h5 class="m-0 px-1 float-left">{{ dbPage.page.titleName }}</h5> -->
+            <h5 class="m-0 px-1">{{ dbPage.page.titleName }}</h5>
+            <!-- <p :hidden="cCommonData.hiddenDate" class="text-right m-0 pl-2 pr-2">{{ dbPage.page.mainDate }}</p> -->
+            <p :hidden="cCommonData.hiddenDate" class="m-0 pl-2 pr-2">{{ dbPage.page.mainDate }}</p>
           </div>
 
           <!-- 画像表示 -->
@@ -29,11 +49,25 @@
           <!-- <b-img :src="dbPage.page.fileUrl" fluid alt="Responsive image"></b-img> -->
           <b-embed :src="dbPage.page.fileUrl" class="m-0" type="embed" alt="file" fluid />
 
-          <!-- =========================== モーダル body 表示 start =========================== -->
-
           <div class="modal-body m-1 p-1">
-            <!-- 本文表示 -->
-            <h5 class="text-justify text-break m-0 p-2" style="white-space: pre-wrap">{{ dbPage.page.mainText }}</h5>
+            <!-- 本文表示 text1,2,3 -->
+            <div class="row m-0 p-0">
+              <h5 :hidden="cCommonData.hiddenText1" class="col-4 m-0 p-0 px-1">{{ cCommonData.text1name }}</h5>
+              <h5 :hidden="cCommonData.hiddenText1" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text1 }}</h5>
+            </div>
+
+            <div class="row m-0 p-0">
+              <h5 :hidden="cCommonData.hiddenText2" class="col-4 m-0 p-0 px-1">{{ cCommonData.text2name }}</h5>
+              <h5 :hidden="cCommonData.hiddenText2" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text2 }}</h5>
+            </div>
+
+            <div class="row m-0 p-0">
+              <h5 :hidden="cCommonData.hiddenText3" class="col-4 m-0 p-0 px-1">{{ cCommonData.text3name }}</h5>
+              <h5 :hidden="cCommonData.hiddenText3" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text3 }}</h5>
+            </div>
+
+            <!-- 本文表示 mainText -->
+            <h5 :hidden="cCommonData.hiddenMainText" class="text-justify text-break m-0 p-2 bg-a13-linen" style="white-space: pre-wrap">{{ dbPage.page.mainText }}</h5>
           </div>
         </b-modal>
         <!-- 。。。。。。。。。。。 モーダル表示 end 。。。。。。。。。。。 -->
@@ -44,8 +78,104 @@
     <div v-show="isLogin" class="m-0 p-0">
       <!-- ============================== 管理機能 ============================== -->
       <div class="row m-0 mt-2 p-2 bg-dark">
-        <h5 class="col-12 mx-2 m-0 p-0 py-1 text-white">以下は管理機能です。</h5>
-        <!-- 登録状況 -->
+        <div class="col-12 d-flex justify-content-between align-items-center">
+          <h5 class="mx-2 m-0 p-0 py-1 text-white">以下は管理機能です。</h5>
+          <!-- modal 起動ボタン start ***** -->
+          <!-- <b-button v-b-modal.modal-1 class="m-0 p-0">ページ設定(Cテンプレート共通)</b-button> -->
+          <b-button id="show-btn" @click="showModal">Cテンプレート共通設定</b-button>
+          <!-- <b-button @click="showModal">page設定</b-button> -->
+          <!-- modal 起動ボタン end ***** -->
+        </div>
+        <!-- modal ウィンドウ start ***** -->
+
+        <!-- <b-modal id="modal-1"> -->
+        <!-- <b-modal id="modal-1" ref="modal-1" hide-footer title="ページ設定"> -->
+        <b-modal id="modal-1" ref="modal-1" hide-footer hide-header>
+          <p class="my-2">以下の項目の「表示/非表示」及び「名称変更」</p>
+          <!-- <label for="example-datepicker">Choose a date</label> -->
+          <!-- <b-form-datepicker id="example-datepicker" v-model="cCommonWork.text1name" class="mb-2"></b-form-datepicker> -->
+
+          <!-- sortDate -->
+          <div class="row m-0 p-0 d-flex align-items-center">
+            <input id="idChk1" size="lg" class="col-2 m-0 p-0" type="checkbox" :checked="!cCommonWork.hiddenDate" @change="toggleChk(1)" />
+            <p class="col-4 m-0 p-0 px-1">年月日（変更不可）</p>
+            <span v-if="!cCommonWork.hiddenDate" class="col-6 m-0 p-0 px-1">
+              <b-form-input disabled value="年月日" class="border pl-4" for="idChk1"></b-form-input>
+              <!-- <p class="border" for="idChk1">年月日</p> -->
+            </span>
+            <del v-else class="col-6 m-0 p-0 px-1">
+              <b-form-input disabled value="年月日" class="border pl-4" for="idChk1"></b-form-input>
+            </del>
+          </div>
+
+          <!-- btnName -->
+          <div class="row m-0 p-0 d-flex align-items-center">
+            <input id="idChk2" size="lg" class="col-2 m-0 p-0" type="checkbox" :checked="!cCommonWork.hiddenBtn" @change="toggleChk(2)" />
+            <p class="col-4 m-0 p-0 px-1">ボタンの名前</p>
+            <span v-if="!cCommonWork.hiddenBtn" class="col-6 m-0 p-0 px-1">
+              <b-form-input v-model="cCommonWork.btnName" class="border" for="idChk2"></b-form-input>
+            </span>
+            <del v-else class="col-6 m-0 p-0 px-1">
+              <b-form-input v-model="cCommonWork.btnName" class="border" for="idChk2"></b-form-input>
+            </del>
+          </div>
+
+          <!-- text1name -->
+          <div class="row m-0 p-0 d-flex align-items-center">
+            <input id="idChk11" size="lg" class="col-2 m-0 p-0" type="checkbox" :checked="!cCommonWork.hiddenText1" @change="toggleChk(11)" />
+            <p class="col-4 m-0 p-0 px-1">1行目の名前</p>
+            <span v-if="!cCommonWork.hiddenText1" class="col-6 m-0 p-0 px-1">
+              <b-form-input v-model="cCommonWork.text1name" class="border" for="idChk11"></b-form-input>
+            </span>
+            <del v-else class="col-6 m-0 p-0 px-1">
+              <b-form-input v-model="cCommonWork.text1name" class="border" for="idChk11"></b-form-input>
+            </del>
+          </div>
+
+          <!-- text2name -->
+          <div class="row m-0 p-0 d-flex align-items-center">
+            <input id="idChk12" size="lg" class="col-2 m-0 p-0" type="checkbox" :checked="!cCommonWork.hiddenText2" @change="toggleChk(12)" />
+            <p class="col-4 m-0 p-0 px-1">2行目の名前</p>
+            <span v-if="!cCommonWork.hiddenText2" class="col-6 m-0 p-0 px-1">
+              <b-form-input v-model="cCommonWork.text2name" class="border" for="idChk12"></b-form-input>
+            </span>
+            <del v-else class="col-6 m-0 p-0 px-1">
+              <b-form-input v-model="cCommonWork.text2name" class="border" for="idChk12"></b-form-input>
+            </del>
+          </div>
+
+          <!-- text3name -->
+          <div class="row m-0 p-0 d-flex align-items-center">
+            <input id="idChk13" size="lg" class="col-2 m-0 p-0" type="checkbox" :checked="!cCommonWork.hiddenText3" @change="toggleChk(13)" />
+            <p class="col-4 m-0 p-0 px-1">3行目の名前</p>
+            <span v-if="!cCommonWork.hiddenText3" class="col-6 m-0 p-0 px-1">
+              <b-form-input v-model="cCommonWork.text3name" class="border" for="idChk13"></b-form-input>
+            </span>
+            <del v-else class="col-6 m-0 p-0 px-1">
+              <b-form-input v-model="cCommonWork.text3name" class="border" for="idChk13"></b-form-input>
+            </del>
+          </div>
+
+          <!-- sortDate -->
+          <div class="row m-0 p-0 d-flex align-items-center">
+            <input id="idChk3" size="lg" class="col-2 m-0 p-0" type="checkbox" :checked="!cCommonWork.hiddenMainText" @change="toggleChk(3)" />
+            <p class="col-4 m-0 p-0 px-1">長文（変更不可）</p>
+            <span v-if="!cCommonWork.hiddenMainText" class="col-6 m-0 p-0 px-1">
+              <b-form-input disabled value="長文" class="border pl-4" for="idChk3"></b-form-input>
+            </span>
+            <del v-else class="col-6 m-0 p-0 px-1">
+              <b-form-input disabled value="長文" class="border pl-4" for="idChk3"></b-form-input>
+            </del>
+          </div>
+
+          <!-- button start -->
+          <div class="modal-footer m-0 mt-2 p-0">
+            <b-button class="mt-1" variant="outline-primary" @click="regCommon">登録</b-button>
+            <b-button class="mt-1" variant="outline-dark" @click="$bvModal.hide('modal-1')">閉じる</b-button>
+          </div>
+          <!-- button end -->
+        </b-modal>
+        <!-- modal ウィンドウ end ***** -->
 
         <!-- 現在の登録状況 ＆ 削除 start -->
         <div class="col-12 m-0 mt-2 p-0" style="background-color: lightsteelblue">
@@ -55,11 +185,28 @@
           <div class="row no-gutters">
             <div v-for="dbPage in dbPages" :key="dbPage.id" class="col-4">
               <div class="m-1 mt-2 border">
-                <!-- <b-img :src="dbPage.page.fileUrl" fluid class="m-0" alt="file"> </b-img> -->
-                <b-embed :src="dbPage.page.fileUrl" fluid class="m-0" type="embed" alt="file" />
                 <p class="m-0 p-0 pl-1">{{ dbPage.page.titleName }}</p>
+                <b-embed :src="dbPage.page.fileUrl" fluid class="m-0" type="embed" alt="file" />
                 <p class="m-0 p-0 pl-1">{{ dbPage.page.mainDate }}</p>
-                <p class="m-0 p-0 pl-1 text-break overflow-auto" style="overflow-wrap: break-word; max-height: 62px; background-color: gainsboro">{{ dbPage.page.mainText }}</p>
+
+                <!-- 本文表示 text1,2,3 -->
+                <div class="row m-0 p-0">
+                  <p :hidden="cCommonData.hiddenText1" class="col-4 m-0 p-0 px-1">{{ cCommonData.text1name }}</p>
+                  <p :hidden="cCommonData.hiddenText1" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text1 }}</p>
+                </div>
+
+                <div class="row m-0 p-0">
+                  <p :hidden="cCommonData.hiddenText2" class="col-4 m-0 p-0 px-1">{{ cCommonData.text2name }}</p>
+                  <p :hidden="cCommonData.hiddenText2" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text2 }}</p>
+                </div>
+
+                <div class="row m-0 p-0">
+                  <p :hidden="cCommonData.hiddenText3" class="col-4 m-0 p-0 px-1">{{ cCommonData.text3name }}</p>
+                  <p :hidden="cCommonData.hiddenText3" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text3 }}</p>
+                </div>
+
+                <!-- 本文表示 mainText -->
+                <p :hidden="cCommonData.hiddenMainText" class="m-0 p-0 pl-1 text-break overflow-auto" style="overflow-wrap: break-word; max-height: 62px; background-color: linen">{{ dbPage.page.mainText }}</p>
                 <b-button :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 float-left" variant="primary" @click="edit(dbPage.id)">編集</b-button>
                 <b-button :size="commonData.selectedBtnSize" class="px-1 py-0 m-1" @click="remove(dbPage.id)">削除</b-button>
               </div>
@@ -79,38 +226,52 @@
             <b-form @submit="onSubmitEdit" @reset="onReset">
               <b-button :size="commonData.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button>
               <b-button :size="commonData.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="dataReset()">データリセット</b-button>
-              <!-- <b-form> -->
-              <!-- <div class="form-group row p-0 pt-2 m-0"> -->
+
+              <!-- タイトル -->
               <div class="row p-0 pt-2 m-0 mr-2">
-                <div class="col-3 m-0 p-0">
-                  <b-form-group label-for="input-1" label="タイトル(必須):" class="m-0 mt-1 p-0" />
-                </div>
-                <div class="col-9 m-0 p-0">
-                  <b-form-input id="input-1" v-model="page.titleName" class="border" required placeholder="入力しないと登録できません。" />
+                <b-form-group label="タイトル(必須)" class="col-sm-3 m-0 mt-1 p-0 px-1" />
+                <div class="col-sm-9 m-0 p-0">
+                  <b-form-input v-model="page.titleName" class="border" required placeholder="入力しないと登録できません。" />
                 </div>
               </div>
 
+              <!-- 日付 & Sort -->
               <div class="row p-0 pt-2 m-0 mr-2">
-                <b-form-group label-for="input-2" label="日付(必須):" class="col-3 m-0 px-1 pt-2"> </b-form-group>
+                <b-form-group label="日付(必須)" class="col-3 m-0 px-1 pt-2"> </b-form-group>
                 <div class="col-9 m-0 p-0">
-                  <b-form-datepicker id="example-datepicker1" v-model="page.mainDate" class="mb-1"></b-form-datepicker>
+                  <b-form-datepicker v-model="page.mainDate" class="mb-1"></b-form-datepicker>
                 </div>
               </div>
-
-              <!-- <div class="form-group row m-0 p-0"> -->
-              <!-- <div class="row m-0 p-0"> -->
-              <!-- <div v-show="showImageReg" class="col-12 m-0 py-0 px-1">
-                <b-button :size="commonData.selectedBtnSize" type="submit" variant="primary" class="m-0 px-1 py-0">登録</b-button>
-                <b-button :size="commonData.selectedBtnSize" variant="dark" class="m-0 px-1 py-0" @click="dataReset()">データリセット</b-button>
-                </div> -->
-              <!-- </div> -->
-              <!-- </div> -->
             </b-form>
+
+            <!-- 短文1 -->
+            <div class="row p-0 pt-2 m-0 mr-2">
+              <b-form-group :hidden="cCommonData.hiddenText1" class="col-3 m-0 px-1 pt-2">{{ cCommonData.text1name }}</b-form-group>
+              <div class="col-9 m-0 p-0">
+                <b-form-input v-model="page.text1" :hidden="cCommonData.hiddenText1" class="border" required placeholder="空欄でもOK" />
+              </div>
+            </div>
+
+            <!-- 短文2 -->
+            <div class="row p-0 pt-2 m-0 mr-2">
+              <b-form-group :hidden="cCommonData.hiddenText2" class="col-3 m-0 px-1 pt-2">{{ cCommonData.text2name }}</b-form-group>
+              <div class="col-9 m-0 p-0">
+                <b-form-input v-model="page.text2" :hidden="cCommonData.hiddenText2" class="border" required placeholder="空欄でもOK" />
+              </div>
+            </div>
+
+            <!-- 短文3 -->
+            <div class="row p-0 pt-2 m-0 mr-2">
+              <b-form-group :hidden="cCommonData.hiddenText3" class="col-3 m-0 px-1 pt-2">{{ cCommonData.text3name }}</b-form-group>
+              <div class="col-9 m-0 p-0">
+                <b-form-input v-model="page.text3" :hidden="cCommonData.hiddenText3" class="border" required placeholder="空欄でもOK" />
+              </div>
+            </div>
 
             <!-- 本文登録（必須ではない） -->
             <div class="row p-0 pt-2 m-0 mr-1">
-              <span class="col-2 m-0 mt-2 p-1 pt-3">本文:</span>
-              <b-form-textarea v-model="page.mainText" class="col-10" required placeholder="入力した内容は画像クリックで閲覧できます。" rows="3" max-rows="6"></b-form-textarea>
+              <span :hidden="cCommonData.hiddenMainText" class="col-2 m-0 mt-2 p-1 pt-3">長文</span>
+              <b-form-textarea v-model="page.mainText" :hidden="cCommonData.hiddenMainText" class="col-10" required placeholder="空欄でもOK。 入力した内容は画像クリックで閲覧できます。" rows="3" max-rows="6"></b-form-textarea>
             </div>
 
             <hr />
@@ -126,7 +287,6 @@
             <!-- <div v-show="showImageFlg" class="col-12"> -->
             <!-- <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageList()">画像リスト表示</button> -->
             <div v-show="toggleShow">
-              <!-- ここから -->
               <div class="m-2">
                 下の画像から選択してください。: <strong>{{ selected }}</strong>
               </div>
@@ -134,8 +294,8 @@
               <div class="row no-gutters">
                 <b-form-group v-for="(myImage, index2) in myImages" :key="myImage.id" class="col-4">
                   <div class="image_box" @click="selImage(myImage.url, index2)">
-                    <!-- <b-img v-model="selected" :src="myImage.url" class="m-0" alt="file" fluid> </b-img> -->
-                    <b-embed v-model="selected" :src="myImage.url" fluid type="embed" class="m-0" alt="file"> </b-embed>
+                    <!-- <b-img v-model="selected" :src="myImage.url" fluid class="m-0 p-1" alt="file"> </b-img> -->
+                    <b-embed v-model="selected" :src="myImage.url" fluid type="embed" class="m-0 p-1" alt="file"> </b-embed>
                     <b-form-radio v-model="selected" :value="'No.' + ++index2" class="positionRadioBtn ml-4 p-0"> </b-form-radio>
                   </div>
                 </b-form-group>
@@ -160,35 +320,56 @@
         <div v-show="showReg" class="col-12 m-0 p-0">
           <div class="m-0 p-0 mt-2" style="background-color: lightblue">
             <h4 class="mx-2 mb-0 p-0 pt-1">新規登録</h4>
-            <!-- <b-form v-if="show" @submit="onSubmit" @reset="onReset"> -->
             <b-form @submit="onSubmit" @reset="onReset">
               <b-button :size="commonData.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button>
               <b-button :size="commonData.selectedBtnSize" type="reset" variant="dark" class="m-1 px-1 py-0">リセット</b-button>
-              <!-- <b-form> -->
+
+              <!-- タイトル -->
               <div class="row p-0 pt-2 m-0 mr-2">
-                <b-form-group label-for="input-11" label="タイトル(必須):" class="col-sm-3 m-0 mt-1 p-0 px-1" />
+                <!-- <b-form-group label="タイトル(必須)" class="col-sm-3 m-0 mt-1 p-0 px-1" /> -->
+                <b-form-group label="タイトル(必須)" class="col-sm-3 m-0 mt-1 p-0 px-1" />
                 <div class="col-sm-9 m-0 p-0">
-                  <b-form-input id="input-11" v-model="page.titleName" class="border" required placeholder="入力しないと登録できません。" />
+                  <b-form-input v-model="page.titleName" class="border" required placeholder="入力しないと登録できません。" />
                 </div>
               </div>
 
+              <!-- 日付 & Sort -->
               <div class="row p-0 pt-2 m-0 mr-2">
-                <b-form-group label-for="input-12" label="日付(必須):" class="col-3 m-0 px-1 pt-2"> </b-form-group>
+                <b-form-group label="日付(必須)" class="col-3 m-0 px-1 pt-2"> </b-form-group>
                 <div class="col-9 m-0 p-0">
-                  <b-form-datepicker id="example-datepicker2" v-model="page.mainDate" class="mb-1"></b-form-datepicker>
+                  <b-form-datepicker v-model="page.mainDate" class="mb-1"></b-form-datepicker>
                 </div>
-                <!-- Form Datepicker -->
-                <!-- <label for="example-datepicker">Choose a date</label> -->
-                <!-- <b-form-datepicker id="example-datepicker" v-model="page.mainDate" class="mb-2"></b-form-datepicker> -->
-                <!-- <p>Value: '{{ page.mainDate }}'</p> -->
-                <!-- </div> -->
               </div>
             </b-form>
 
+            <!-- 短文1 -->
+            <div class="row p-0 pt-2 m-0 mr-2">
+              <b-form-group :hidden="cCommonData.hiddenText1" class="col-3 m-0 px-1 pt-2">{{ cCommonData.text1name }}</b-form-group>
+              <div class="col-9 m-0 p-0">
+                <b-form-input v-model="page.text1" :hidden="cCommonData.hiddenText1" class="border" required placeholder="空欄でもOK" />
+              </div>
+            </div>
+
+            <!-- 短文2 -->
+            <div class="row p-0 pt-2 m-0 mr-2">
+              <b-form-group :hidden="cCommonData.hiddenText2" class="col-3 m-0 px-1 pt-2">{{ cCommonData.text2name }}</b-form-group>
+              <div class="col-9 m-0 p-0">
+                <b-form-input v-model="page.text2" :hidden="cCommonData.hiddenText2" class="border" required placeholder="空欄でもOK" />
+              </div>
+            </div>
+
+            <!-- 短文3 -->
+            <div class="row p-0 pt-2 m-0 mr-2">
+              <b-form-group :hidden="cCommonData.hiddenText3" class="col-3 m-0 px-1 pt-2">{{ cCommonData.text3name }}</b-form-group>
+              <div class="col-9 m-0 p-0">
+                <b-form-input v-model="page.text3" :hidden="cCommonData.hiddenText3" class="border" required placeholder="空欄でもOK" />
+              </div>
+            </div>
+
             <!-- 本文登録（必須ではない） -->
             <div class="row p-0 pt-2 m-0 mr-1">
-              <span class="col-2 m-0 mt-2 p-1 pt-3">本文:</span>
-              <b-form-textarea v-model="page.mainText" class="col-10" required placeholder="入力した内容は画像クリックで閲覧できます。" rows="3" max-rows="6"></b-form-textarea>
+              <span :hidden="cCommonData.hiddenMainText" class="col-2 m-0 mt-2 p-1 pt-3">長文</span>
+              <b-form-textarea v-model="page.mainText" :hidden="cCommonData.hiddenMainText" class="col-10" required placeholder="空欄でもOK。 入力した内容は画像クリックで閲覧できます。" rows="3" max-rows="6"></b-form-textarea>
             </div>
 
             <hr />
@@ -284,6 +465,8 @@
       </div>
     </div>
     <p>{{ todaySet() }}</p>
+    <p>{{ myDataSet() }}</p>
+    <!-- <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-0 ml-2 px-1 py-0" @click="test1()">test1</b-button> -->
   </div>
 </template>
 
@@ -291,6 +474,7 @@
 // import { BIconClockHistory } from 'bootstrap-vue'
 // import { mapGetters } from 'vuex'
 import firebase from '~/plugins/firebase'
+
 const storage = firebase.storage()
 const storageRef = storage.ref()
 const imagesRef = storageRef.child('ccc/c22')
@@ -299,11 +483,37 @@ const db = firebase.firestore()
 export default {
   data() {
     return {
+      myCount: 0,
       pageNo: 'c22',
       todaySetFlg: false,
       editId: '',
       myData: {},
       commonData: {},
+      cCommonData: {
+        hiddenDate: false,
+        hiddenBtn: false,
+        hiddenText1: false,
+        hiddenText2: false,
+        hiddenText3: false,
+        btnName: '拡大表示',
+        text1name: '価格',
+        text2name: '生年月日',
+        text3name: '性別',
+        hiddenMainText: false,
+      },
+      cCommonWork: {
+        hiddenDate: false,
+        hiddenBtn: false,
+        hiddenText1: false,
+        hiddenText2: false,
+        hiddenText3: false,
+        btnName: '拡大表示',
+        text1name: '価格3',
+        text2name: '生年月日3',
+        text3name: '性別3',
+        hiddenMainText: false,
+      },
+      cCommon: {},
       selected: '選択されていません。',
       showEdit: false,
       showReg: true,
@@ -312,6 +522,9 @@ export default {
         titleName: '',
         mainDate: '',
         mainText: '',
+        text1: '',
+        text2: '',
+        text3: '',
         fileUrl: process.env.NO_IMAGE_URL,
       },
       myImages: [
@@ -345,11 +558,11 @@ export default {
       // return this.$store.getters['ccc/orderdDbPages']('c22')
       return this.$store.getters['ccc/orderdMainDate']
     },
-    // dbGetMyPageById() {
-    //   return this.$store.getters['ccc/getMyPageById']
-    //   // return this.$store.getters['ccc/getMyPageById'](id)
-    //   // }
-    // },
+
+    dbCcommon() {
+      return this.$store.getters['ccc/getCommonById']('common')
+    },
+
     dbHeaders() {
       return this.$store.getters['storeheader/orderdDbHeaders']
     },
@@ -358,8 +571,8 @@ export default {
   // ② created は画面を開いたとき呼ばれる。
   created() {
     // 下記の ccc は store/ccc.js のファイル名
-    // this.$store.dispatch('ccc/init')
     this.$store.dispatch('ccc/init', db.collection('ccc').doc(this.pageNo).collection(this.pageNo).orderBy('page.mainDate', 'desc'))
+    this.$store.dispatch('ccc/initCommon')
 
     // 下記の storeheader は store/storeheader.js のファイル名
     this.$store.dispatch('storeheader/init')
@@ -382,6 +595,76 @@ export default {
   // ⑨ methods は呼び出される度に実行
   // データが変更された時、反映したくない場合はmethodsを利用
   methods: {
+    toggleChk(num) {
+      switch (num) {
+        case 1:
+          this.cCommonWork.hiddenDate = !this.cCommonWork.hiddenDate
+          break
+        case 2:
+          this.cCommonWork.hiddenBtn = !this.cCommonWork.hiddenBtn
+          break
+        case 3:
+          this.cCommonWork.hiddenMainText = !this.cCommonWork.hiddenMainText
+          break
+        case 11:
+          this.cCommonWork.hiddenText1 = !this.cCommonWork.hiddenText1
+          break
+        case 12:
+          this.cCommonWork.hiddenText2 = !this.cCommonWork.hiddenText2
+          break
+        case 13:
+          this.cCommonWork.hiddenText3 = !this.cCommonWork.hiddenText3
+          break
+        default:
+          // console.log('---- error --- num in toggleChk(): ' + num)
+          break
+      }
+    },
+
+    // console.log('------- chkNemu1 in toggleChk(): ' + this.myData2.chkMenu1)
+
+    // modal 関連 ---------- start
+    showModal() {
+      // this.cCommonWork.hiddenDate = this.cCommonData.hiddenDate
+      // this.cCommonWork.hiddenBtn = this.cCommonData.hiddenBtn
+      // this.cCommonWork.hiddenText1 = this.cCommonData.hiddenText1
+      // this.cCommonWork.hiddenText2 = this.cCommonData.hiddenText2
+      // this.cCommonWork.hiddenText3 = this.cCommonData.hiddenText3
+      // this.cCommonWork.btnName = this.cCommonData.btnName
+      // this.cCommonWork.text1name = this.cCommonData.text1name
+      // this.cCommonWork.text2name = this.cCommonData.text2name
+      // this.cCommonWork.text3name = this.cCommonData.text3name
+      // this.cCommonWork.hiddenMainText = this.cCommonData.hiddenMainText
+      this.cCommonWork = JSON.parse(JSON.stringify(this.cCommonData))
+      this.$refs['modal-1'].show()
+    },
+
+    // claseModal() {
+    //   this.$refs['modal-1'].hide()
+    // },
+
+    regCommon() {
+      // modalウィンドウを閉じる
+      this.$refs['modal-1'].hide()
+
+      // Firestre への保存
+      // console.log('1-1 ------ cCommonWork ----: ', this.cCommonWork)
+      this.$store.dispatch('ccc/updateCommon', this.cCommonWork)
+      this.toastFileUpdate('登録', '登録しました。')
+    },
+    // modal 関連 ---------- end
+
+    myDataSet() {
+      // console.log('***** Test log ***** in myDataSet()')
+      try {
+        // this.commonData = this.dbCommon.myData
+        this.cCommonData = this.dbCcommon.cCommon
+      } catch (error) {
+        // alert('***** error ***** in myDataSet(): ' + error)
+        // console.log('***** error ***** in myDataSet(): ' + error)
+      }
+    },
+
     selnum(num) {
       // this.selected = num
       // console.log('header selnum selected: ' + num)
@@ -476,17 +759,20 @@ export default {
       const myPage = this.$store.getters['ccc/getMyPageById'](id)
       this.page.titleName = myPage.page.titleName
       this.page.mainDate = myPage.page.mainDate
+      this.page.text1 = myPage.page.text1
+      this.page.text2 = myPage.page.text2
+      this.page.text3 = myPage.page.text3
       this.page.mainText = myPage.page.mainText
       this.page.fileUrl = myPage.page.fileUrl
+      // this.page.hiddenBtn = myPage.page.hiddenBtn
       this.editId = id
     },
     editCancel() {
-      this.page.titleName = ''
+      // this.page.titleName = ''
       // this.page.mainDate = moment(Date()).format('YYYY-MM-DD')
+      this.initPageData()
       this.todaySet2()
       // this.page.fileUrl = 'https://firebasestorage.googleapis.com/v0/b/hiro1-223af.appspot.com/o/no_image.png?alt=media&token=d8ab83f9-db9c-46a2-8795-fe2ad439f419'
-      this.page.fileUrl = process.env.NO_IMAGE_URL
-      this.page.mainText = ''
       this.showEdit = false
       this.showReg = true
     },
@@ -494,9 +780,25 @@ export default {
       const myPage = this.$store.getters['ccc/getMyPageById'](this.editId)
       this.page.titleName = myPage.page.titleName
       this.page.mainDate = myPage.page.mainDate
+      this.page.text1 = myPage.page.text1
+      this.page.text2 = myPage.page.text2
+      this.page.text3 = myPage.page.text3
       this.page.mainText = myPage.page.mainText
       this.page.fileUrl = myPage.page.fileUrl
+      // this.page.hiddenBtn = myPage.page.hiddenBtn
     },
+
+    initPageData() {
+      this.page.titleName = ''
+      this.page.mainText = ''
+      this.page.text1 = ''
+      this.page.text2 = ''
+      this.page.text3 = ''
+      this.page.fileUrl = process.env.NO_IMAGE_URL
+      // this.page.mainDate = ''
+      this.todaySet2()
+    },
+
     remove(id) {
       // const myResult = confirm('本当に削除してよろしいでしょうか？')
       // if (myResult) {
@@ -530,12 +832,9 @@ export default {
       // this.$refs.input.value = ''
       this.page.titleName = ''
       // this.page.mainDate = moment(Date()).format('YYYY-MM-DD')
-      this.todaySet2()
+      // this.todaySet2()
       // this.page.fileUrl = 'https://firebasestorage.googleapis.com/v0/b/hiro1-223af.appspot.com/o/no_image.png?alt=media&token=d8ab83f9-db9c-46a2-8795-fe2ad439f419'
-      this.page.fileUrl = process.env.NO_IMAGE_URL
-      // this.page.subject = ''
-      this.page.mainText = ''
-      // this.showImageFlg = false
+      this.initPageData()
       this.showEdit = false
       this.showReg = true
       // this.$nextTick(() => {
@@ -554,8 +853,7 @@ export default {
       // this.page.titleName = ''
       this.page = {}
       this.todaySet2()
-      this.page.fileUrl = process.env.NO_IMAGE_URL
-      this.page.mainText = ''
+      this.initPageData()
       this.selected = '選択されていません。'
     },
     onReset(evt) {
@@ -563,13 +861,9 @@ export default {
       // Reset our page values
       this.page.titleName = ''
       // this.page.mainDate = moment(Date()).format('YYYY-MM-DD')
-      this.todaySet2()
+      // this.todaySet2()
       // this.page.fileUrl = 'https://firebasestorage.googleapis.com/v0/b/hiro1-223af.appspot.com/o/no_image.png?alt=media&token=d8ab83f9-db9c-46a2-8795-fe2ad439f419'
-      this.page.fileUrl = process.env.NO_IMAGE_URL
-      // this.page.subject = ''
-      this.page.mainText = ''
-      // this.show = false
-      // this.showImageFlg = false
+      this.initPageData()
       // this.$nextTick(() => {
       //   this.show = true
       // })
@@ -1063,6 +1357,11 @@ export default {
   margin: 0;
   padding: 0;
 }
+
+del {
+  color: rgba(255, 0, 0, 1);
+}
+
 /* h1,
 h2 {
   font-weight: normal;

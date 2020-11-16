@@ -27,12 +27,12 @@ export default {
         hid: 'description',
         name: 'description',
         // content: process.env.npm_package_description || '',
-        content: '吉峯アプリ開発です。Webページ作成,ホームページ作成,iPhoneアプリ作成,Androidアプリ作成等のソフトウェア開発を行っています。',
+        content: '吉峯アプリ開発です。ホームページ作成,iPhoneアプリ作成,Androidアプリ作成等のソフトウェア開発を行っています。',
       },
       {
         hid: 'keywords',
         name: 'keywords',
-        content: '吉峯アプリ開発,吉峯和美,老人プログラマー,Webページ作成,ホームページ作成,iPhoneアプリ作成,Androidアプリ作成',
+        content: '吉峯アプリ開発,吉峯和美,老人プログラマー,Webサイト作成,ホームページ作成,iPhoneアプリ作成,Androidアプリ作成',
       },
       {
         name: 'author',
@@ -73,6 +73,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
+  // plugins: ['~/plugins/my-import', '~/plugins/my-inject', '~/plugins/firebase.js', { src: '~/plugins/window.js' }],
   plugins: ['~/plugins/my-import', '~/plugins/my-inject', '~/plugins/firebase.js'],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -113,7 +114,16 @@ export default {
         _: 'lodash',
       }),
     ],
-    extend(config, ctx) {},
+    extend(config, ctx) {
+      // babel を適用させなため、以下を追記
+      // config.module.rules = config.module.rules.map((rule) => {
+      //   if (rule.loader === 'babel-loader') {
+      //     rule.exclude = /node_modules|vendor/
+      //   }
+      //   return rule
+      // })
+    },
+
     /*
     以下は * core- js / modules / es6 関連エラーのため追加
     参考： https://tech.moyashidaisuke.com/entry/nuxt-core-js-error

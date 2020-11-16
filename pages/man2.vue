@@ -370,7 +370,6 @@
             <p class="text-light m-0 ml-2">⑦「登録」をクリック</p> -->
         </div>
         <div class="col-5 m-0 p-2">
-          <!-- <b-img src="../assets/accessMap.jpg" height="100" width="130" /> -->
           <b-img src="../assets/accessMap1.jpg" class="img-fluid" />
           <b-img src="../assets/accessMap3.jpg" class="img-fluid mt-2" />
         </div>
@@ -641,9 +640,6 @@ export default {
           this.myData2.chkMenu25 = this.myData.chkMenu25
 
           // メニュー 3 アクセスマップ
-          // this.myData2.chkAccessMap = this.myData.chkAccessMap
-          // this.myData2.accessMap = this.myData.accessMap
-          // this.myData2.accessMapUrl = this.myData.accessMapUrl
           this.myData2.chkMenu3 = this.myData.chkMenu3
           this.myData2.chkMenu31 = this.myData.chkMenu31
           this.myData2.chkMenu32 = this.myData.chkMenu32

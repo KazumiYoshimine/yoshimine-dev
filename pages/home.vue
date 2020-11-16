@@ -654,6 +654,12 @@ export default {
     // console.log('testData ------ in created(): ' + testData)
   },
 
+  // ④ updated 画面が更新された後、呼び出される。
+  // SSR(Firebase等)では使えない。
+  updated() {
+    this.selnum(0)
+  },
+
   methods: {
     // test1() {
     //   // console.log($.fn.jquery)

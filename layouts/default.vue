@@ -1,26 +1,26 @@
 <template>
   <div>
-    <myHeader class="sticky-top" />
-    <div class="container-fluid">
-      <div class="row m-0">
-        <!-- 左サイド エリア -->
-        <!-- <div class="col-lg-2 col-md-3 d-none d-md-block p-0">
+    <myHeader class="sticky-top m-0 p-0" />
+    <!-- <div class="container-fluid"> -->
+    <!-- <div class="row m-0"> -->
+    <!-- 左サイド エリア -->
+    <!-- <div class="col-lg-2 col-md-3 d-none d-md-block p-0">
           <LeftSide />
         </div> -->
 
-        <!-- メイン エリア -->
-        <!-- <div class="col-lg-8 col-md-9 col-sm-12 p-0"> -->
-        <!-- <div class="col-lg-10 col-md-9 col-sm-12 p-0"> -->
-        <div class="col-12 p-0">
-          <nuxt />
-        </div>
+    <!-- メイン エリア -->
+    <!-- <div class="col-lg-8 col-md-9 col-sm-12 p-0"> -->
+    <!-- <div class="col-lg-10 col-md-9 col-sm-12 p-0"> -->
+    <div class="col-12 p-0">
+      <nuxt />
+    </div>
 
-        <!-- 右サイド エリア -->
-        <!-- <div class="col-lg-2 d-none d-lg-block p-0">
+    <!-- 右サイド エリア -->
+    <!-- <div class="col-lg-2 d-none d-lg-block p-0">
           <RightSide />
         </div> -->
-      </div>
-    </div>
+    <!-- </div> -->
+    <!-- </div> -->
 
     <!-- サイトマップ エリア -->
     <!-- <mySitemap /> -->

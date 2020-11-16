@@ -1,11 +1,11 @@
 <template>
-  <div class="container-fluid no-gutters">
-    <div class="row">
-      <!-- メイン エリア  -->
-      <!-- <Home /> -->
-      <Auth />
-    </div>
-  </div>
+  <!-- <div class="container-fluid no-gutters"> -->
+  <!-- <div class="row"> -->
+  <!-- メイン エリア  -->
+  <!-- <Home /> -->
+  <Auth />
+  <!-- </div> -->
+  <!-- </div> -->
 </template>
 
 <script>

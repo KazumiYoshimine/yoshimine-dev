@@ -4,7 +4,7 @@
   },
   "hosting": {
     "public": "dist",
-    "site": "yoshimine-dev",
+    "site": "yoshimine",
     "ignore": [
       "firebase.json",
       "**/.*",
