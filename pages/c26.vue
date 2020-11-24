@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid m-0 p-1">
     <div v-for="dbHeader in dbHeaders" :key="dbHeader.id" class="m-0 p-0">
       <h5 class="text-light text-center m-0 p-1" :style="commonData.buttonColorBasicSet">{{ dbHeader.myData.m26 }}</h5>
     </div>
@@ -10,27 +10,38 @@
       <div v-for="(dbPage, index) in dbPages" :key="dbPage.id" class="col-sm-6 col-md-4">
         <div v-b-modal="'data-' + index" class="m-1 mt-2 border">
           <!-- <b-img :src="dbPage.page.fileUrl" class="m-0" alt="file" fluid> </b-img> -->
-          <p class="m-0 p-0 pl-1">{{ dbPage.page.titleName }}</p>
-          <b-embed :src="dbPage.page.fileUrl" class="m-0" type="embed" alt="file" fluid />
 
-          <div class="d-flex justify-content-between align-items-center">
-            <p :hidden="cCommonData.hiddenDate" class="m-0 p-0 pl-1">{{ dbPage.page.mainDate }}</p>
-            <b-button :hidden="cCommonData.hiddenBtn" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">拡大表示</b-button>
+          <!-- タイトル ＆ 日付 -->
+          <div class="px-1 d-flex justify-content-between align-items-center">
+            <p class="m-0 p-0">{{ dbPage.page.titleName }}</p>
+            <p :hidden="cCommonData.hiddenDate" class="m-0 p-0">{{ dbPage.page.mainDate }}</p>
           </div>
 
+          <!-- 画像 -->
+          <b-embed :src="dbPage.page.fileUrl" class="m-0" type="embed" alt="file" fluid />
+
+          <!-- 1行目 -->
           <div class="row m-0 p-0">
             <p :hidden="cCommonData.hiddenText1" class="col-4 m-0 p-0 px-1">{{ cCommonData.text1name }}</p>
             <p :hidden="cCommonData.hiddenText1" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text1 }}</p>
           </div>
 
+          <!-- 2行目 -->
           <div class="row m-0 p-0">
             <p :hidden="cCommonData.hiddenText2" class="col-4 m-0 p-0 px-1">{{ cCommonData.text2name }}</p>
             <p :hidden="cCommonData.hiddenText2" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text2 }}</p>
           </div>
 
+          <!-- 3行目 -->
           <div class="row m-0 p-0">
             <p :hidden="cCommonData.hiddenText3" class="col-4 m-0 p-0 px-1">{{ cCommonData.text3name }}</p>
             <p :hidden="cCommonData.hiddenText3" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text3 }}</p>
+          </div>
+
+          <!-- ボタン -->
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- <p :hidden="cCommonData.hiddenDate" class="m-0 p-0 pl-1">{{ dbPage.page.mainDate }}</p> -->
+            <b-button :hidden="cCommonData.hiddenBtn" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">{{ cCommonData.btnName }}</b-button>
           </div>
         </div>
 
@@ -66,7 +77,7 @@
               <h5 :hidden="cCommonData.hiddenText3" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text3 }}</h5>
             </div>
 
-            <!-- 本文表示 mainText -->
+            <!-- 本文表示 mainText (長文) -->
             <h5 :hidden="cCommonData.hiddenMainText" class="text-justify text-break m-0 p-2 bg-a13-linen" style="white-space: pre-wrap">{{ dbPage.page.mainText }}</h5>
           </div>
         </b-modal>
@@ -86,6 +97,7 @@
           <!-- <b-button @click="showModal">page設定</b-button> -->
           <!-- modal 起動ボタン end ***** -->
         </div>
+
         <!-- modal ウィンドウ start ***** -->
 
         <!-- <b-modal id="modal-1"> -->
@@ -185,9 +197,13 @@
           <div class="row no-gutters">
             <div v-for="dbPage in dbPages" :key="dbPage.id" class="col-4">
               <div class="m-1 mt-2 border">
-                <p class="m-0 p-0 pl-1">{{ dbPage.page.titleName }}</p>
+                <div class="px-1 d-flex justify-content-between align-items-center">
+                  <p class="m-0 p-0 pl-1">{{ dbPage.page.titleName }}</p>
+                  <p class="m-0 p-0 pl-1">{{ dbPage.page.mainDate }}</p>
+                </div>
+
+                <!-- 画像 -->
                 <b-embed :src="dbPage.page.fileUrl" fluid class="m-0" type="embed" alt="file" />
-                <p class="m-0 p-0 pl-1">{{ dbPage.page.mainDate }}</p>
 
                 <!-- 本文表示 text1,2,3 -->
                 <div class="row m-0 p-0">
@@ -303,13 +319,6 @@
 
               <!-- 以下の float-cb について： 上記の float-left の解除ができないので、style で設定 -->
               <div class="float-cb p-2">以下の「画像登録・削除」から、新たに画像を追加したり、 不要な画像を削除することができます。</div>
-
-              <!-- 消すな ここから４行 -->
-              <div v-show="hihyouji" class="col-12 mt-2">
-                <!-- <div class="col-12 mt-2"> -->
-                <b-form-input v-model="page.fileUrl" type="text" required placeholder=""></b-form-input>
-              </div>
-              <!-- 消すな ここまで -->
             </div>
             <!-- 画像添付 end -->
           </div>
@@ -401,13 +410,6 @@
 
               <!-- 以下の float-cb について： 上記の float-left の解除ができないので、style で設定 -->
               <div class="float-cb p-2">以下の「画像新規登録・削除」から、新たに画像を追加したり、 不要な画像を削除することができます。</div>
-
-              <!-- 消すな ここから４行 -->
-              <div v-show="hihyouji" class="col-12 mt-2">
-                <!-- <div class="col-12 mt-2"> -->
-                <b-form-input v-model="page.fileUrl" type="text" required placeholder=""></b-form-input>
-              </div>
-              <!-- 消すな ここまで -->
             </div>
             <!-- 画像添付 end -->
           </div>
@@ -489,6 +491,7 @@ export default {
       editId: '',
       myData: {},
       commonData: {},
+
       cCommonData: {
         hiddenDate: false,
         hiddenBtn: false,
@@ -507,17 +510,16 @@ export default {
         hiddenText1: false,
         hiddenText2: false,
         hiddenText3: false,
-        btnName: '拡大表示',
-        text1name: '価格3',
-        text2name: '生年月日3',
-        text3name: '性別3',
+        btnName: '',
+        text1name: '',
+        text2name: '',
+        text3name: '',
         hiddenMainText: false,
       },
       cCommon: {},
       selected: '選択されていません。',
       showEdit: false,
       showReg: true,
-      hihyouji: false,
       page: {
         titleName: '',
         mainDate: '',
@@ -527,6 +529,7 @@ export default {
         text3: '',
         fileUrl: process.env.NO_IMAGE_URL,
       },
+
       myImages: [
         {
           name: '',
@@ -595,6 +598,11 @@ export default {
   // ⑨ methods は呼び出される度に実行
   // データが変更された時、反映したくない場合はmethodsを利用
   methods: {
+    // test1() {
+    //   this.$store.dispatch('ccc/updateCommon', this.cCommonWork)
+    //   this.toastFileUpdate('登録', '登録しました。')
+    // },
+
     toggleChk(num) {
       switch (num) {
         case 1:
@@ -649,8 +657,22 @@ export default {
 
       // Firestre への保存
       // console.log('1-1 ------ cCommonWork ----: ', this.cCommonWork)
-      this.$store.dispatch('ccc/updateCommon', this.cCommonWork)
-      this.toastFileUpdate('登録', '登録しました。')
+      this.$store
+        .dispatch('ccc/updateCommon', this.cCommonWork)
+        .then((value) => {
+          // console.log('3-1-OK +++++++++ in home-(): ', value)
+          if (value === 'regOK') {
+            this.toastFileUpdate('登録', '登録しました。')
+          } else {
+            alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+          }
+        })
+        .catch((error) => {
+          alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？: ', error)
+          // console.log('3-1-NG ***** error ***** in home-(): ', error)
+        })
+
+      // this.toastFileUpdate('登録', '登録しました。')
     },
     // modal 関連 ---------- end
 
@@ -742,7 +764,21 @@ export default {
     add() {
       // 下記の ccc は store/ccc.js のファイル名
       // this.$store.dispatch('ccc/add', this.page)
-      this.$store.dispatch('ccc/add', { pageNo: this.pageNo, page: this.page })
+      this.$store
+        .dispatch('ccc/add', { pageNo: this.pageNo, page: this.page })
+        .then((value) => {
+          // console.log('3-1-OK +++++++++ in home-(): ', value)
+          if (value === 'regOK') {
+            this.toastFileUpdate('登録', '登録しました。')
+          } else {
+            alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+          }
+        })
+        .catch((error) => {
+          alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？: ', error)
+          // console.log('3-1-NG ***** error ***** in home-(): ', error)
+        })
+
       // this.page.titleName = ''
       // this.page.mainText = ''
       // this.page.fileUrl = ''
@@ -751,7 +787,20 @@ export default {
     update() {
       // 下記の ccc は store/ccc.js のファイル名
       // this.$store.dispatch('ccc/update', { id: this.editId, page: this.page })
-      this.$store.dispatch('ccc/update', { pageNo: this.pageNo, id: this.editId, page: this.page })
+      this.$store
+        .dispatch('ccc/update', { pageNo: this.pageNo, id: this.editId, page: this.page })
+        .then((value) => {
+          // console.log('3-1-OK +++++++++ in home-(): ', value)
+          if (value === 'regOK') {
+            this.toastFileUpdate('登録', '登録しました。')
+          } else {
+            alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+          }
+        })
+        .catch((error) => {
+          alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？: ', error)
+          // console.log('3-1-NG ***** error ***** in home-(): ', error)
+        })
     },
     edit(id) {
       this.showEdit = true
@@ -816,7 +865,20 @@ export default {
         if (result.value) {
           // DBに保存されている画像削除
           // this.$store.dispatch('ccc/remove', id)
-          this.$store.dispatch('ccc/remove', { pageNo: this.pageNo, id })
+          this.$store
+            .dispatch('ccc/remove', { pageNo: this.pageNo, id })
+            .then((value) => {
+              // console.log('3-1-OK +++++++++ in home-(): ', value)
+              if (value === 'regOK') {
+                this.toastFileUpdate('登録', '登録しました。')
+              } else {
+                alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+              }
+            })
+            .catch((error) => {
+              alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？: ', error)
+              // console.log('3-1-NG ***** error ***** in home-(): ', error)
+            })
         }
       })
     },
@@ -827,7 +889,7 @@ export default {
       // alert(JSON.stringify(this.page))
       evt.preventDefault()
       this.update()
-      this.toastFileUpdate('編集', '登録しました。')
+      // this.toastFileUpdate('編集', '登録しました。')
       // 以下はinputの入力をリセット
       // this.$refs.input.value = ''
       this.page.titleName = ''
@@ -847,7 +909,7 @@ export default {
       // alert(JSON.stringify(this.page))
       evt.preventDefault()
       this.add()
-      this.toastFileUpdate('登録', '登録しました。')
+      // this.toastFileUpdate('登録', '登録しました。')
       // 以下はinputの入力をリセット
       // this.$refs.input.value = ''
       // this.page.titleName = ''
@@ -1155,7 +1217,6 @@ export default {
       })
     },
     imageListEdit2() {
-      // this.hihyouji = true
       // FireStrage のフォルダとファイルのリストを取得
       // this.showImageReg = false
 

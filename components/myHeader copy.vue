@@ -319,10 +319,10 @@
             <!-- 管理 man start -->
             <div v-show="isLogin" class="m-0 p-0">
               <b-navbar-nav variant="info">
-                <b-button to="/DB" :disabled="isMainUser" variant="outline-dark" :size="commonData.selectedBtnSize" :class="isBorder2(90, commonData.myBorder)" class="m-1 p-1" @click="selnum(901)">{{ commonData.mArchiveDB }}</b-button>
-                <b-button to="/man" :disabled="isMainUser" variant="outline-dark" :size="commonData.selectedBtnSize" :class="isBorder2(91, commonData.myBorder)" class="m-1 p-1" @click="selnum(911)">共通設定</b-button>
-                <b-button to="/man1" :disabled="isMainUser" variant="outline-dark" :size="commonData.selectedBtnSize" :class="isBorder2(92, commonData.myBorder)" class="m-1 p-1" @click="selnum(921)">メニュー設定</b-button>
-                <b-button to="/man2" :disabled="isMainUser" variant="outline-dark" :size="commonData.selectedBtnSize" :class="isBorder2(93, commonData.myBorder)" class="m-1 p-1" @click="selnum(931)">Side Menu設定</b-button>
+                <b-button to="/DB" variant="dark" :size="commonData.selectedBtnSize" :class="isBorder2(90, commonData.myBorder)" class="m-1 p-1" @click="selnum(901)">{{ commonData.mArchiveDB }}</b-button>
+                <b-button to="/man" variant="dark" :size="commonData.selectedBtnSize" :class="isBorder2(91, commonData.myBorder)" class="m-1 p-1" @click="selnum(911)">共通設定</b-button>
+                <b-button to="/man1" variant="dark" :size="commonData.selectedBtnSize" :class="isBorder2(92, commonData.myBorder)" class="m-1 p-1" @click="selnum(921)">メニュー設定</b-button>
+                <b-button to="/man2" variant="dark" :size="commonData.selectedBtnSize" :class="isBorder2(93, commonData.myBorder)" class="m-1 p-1" @click="selnum(931)">Side Menu設定</b-button>
                 <!-- ****** 本コメント、及び下記の2行(add, set) は消すな！ -->
                 <!-- <b-button variant="dark" class="m-1 p-1" @click="add()">add</b-button> -->
                 <!-- <b-button variant="dark" class="m-1 p-1" @click="set()">set</b-button> -->
@@ -362,8 +362,6 @@
     <p>{{ myDataSet() }}</p>
     <p>{{ myDataSendToRightSide() }}</p>
     <p>{{ myDataSendToFooter() }}</p>
-    <p>{{ myDataSendToFooter() }}</p>
-    <p>{{ myCommonUsers() }}</p>
     <!-- <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-0 ml-2 px-1 py-0" @click="test1()">test1</b-button> -->
   </div>
 </template>
@@ -391,7 +389,6 @@ export default {
       manFlg: true,
       // manFlg: false,
       loginUser: {},
-      isMainUser: true,
       selected: 0,
       numBorder: 0,
       visible: true,
@@ -436,6 +433,7 @@ export default {
     }
   },
 
+  // firestore DB からのデータ取得
   // computedは、値が変わるとその値に依存しているすべてのバインディングが更新される
   computed: {
     isLogin() {
@@ -452,15 +450,9 @@ export default {
       // sort する場合(storeheader.jsの最後でソートキーを指定)
       return this.$store.getters['storeheader/orderdDbHeaders']
     },
-
     dbCommon() {
       return this.$store.getters['commonDB/getCommonById']('common')
     },
-
-    dbCommonUsers() {
-      return this.$store.getters['commonDB/getCommonById']('users')
-    },
-
     dbSideById() {
       try {
         const getData = this.$store.getters['storeside/getSideById']('f8sO13EuzfLTFSFeEjQw')
@@ -477,30 +469,10 @@ export default {
         return ''
       }
     },
-
     dbSides() {
       return this.$store.getters['storeside/orderdDbSides']
     },
   },
-
-  // watch は、値が変わるとその値に依存しているすべてのバインディングが更新される
-  // computed との違いは return が不要など、
-  // watch: {
-  //   // ログインユーザが mainUser であったら、this.mainUser = true
-  //   myCommonUsers() {
-  //     const usersData = this.$store.getters['commonDB/getCommonById']('users')
-  //     console.log('20201120-1-1 ------: ', usersData)
-  //     console.log('20201120-1-2 ------: ', usersData.mainUser)
-  //     console.log('20201120-1-3 ------: ', usersData.mainUser[0])
-  //     console.log('20201120-1-4 ------: ', usersData.mainUser[1])
-  //     console.log('20201120-2 ------: ', this.loginUser.email)
-  //     const resultSearch = usersData.mainUser.indexOf(this.loginUser.email)
-  //     console.log('Main User 検索結果： ', resultSearch)
-  //     if (resultSearch > -1) {
-  //       this.isMainUser = false
-  //     }
-  //   },
-  // },
 
   // created は画面を開いたとき呼ばれる。
   created() {
@@ -571,7 +543,9 @@ export default {
   },
   methods: {
     // test1() {
-    //   this.myCommonUsers()
+    //   this.selnum(21)
+    //   // this.$nuxt.$emit('selnumside', '21')
+    //   // this.$nuxt.$emit('selnum', '21')
     // },
 
     logout() {
@@ -583,24 +557,6 @@ export default {
         .then(() => {
           // console.log('ログアウトしました')
         })
-    },
-
-    // ログインユーザが mainUser であったら、this.mainUser = true
-    myCommonUsers() {
-      try {
-        const usersData = this.dbCommonUsers
-        if (usersData !== undefined) {
-          // console.log('20201120-1 ------: ', usersData)
-          // console.log('20201120-2 ------: ', this.loginUser.email)
-          const resultSearch = usersData.mainUser.indexOf(this.loginUser.email)
-          // console.log('20201120-3 ------ Main User 検索結果： ', resultSearch)
-          if (resultSearch > -1) {
-            this.isMainUser = false
-          }
-        }
-      } catch (error) {
-        // console.log('error ****** in myCommonUsers(): ', error)
-      }
     },
 
     // カラー設定 1 Menu
@@ -739,30 +695,14 @@ export default {
       // this.myData.topTitle = 'ようこそ！'
       // console.log('***************** dateTime in dbHeaders: ' + Date())
     },
-
-    // 以下の add は通常、未使用かも？ ←たぶん初期登録で利用
     add() {
       // 下記の storeheader は store/storeheader.js のファイル名
       // this.$store.dispatch('storeheader/add', { titelName: this.myData.titleName, mainText: this.myData.mainText })
-      this.$store
-        .dispatch('storeheader/add', this.myData)
-        .then((value) => {
-          // console.log('3-1-OK +++++++++ in home-(): ', value)
-          if (value === 'regOK') {
-            this.toastFileUpdate('登録', '登録しました。')
-          } else {
-            alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
-          }
-        })
-        .catch((error) => {
-          alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？: ', error)
-          // console.log('3-1-NG ***** error ***** in home-(): ', error)
-        })
+      this.$store.dispatch('storeheader/add', this.myData)
     },
-
-    // 以下の set は通常、未使用かも？ ←たぶん初期登録で利用
     set() {
       // 下記の storeheader は store/storeheader.js のファイル名
+      // this.$store.dispatch('storeheader/add', { titelName: this.myData.titleName, mainText: this.myData.mainText })
       this.$store.dispatch('storeheader/set', this.myData)
     },
   },

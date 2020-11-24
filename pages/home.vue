@@ -3,32 +3,21 @@
     <!-- ------------------ カルーセル-2（回転木馬） Start ------------------ -->
     <div class="row no-gutters">
       <div class="col-12 m-0 p-0"></div>
-      <!-- 画像可変 start -->
       <b-carousel id="carousel-1" v-model="slide" :interval="mInterval" fade indicators class="m-0 p-1 pt-0" style="text-shadow: 1px 1px 2px #333" @sliding-start="onSlideStart" @sliding-end="onSlideEnd">
         <div v-for="dbCarousel in dbCarousels" :key="dbCarousel.id">
-          <b-link :to="dbCarousel.carousel.myLink" @click="selnum(99999)">
+          <b-link :to="dbCarousel.carousel.myLink">
             <b-carousel-slide :img-src="dbCarousel.carousel.imageUrl">
               <h2 class="textShadow m-0 p-0">{{ dbCarousel.carousel.comment }}</h2>
             </b-carousel-slide>
           </b-link>
         </div>
       </b-carousel>
-      <!-- 画像可変 end -->
-
-      <!-- 画像固定 start -->
-      <!-- <b-carousel id="carousel-1" v-model="slide" :interval="1500" fade indicators background="#ababab" style="text-shadow: 1px 1px 2px #333;" @sliding-start="onSlideStart" @sliding-end="onSlideEnd">
-        <b-carousel-slide img-src="../assets/mansion1.jpg">
-          <h2 class="text-primary">マンション外観</h2>
-        </b-carousel-slide>
-      </b-carousel> -->
-      <!-- 画像固定 end -->
     </div>
     <!-- ------------------ カルーセル-2（回転木馬） End ------------------ -->
 
     <!-- ------------------ トピックス Start ------------------ -->
     <div class="row m-0 mt-3 p-0">
       <div class="col-12 m-0 p-1">
-        <!-- <div v-for="dbHeader in dbHeaders" :key="dbHeader.id" class="m-0 p-0"> -->
         <!-- <h5 class="text-light bg-info text-center m-0 p-1">{{ commonData.mTopics }}</h5> -->
         <h5 class="text-light text-center m-0 p-1" :style="commonData.buttonColorBasicSet">{{ commonData.mTopics }}</h5>
         <!-- </div> -->
@@ -39,48 +28,88 @@
     <div class="row m-0 mt-3 p-0">
       <!-- 以下の :key="dbHome.id" でソートされる -->
       <div v-for="(dbHome, index) in dbHomes" :key="dbHome.id" class="col-sm-6 col-md-4 m-0 p-1">
-        <!-- <div v-b-modal="'data-' + index" class="border m-0"> -->
-        <div class="border m-0">
-          <div class="m-0 p-0 d-flex justify-content-between">
-            <div v-if="dbHome.home.myLink" class="m-0 p-0">
-              <!-- <div v-if="dbHome.home.titleName === 'aaaa'" class="m-0 p-0"> -->
-              <!-- <b-button href="/a41" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color:honeydew;">詳細</b-button> -->
-              <b-button :to="dbHome.home.myLink" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">関連情報へジャンプ</b-button>
+        <div v-b-modal="'data-' + index" class="border m-0">
+          <div class="border m-0">
+            <!-- タイトル ＆ 日付 -->
+            <!-- <p class="m-0 p-0 pl-1">{{ dbHome.home.titleName }}</p> -->
+            <div class="px-1 d-flex justify-content-between align-items-center">
+              <p class="m-0 p-0">{{ dbHome.home.titleName }}</p>
+              <p :hidden="homeCommonData.hiddenDate" class="m-0 p-0">{{ dbHome.home.mainDate }}</p>
             </div>
-            <div v-else class="m-0 p-0">
+
+            <!-- 画像 -->
+            <b-embed :src="dbHome.home.fileUrl" class="m-0 p-0" type="embed" alt="not file" fluid />
+
+            <!-- 1行目 -->
+            <div class="row m-0 p-0">
+              <p :hidden="homeCommonData.hiddenText1" class="col-4 m-0 p-0 px-1">{{ homeCommonData.text1name }}</p>
+              <p :hidden="homeCommonData.hiddenText1" class="col-8 m-0 p-0 px-1">{{ dbHome.home.text1 }}</p>
+            </div>
+
+            <!-- 2行目 -->
+            <div class="row m-0 p-0">
+              <p :hidden="homeCommonData.hiddenText2" class="col-4 m-0 p-0 px-1">{{ homeCommonData.text2name }}</p>
+              <p :hidden="homeCommonData.hiddenText2" class="col-8 m-0 p-0 px-1">{{ dbHome.home.text2 }}</p>
+            </div>
+
+            <!-- 3行目 -->
+            <div class="row m-0 p-0">
+              <p :hidden="homeCommonData.hiddenText3" class="col-4 m-0 p-0 px-1">{{ homeCommonData.text3name }}</p>
+              <p :hidden="homeCommonData.hiddenText3" class="col-8 m-0 p-0 px-1">{{ dbHome.home.text3 }}</p>
+            </div>
+
+            <!-- 本文表示 mainText (長文) -->
+            <!-- <p class="m-0 p-0 pl-1 text-break overflow-auto" style="overflow-wrap: break-word; max-height: 61px">{{ dbHome.home.mainText }}</p> -->
+
+            <!-- ボタン start -->
+            <div class="m-0 p-0 d-flex justify-content-between">
+              <!-- 拡大ボタン -->
               <div v-b-modal="'data-' + index" class="m-0">
-                <b-button :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">拡大表示</b-button>
+                <b-button :hidden="homeCommonData.hiddenBtn" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">{{ homeCommonData.btnName }}</b-button>
+              </div>
+
+              <!-- Linkボタン -->
+              <div v-if="dbHome.home.myLink" class="m-0 p-0">
+                <b-button :hidden="homeCommonData.hiddenLink" :to="dbHome.home.myLink" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">{{ homeCommonData.linkName }}</b-button>
               </div>
             </div>
-            <p class="m-0 p-0 pr-1 text-right">{{ dbHome.home.mainDate }}</p>
+            <!-- ボタン end -->
           </div>
-          <p class="m-0 p-0 pl-1">{{ dbHome.home.titleName }}</p>
-          <!-- <b-img :src="dbHome.home.fileUrl" class="m-0 p-0" alt="file" fluid> </b-img> -->
-          <b-embed :src="dbHome.home.fileUrl" class="m-0 p-0" type="embed" alt="file" fluid />
-          <!-- <p class="m-0 p-0 pl-1 text-break overflow-auto" style="overflow-wrap: break-word; max-height:61px; background-color:gainsboro;">{{ dbHome.home.mainText }}</p> -->
-          <p class="m-0 p-0 pl-1 text-break overflow-auto" style="overflow-wrap: break-word; max-height: 61px">{{ dbHome.home.mainText }}</p>
         </div>
-        <!-- <b-button class="px-1 py-0 m-1 float-left" variant="primary" @click="edit(dbHome.id)">編集</b-button> -->
-        <!-- <b-button class="px-1 py-0 m-1" @click="remove(dbHome.id)">削除</b-button> -->
 
         <!-- 。。。。。。。。。。。 モーダル表示 start 。。。。。。。。。。。 -->
         <b-modal :id="'data-' + index" hide-header size="xl">
           <!-- タイトル表示 -->
-          <div class="border m-1 mt-3 pb-1" style="background-color: honeydew">
+          <!-- <div class="border m-1 mt-3 pb-1" style="background-color: honeydew">
             <h5 class="m-0 p-1 float-left">{{ dbHome.home.titleName }}</h5>
             <p class="text-right m-0 pl-2 pr-2">{{ dbHome.home.mainDate }}</p>
+          </div> -->
+          <div class="border m-1 mt-3 p-2 d-flex justify-content-between" style="background-color: honeydew">
+            <h5 class="m-0 px-1">{{ dbHome.home.titleName }}</h5>
+            <p :hidden="homeCommonData.hiddenDate" class="m-0 pl-2 pr-2">{{ dbHome.home.mainDate }}</p>
           </div>
 
           <!-- 画像表示 -->
           <b-embed :src="dbHome.home.fileUrl" class="m-0 p-0" type="embed" alt="file"></b-embed>
-          <!-- <b-img :src="dbHome.home.fileUrl" fluid alt="Responsive image"></b-img> -->
 
-          <!-- 1--------------------- モーダル body 表示 ------------------1 -->
-
-          <div class="modal-body m-1 p-1">
-            <!-- 本文表示 -->
-            <h5 class="text-justify text-break m-0 p-2" style="white-space: pre-wrap">{{ dbHome.home.mainText }}</h5>
+          <!-- 本文表示 text1,2,3 -->
+          <div class="row m-0 p-0">
+            <h5 :hidden="homeCommonData.hiddenText1" class="col-4 m-0 p-0 px-1">{{ homeCommonData.text1name }}</h5>
+            <h5 :hidden="homeCommonData.hiddenText1" class="col-8 m-0 p-0 px-1">{{ dbHome.home.text1 }}</h5>
           </div>
+
+          <div class="row m-0 p-0">
+            <h5 :hidden="homeCommonData.hiddenText2" class="col-4 m-0 p-0 px-1">{{ homeCommonData.text2name }}</h5>
+            <h5 :hidden="homeCommonData.hiddenText2" class="col-8 m-0 p-0 px-1">{{ dbHome.home.text2 }}</h5>
+          </div>
+
+          <div class="row m-0 p-0">
+            <h5 :hidden="homeCommonData.hiddenText3" class="col-4 m-0 p-0 px-1">{{ homeCommonData.text3name }}</h5>
+            <h5 :hidden="homeCommonData.hiddenText3" class="col-8 m-0 p-0 px-1">{{ dbHome.home.text3 }}</h5>
+          </div>
+
+          <!-- 本文表示 mainText (長文) -->
+          <h5 :hidden="homeCommonData.hiddenMainText" class="text-justify text-break m-0 p-2 bg-a13-linen" style="white-space: pre-wrap">{{ dbHome.home.mainText }}</h5>
         </b-modal>
         <!-- 。。。。。。。。。。。 モーダル表示 end 。。。。。。。。。。。 -->
         <!-- </div> -->
@@ -115,7 +144,6 @@
             <p class="col-2 m-0 pt-2">[ミリ秒]</p>
             <b-button :size="commonData.selectedBtnSize" class="col-2 m-1 ml-2 px-1 py-0" variant="primary" @click="setIntervalCarousel()">登録</b-button>
           </div>
-          <!-- <p>{{ inputInterval }}</p> -->
           <!-- ーーーーー ーーー パラパラの間隔 end -->
 
           <!-- 現在の登録状況 ＆ 削除 start -->
@@ -159,21 +187,22 @@
 
               <!-- 以下の float-cb について： 上記の float-left の解除ができないので、style で設定 -->
               <div class="float-cb row p-0 pt-2 m-0">
-                <b-form-group label-for="input-1" label="Sort(数値):" class="col-2 m-0 mt-2 p-0 px-1" />
+                <!-- <b-form-group label="Sort(数値):" class="col-2 m-0 mt-2 p-0 px-1" /> -->
+                <b-form-group label="Sort(数値):" class="col-2 m-0 mt-2 p-0 px-1" />
                 <div class="col-10 m-0 p-0 pr-2">
-                  <!-- <b-form-input id="input-1" v-model="carouselReg.sortNo" type="number" class="border" required placeholder="桁数を揃えてください。（入力例：01）" /> -->
-                  <b-form-input id="input-1" v-model="carouselReg.sortNo" type="number" class="border" required placeholder="入力した番号(逆順)に表示されます。" />
+                  <!-- <b-form-input v-model="carouselReg.sortNo" type="number" class="border" required placeholder="入力した番号(逆順)に表示されます。" /> -->
+                  <b-form-input v-model="carouselReg.sortNo" type="number" class="border" required placeholder="入力した番号(逆順)に表示されます。" />
                 </div>
 
-                <b-form-group label-for="input-2" label="コメント:" class="col-2 m-0 mt-3 p-0 px-1" />
+                <b-form-group label="コメント:" class="col-2 m-0 mt-3 p-0 px-1" />
                 <div class="col-10 m-0 p-0 pr-2">
-                  <b-form-input id="input-2" v-model="carouselReg.comment" class="border mt-1" required placeholder="空欄でもかまいません。" />
+                  <b-form-input v-model="carouselReg.comment" class="border mt-1" required placeholder="空欄でもかまいません。" />
                 </div>
 
-                <!-- <b-form-group label-for="input-3" label="リンク:" class="col-2 m-0 mt-3 p-0 px-1" /> -->
+                <!-- <b-form-group label="リンク:" class="col-2 m-0 mt-3 p-0 px-1" /> -->
                 <b-form-group label="リンク:" class="col-2 m-0 mt-3 p-0 px-1" />
                 <div class="col-10 m-0 p-0 pr-2">
-                  <!-- <b-form-input id="input-3" v-model="carouselReg.myLink" class="border mt-1" required placeholder="空欄でもかまいません。" /> -->
+                  <!-- <b-form-input v-model="carouselReg.myLink" class="border mt-1" required placeholder="空欄でもかまいません。" /> -->
                   <b-form-input v-model="carouselReg.myLink" class="border mt-1" required placeholder="空欄でもかまいません。" />
                 </div>
               </div>
@@ -187,11 +216,6 @@
               <!-- 以下の float-cb について： 上記の float-left の解除ができないので、style で設定 -->
               <div class="float-cb p-2">以下の「画像新規登録・削除」から、新たに画像を追加したり、 不要な画像を削除することができます。</div>
 
-              <!-- 消すな ここから3行 -->
-              <!-- <div v-show="hihyouji" class="col-12 mt-2">
-              <b-form-input v-model="carousel.imageUrl" type="text" required placeholder=""></b-form-input>
-            </div> -->
-              <!-- 消すな ここまで -->
               <!-- 画像添付 end -->
             </div>
           </div>
@@ -252,7 +276,113 @@
       <!-- ================================ 管理： トピックス機能 -------- -->
       <div v-show="showTopics" class="m-0 mt-2 p-0">
         <div class="row m-0 p-2" style="background-color: midnightblue">
-          <h5 class="col-12 mx-2 m-0 p-0 py-1 text-white">② トピックス</h5>
+          <!-- <div class="m-0 p-0 d-flex justify-content-between"> -->
+          <h5 class="col-5 m-0 p-0 py-1 text-white">② トピックス</h5>
+
+          <!-- modal 起動ボタン start ***** -->
+          <b-button id="show-btn" class="col-7" @click="showModal">HOMEトピックス共通設定</b-button>
+
+          <!-- modal ウィンドウ start ***** -->
+          <!-- <b-modal id="modal-1"> -->
+          <!-- <b-modal id="modal-1" ref="modal-1" hide-footer title="ページ設定"> -->
+          <b-modal id="modal-1" ref="modal-1" hide-footer hide-header>
+            <p class="my-2">以下の項目の「表示/非表示」及び「名称変更」</p>
+            <!-- <label for="example-datepicker">Choose a date</label> -->
+            <!-- <b-form-datepicker id="example-datepicker" v-model="homeCommonWork.text1name" class="mb-2"></b-form-datepicker> -->
+
+            <!-- sortDate -->
+            <div class="row m-0 p-0 d-flex align-items-center">
+              <input id="idChk1" size="lg" class="col-2 m-0 p-0" type="checkbox" :checked="!homeCommonWork.hiddenDate" @change="toggleChk(1)" />
+              <p class="col-4 m-0 p-0 px-1">年月日（変更不可）</p>
+              <span v-if="!homeCommonWork.hiddenDate" class="col-6 m-0 p-0 px-1">
+                <b-form-input disabled value="年月日" class="border pl-4" for="idChk1"></b-form-input>
+                <!-- <p class="border" for="idChk1">年月日</p> -->
+              </span>
+              <del v-else class="col-6 m-0 p-0 px-1">
+                <b-form-input disabled value="年月日" class="border pl-4" for="idChk1"></b-form-input>
+              </del>
+            </div>
+
+            <!-- btnName -->
+            <div class="row m-0 p-0 d-flex align-items-center">
+              <input size="lg" class="col-2 m-0 p-0" type="checkbox" :checked="!homeCommonWork.hiddenBtn" @change="toggleChk(2)" />
+              <p class="col-4 m-0 p-0 px-1">ボタンの名前</p>
+              <span v-if="!homeCommonWork.hiddenBtn" class="col-6 m-0 p-0 px-1">
+                <b-form-input v-model="homeCommonWork.btnName" class="border"></b-form-input>
+              </span>
+              <del v-else class="col-6 m-0 p-0 px-1">
+                <b-form-input v-model="homeCommonWork.btnName" class="border"></b-form-input>
+              </del>
+            </div>
+
+            <!-- linkName -->
+            <div class="row m-0 p-0 d-flex align-items-center">
+              <input size="lg" class="col-2 m-0 p-0" type="checkbox" :checked="!homeCommonWork.hiddenLink" @change="toggleChk(3)" />
+              <p class="col-4 m-0 p-0 px-1">リンクの名前</p>
+              <span v-if="!homeCommonWork.hiddenLink" class="col-6 m-0 p-0 px-1">
+                <b-form-input v-model="homeCommonWork.linkName" class="border"></b-form-input>
+              </span>
+              <del v-else class="col-6 m-0 p-0 px-1">
+                <b-form-input v-model="homeCommonWork.linkName" class="border"></b-form-input>
+              </del>
+            </div>
+
+            <!-- text1name -->
+            <div class="row m-0 p-0 d-flex align-items-center">
+              <input size="lg" class="col-2 m-0 p-0" type="checkbox" :checked="!homeCommonWork.hiddenText1" @change="toggleChk(11)" />
+              <p class="col-4 m-0 p-0 px-1">1行目の名前</p>
+              <span v-if="!homeCommonWork.hiddenText1" class="col-6 m-0 p-0 px-1">
+                <b-form-input v-model="homeCommonWork.text1name" class="border"></b-form-input>
+              </span>
+              <del v-else class="col-6 m-0 p-0 px-1">
+                <b-form-input v-model="homeCommonWork.text1name" class="border"></b-form-input>
+              </del>
+            </div>
+
+            <!-- text2name -->
+            <div class="row m-0 p-0 d-flex align-items-center">
+              <input size="lg" class="col-2 m-0 p-0" type="checkbox" :checked="!homeCommonWork.hiddenText2" @change="toggleChk(12)" />
+              <p class="col-4 m-0 p-0 px-1">2行目の名前</p>
+              <span v-if="!homeCommonWork.hiddenText2" class="col-6 m-0 p-0 px-1">
+                <b-form-input v-model="homeCommonWork.text2name" class="border"></b-form-input>
+              </span>
+              <del v-else class="col-6 m-0 p-0 px-1">
+                <b-form-input v-model="homeCommonWork.text2name" class="border"></b-form-input>
+              </del>
+            </div>
+
+            <!-- text3name -->
+            <div class="row m-0 p-0 d-flex align-items-center">
+              <input size="lg" class="col-2 m-0 p-0" type="checkbox" :checked="!homeCommonWork.hiddenText3" @change="toggleChk(13)" />
+              <p class="col-4 m-0 p-0 px-1">3行目の名前</p>
+              <span v-if="!homeCommonWork.hiddenText3" class="col-6 m-0 p-0 px-1">
+                <b-form-input v-model="homeCommonWork.text3name" class="border"></b-form-input>
+              </span>
+              <del v-else class="col-6 m-0 p-0 px-1">
+                <b-form-input v-model="homeCommonWork.text3name" class="border"></b-form-input>
+              </del>
+            </div>
+
+            <!-- sortDate -->
+            <div class="row m-0 p-0 d-flex align-items-center">
+              <input size="lg" class="col-2 m-0 p-0" type="checkbox" :checked="!homeCommonWork.hiddenMainText" @change="toggleChk(14)" />
+              <p class="col-4 m-0 p-0 px-1">長文（変更不可）</p>
+              <span v-if="!homeCommonWork.hiddenMainText" class="col-6 m-0 p-0 px-1">
+                <b-form-input disabled value="長文" class="border pl-4"></b-form-input>
+              </span>
+              <del v-else class="col-6 m-0 p-0 px-1">
+                <b-form-input disabled value="長文" class="border pl-4"></b-form-input>
+              </del>
+            </div>
+
+            <!-- button start -->
+            <div class="modal-footer m-0 mt-2 p-0">
+              <b-button class="mt-1" variant="outline-primary" @click="regCommon">登録</b-button>
+              <b-button class="mt-1" variant="outline-dark" @click="$bvModal.hide('modal-1')">閉じる</b-button>
+            </div>
+            <!-- button end -->
+          </b-modal>
+          <!-- modal ウィンドウ end ***** -->
 
           <!-- 現在の登録状況 ＆ 削除 start -->
           <div class="col-12 m-0 mt-2 p-0" style="background-color: skyblue">
@@ -260,15 +390,39 @@
             <p class="mx-2 mb-0 p-0">ソート番号（逆順）で表示されます。</p>
 
             <div class="row no-gutters">
-              <!-- <div v-for="dbHome in dbHomes" :key="dbHome.id" class="border m-1 float-left"> -->
               <div v-for="dbHome in dbHomes" :key="dbHome.id" class="col-4 m-0 p-1">
                 <div class="border m-0 p-0" style="background-color: white">
                   <p class="m-0 p-0 pl-1">ソート番号：{{ dbHome.home.sortNo }}</p>
-                  <p class="m-0 p-0 pr-1 text-right">{{ dbHome.home.mainDate }}</p>
-                  <p class="m-0 p-0 pl-1">{{ dbHome.home.titleName }}</p>
+                  <div class="px-1 d-flex justify-content-between align-items-center">
+                    <p class="m-0 p-0 px-1">{{ dbHome.home.titleName }}</p>
+                    <p class="m-0 p-0 px-1">{{ dbHome.home.mainDate }}</p>
+                  </div>
+
+                  <!-- 画像 -->
                   <!-- <b-img :src="dbHome.home.fileUrl" class="m-0 p-0" alt="file" fluid> </b-img> -->
                   <b-embed :src="dbHome.home.fileUrl" class="m-0 p-0" type="embed" alt="file" fluid />
-                  <p class="m-0 p-0 pl-1 text-break overflow-auto" style="overflow-wrap: break-word; max-height: 62px; background-color: gainsboro">{{ dbHome.home.mainText }}</p>
+
+                  <!-- 1行目 -->
+                  <div class="row m-0 p-0">
+                    <p :hidden="homeCommonData.hiddenText1" class="col-4 m-0 p-0 px-1">{{ homeCommonData.text1name }}</p>
+                    <p :hidden="homeCommonData.hiddenText1" class="col-8 m-0 p-0 px-1">{{ dbHome.home.text1 }}</p>
+                  </div>
+
+                  <!-- 2行目 -->
+                  <div class="row m-0 p-0">
+                    <p :hidden="homeCommonData.hiddenText2" class="col-4 m-0 p-0 px-1">{{ homeCommonData.text2name }}</p>
+                    <p :hidden="homeCommonData.hiddenText2" class="col-8 m-0 p-0 px-1">{{ dbHome.home.text2 }}</p>
+                  </div>
+
+                  <!-- 3行目 -->
+                  <div class="row m-0 p-0">
+                    <p :hidden="homeCommonData.hiddenText3" class="col-4 m-0 p-0 px-1">{{ homeCommonData.text3name }}</p>
+                    <p :hidden="homeCommonData.hiddenText3" class="col-8 m-0 p-0 px-1">{{ dbHome.home.text3 }}</p>
+                  </div>
+
+                  <!-- 本文表示 mainText (長文) -->
+                  <p :hidden="homeCommonData.hiddenMainText" class="m-0 p-0 pl-1 text-break overflow-auto" style="overflow-wrap: break-word; max-height: 62px; background-color: linen">{{ dbHome.home.mainText }}</p>
+                  <!-- <p class="m-0 p-0 pl-1 text-break overflow-auto" style="overflow-wrap: break-word; max-height: 62px; background-color: gainsboro">{{ dbHome.home.mainText }}</p> -->
                   <!-- <p class="m-0 p-0">{{ dbHome.home.mainText }}</p> -->
                   <b-button :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 float-left" variant="primary" @click="edit(dbHome.id)">編集</b-button>
                   <b-button :size="commonData.selectedBtnSize" class="px-1 py-0 m-1" @click="remove(dbHome.id)">削除</b-button>
@@ -287,45 +441,72 @@
               <b-form @submit="onSubmitEdit">
                 <b-button :size="commonData.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button>
                 <b-button :size="commonData.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="dataResetEdit()">データリセット</b-button>
+
+                <!-- SortNo -->
                 <div class="row p-0 pt-2 m-0 mr-2">
-                  <!-- <div class="col-3 m-0 p-0">
-                    <b-form-group label-for="input-a1" label="SortNo(必須):" class="m-0 mt-1 p-0" />
-                  </div> -->
-                  <b-form-group label-for="input-a1" label="SortNo(必須):" class="col-3 m-0 px-1 pt-2"> </b-form-group>
+                  <b-form-group label="SortNo(必須):" class="col-3 m-0 px-1 pt-2"> </b-form-group>
                   <div class="col-9 m-0 p-0">
-                    <b-form-input id="input-a1" v-model="home.sortNo" type="number" class="border" required placeholder="入力しないと登録できません。" />
+                    <b-form-input v-model="home.sortNo" type="number" class="border" required placeholder="入力しないと登録できません。" />
                   </div>
                 </div>
 
+                <!-- タイトル -->
                 <div class="row p-0 pt-2 m-0 mr-2">
                   <div class="col-3 m-0 p-0">
-                    <b-form-group label-for="input-a2" label="タイトル(必須):" class="m-0 mt-1 p-0" />
+                    <b-form-group label="タイトル(必須)" class="m-0 mt-1 p-0" />
                   </div>
                   <div class="col-9 m-0 p-0">
-                    <b-form-input id="input-a2" v-model="home.titleName" class="border" required placeholder="入力しないと登録できません。" />
-                  </div>
-                </div>
-
-                <div class="row p-0 pt-2 m-0 mr-2">
-                  <b-form-group label-for="input-a3" label="日付(必須):" class="col-3 m-0 px-1 pt-2"> </b-form-group>
-                  <div class="col-9 m-0 p-0">
-                    <b-form-datepicker id="example-datepicker1" v-model="home.mainDate" class="mb-1"></b-form-datepicker>
+                    <b-form-input v-model="home.titleName" class="border" required placeholder="入力しないと登録できません。" />
                   </div>
                 </div>
               </b-form>
 
-              <!-- 詳細情報へのリンク登録（必須ではない） -->
+              <!-- 日付 -->
               <div class="row p-0 pt-2 m-0 mr-2">
-                <div class="col-3 m-0 px-1 pt-2">ジャンプ先:</div>
+                <b-form-group :hidden="homeCommonData.hiddenDate" label="日付" class="col-3 m-0 px-1 pt-2"> </b-form-group>
                 <div class="col-9 m-0 p-0">
-                  <b-form-input v-model="home.myLink" class="border" required placeholder="必要に応じて、詳細情報へのジャンプ先を入力  <例> /a41" />
+                  <b-form-datepicker v-model="home.mainDate" :hidden="homeCommonData.hiddenDate" class="mb-1"></b-form-datepicker>
                 </div>
               </div>
 
-              <!-- 本文登録（必須ではない） -->
+              <!-- 短文1 -->
               <div class="row p-0 pt-2 m-0 mr-2">
-                <div class="col-3 m-0 px-1 pt-4">本文:</div>
-                <b-form-textarea v-model="home.mainText" class="col-9" required placeholder="入力した内容は画像クリックで閲覧できます。" rows="3" max-rows="6"></b-form-textarea>
+                <b-form-group :hidden="homeCommonData.hiddenText1" class="col-3 m-0 px-1 pt-2">{{ homeCommonData.text1name }}</b-form-group>
+                <div class="col-9 m-0 p-0">
+                  <b-form-input v-model="home.text1" :hidden="homeCommonData.hiddenText1" class="border" required placeholder="空欄でもOK" />
+                </div>
+              </div>
+
+              <!-- 短文2 -->
+              <div class="row p-0 pt-2 m-0 mr-2">
+                <b-form-group :hidden="homeCommonData.hiddenText2" class="col-3 m-0 px-1 pt-2">{{ homeCommonData.text2name }}</b-form-group>
+                <div class="col-9 m-0 p-0">
+                  <b-form-input v-model="home.text2" :hidden="homeCommonData.hiddenText2" class="border" required placeholder="空欄でもOK" />
+                </div>
+              </div>
+
+              <!-- 短文3 -->
+              <div class="row p-0 pt-2 m-0 mr-2">
+                <b-form-group :hidden="homeCommonData.hiddenText3" class="col-3 m-0 px-1 pt-2">{{ homeCommonData.text3name }}</b-form-group>
+                <div class="col-9 m-0 p-0">
+                  <b-form-input v-model="home.text3" :hidden="homeCommonData.hiddenText3" class="border" required placeholder="空欄でもOK" />
+                </div>
+              </div>
+
+              <!-- 本文（長文） -->
+              <div class="row p-0 pt-2 m-0 mr-1">
+                <!-- <div class="col-3 m-0 px-1 pt-4">長文:</div>
+                <b-form-textarea v-model="home.mainText" class="col-9" required placeholder="入力した内容は画像クリックで閲覧できます。" rows="3" max-rows="6"></b-form-textarea> -->
+                <span :hidden="homeCommonData.hiddenMainText" class="col-3 m-0 mt-2 p-1 pt-3">長文</span>
+                <b-form-textarea v-model="home.mainText" :hidden="homeCommonData.hiddenMainText" class="col-9" required placeholder="空欄でもOK。 入力した内容は画像クリックで閲覧できます。" rows="3" max-rows="6"></b-form-textarea>
+              </div>
+
+              <!-- 詳細情報へのリンク登録（必須ではない） -->
+              <div v-show="!homeCommonData.hiddenLink" class="row p-0 pt-2 m-0 mr-2">
+                <div class="col-3 m-0 px-1 pt-2">リンク先:</div>
+                <div class="col-9 m-0 p-0">
+                  <b-form-input v-model="home.myLink" class="border" required placeholder="関連情報へのジャンプ先を入力  <例> /a41" />
+                </div>
               </div>
 
               <hr />
@@ -341,7 +522,6 @@
               <!-- <div v-show="showImageFlg" class="col-12"> -->
               <!-- <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageList()">画像リスト表示</button> -->
               <div v-show="toggleShow">
-                <!-- ここから -->
                 <div class="m-2">
                   下の画像から選択してください。: <strong>{{ selected }}</strong>
                 </div>
@@ -359,13 +539,6 @@
 
                 <!-- 以下の float-cb について： 上記の float-left の解除ができないので、style で設定 -->
                 <div class="float-cb p-2">以下の「画像登録・削除」から、新たに画像を追加したり、 不要な画像を削除することができます。</div>
-
-                <!-- 消すな ここから４行 -->
-                <div v-show="hihyouji" class="col-12 mt-2">
-                  <!-- <div class="col-12 mt-2"> -->
-                  <b-form-input v-model="home.fileUrl" type="text" required placeholder=""></b-form-input>
-                </div>
-                <!-- 消すな ここまで -->
               </div>
               <!-- 画像添付 end -->
             </div>
@@ -376,50 +549,73 @@
           <div v-show="showReg" class="col-12 m-0 p-0">
             <div class="m-0 mt-1 p-0" style="background-color: lightblue">
               <h4 class="mx-2 mb-0 p-0 pt-1">新規登録</h4>
-              <!-- <b-form v-if="show" @submit="onSubmit" @reset="onReset"> -->
               <b-form @submit="onSubmit" @reset="onReset">
                 <b-button :size="commonData.selectedBtnSize" type="submit" variant="primary" class="m-0 ml-2 px-1 py-0">登録</b-button>
                 <b-button :size="commonData.selectedBtnSize" type="reset" variant="dark" class="m-0 px-1 py-0">リセット</b-button>
 
+                <!-- SortNo -->
                 <div class="row p-0 pt-2 m-0 mr-2">
-                  <b-form-group label-for="input-b1" label="SortNo(必須):" class="col-3 m-0 px-1 pt-2"> </b-form-group>
+                  <b-form-group label="SortNo(必須):" class="col-3 m-0 px-1 pt-2"> </b-form-group>
                   <div class="col-9 m-0 p-0">
-                    <b-form-input id="input-b1" v-model="home.sortNo" type="number" class="border" required placeholder="入力しないと登録できません。" />
+                    <b-form-input v-model="home.sortNo" type="number" class="border" required placeholder="入力しないと登録できません。" />
                   </div>
                 </div>
 
+                <!-- タイトル -->
                 <div class="row p-0 pt-2 m-0 mr-2">
-                  <b-form-group label-for="input-b2" label="タイトル(必須):" class="col-sm-3 m-0 mt-1 p-0 px-1" />
+                  <b-form-group label="タイトル(必須):" class="col-sm-3 m-0 mt-1 p-0 px-1" />
                   <div class="col-sm-9 m-0 p-0">
-                    <b-form-input id="input-b2" v-model="home.titleName" class="border" required placeholder="入力しないと登録できません。" />
-                  </div>
-                </div>
-
-                <div class="row p-0 pt-2 m-0 mr-2">
-                  <b-form-group label-for="input-b3" label="日付(必須):" class="col-3 m-0 px-1 pt-2"> </b-form-group>
-                  <div class="col-9 m-0 p-0">
-                    <b-form-datepicker id="example-datepicker2" v-model="home.mainDate" class="mb-1"></b-form-datepicker>
+                    <b-form-input v-model="home.titleName" class="border" required placeholder="入力しないと登録できません。" />
                   </div>
                 </div>
               </b-form>
 
-              <!-- 本文登録（必須ではない） -->
-              <!-- <div label-for="input-b4" class="col-12 mt-1 ml-1">
-                <b-form-textarea id="input-b4" v-model="home.mainText" class="col-12" required placeholder="入力した内容は画像クリックで閲覧できます。" rows="3" max-rows="6"></b-form-textarea>
-              </div> -->
-
-              <!-- 詳細情報へのリンク登録（必須ではない） -->
+              <!-- 日付 -->
               <div class="row p-0 pt-2 m-0 mr-2">
-                <div class="col-3 m-0 px-1 pt-2">ジャンプ先:</div>
+                <b-form-group :hidden="homeCommonData.hiddenDate" label="日付" class="col-3 m-0 px-1 pt-2"> </b-form-group>
                 <div class="col-9 m-0 p-0">
-                  <b-form-input v-model="home.myLink" class="border" required placeholder="必要に応じて、詳細情報へのジャンプ先を入力  <例> /a41" />
+                  <b-form-datepicker v-model="home.mainDate" :hidden="homeCommonData.hiddenDate" class="mb-1"></b-form-datepicker>
                 </div>
               </div>
 
-              <!-- 本文登録（必須ではない） -->
+              <!-- 短文1 -->
               <div class="row p-0 pt-2 m-0 mr-2">
-                <div class="col-3 m-0 px-1 pt-4">本文:</div>
-                <b-form-textarea v-model="home.mainText" class="col-9" required placeholder="入力した内容は画像クリックで閲覧できます。" rows="3" max-rows="6"></b-form-textarea>
+                <b-form-group :hidden="homeCommonData.hiddenText1" class="col-3 m-0 px-1 pt-2">{{ homeCommonData.text1name }}</b-form-group>
+                <div class="col-9 m-0 p-0">
+                  <b-form-input v-model="home.text1" :hidden="homeCommonData.hiddenText1" class="border" required placeholder="空欄でもOK" />
+                </div>
+              </div>
+
+              <!-- 短文2 -->
+              <div class="row p-0 pt-2 m-0 mr-2">
+                <b-form-group :hidden="homeCommonData.hiddenText2" class="col-3 m-0 px-1 pt-2">{{ homeCommonData.text2name }}</b-form-group>
+                <div class="col-9 m-0 p-0">
+                  <b-form-input v-model="home.text2" :hidden="homeCommonData.hiddenText2" class="border" required placeholder="空欄でもOK" />
+                </div>
+              </div>
+
+              <!-- 短文3 -->
+              <div class="row p-0 pt-2 m-0 mr-2">
+                <b-form-group :hidden="homeCommonData.hiddenText3" class="col-3 m-0 px-1 pt-2">{{ homeCommonData.text3name }}</b-form-group>
+                <div class="col-9 m-0 p-0">
+                  <b-form-input v-model="home.text3" :hidden="homeCommonData.hiddenText3" class="border" required placeholder="空欄でもOK" />
+                </div>
+              </div>
+
+              <!-- 本文（長文） -->
+              <div class="row p-0 pt-2 m-0 mr-1">
+                <!-- <div class="col-3 m-0 px-1 pt-4">長文:</div>
+                <b-form-textarea v-model="home.mainText" class="col-9" required placeholder="入力した内容は画像クリックで閲覧できます。" rows="3" max-rows="6"></b-form-textarea> -->
+                <span :hidden="homeCommonData.hiddenMainText" class="col-3 m-0 mt-2 p-1 pt-3">長文</span>
+                <b-form-textarea v-model="home.mainText" :hidden="homeCommonData.hiddenMainText" class="col-9" required placeholder="空欄でもOK。 入力した内容は画像クリックで閲覧できます。" rows="3" max-rows="6"></b-form-textarea>
+              </div>
+
+              <!-- 詳細情報へのリンク登録（必須ではない） -->
+              <div v-show="!homeCommonData.hiddenLink" class="row p-0 pt-2 m-0 mr-2">
+                <div class="col-3 m-0 px-1 pt-2">リンク先:</div>
+                <div class="col-9 m-0 p-0">
+                  <b-form-input v-model="home.myLink" class="border" required placeholder="関連情報へのジャンプ先を入力  <例> /a41" />
+                </div>
               </div>
 
               <hr />
@@ -452,13 +648,6 @@
 
                 <!-- 以下の float-cb について： 上記の float-left の解除ができないので、style で設定 -->
                 <div class="float-cb p-2">以下の「画像新規登録・削除」から、新たに画像を追加したり、 不要な画像を削除することができます。</div>
-
-                <!-- 消すな ここから４行 -->
-                <div v-show="hihyouji" class="col-12 mt-2">
-                  <!-- <div class="col-12 mt-2"> -->
-                  <b-form-input v-model="home.fileUrl" type="text" required placeholder=""></b-form-input>
-                </div>
-                <!-- 消すな ここまで -->
               </div>
               <!-- 画像添付 end -->
             </div>
@@ -517,7 +706,7 @@
       </div>
       <!-- 画像削除 End -->
     </div>
-    <p>{{ mIntervalSet() }}</p>
+    <p>{{ myDataSet() }}</p>
   </div>
 </template>
 
@@ -535,10 +724,10 @@ export default {
       // カルーセル 用 script
       slide: 0,
       sliding: null,
-      mInterval: 3000,
-      mIntervalFlg: true,
+      mInterval: 2000,
+      // mIntervalFlg: true,
       inputInterval: '',
-      dbHeaderId: '',
+      // dbHeaderId: '',
 
       // 利用確実
       // manFlg: false,
@@ -560,8 +749,6 @@ export default {
         myLink: '',
         sortNo: 0,
       },
-      hihyouji: false,
-      // hihyouji: true,
       myImages: [
         {
           name: '',
@@ -573,10 +760,45 @@ export default {
         sortNo: 0,
         titleName: '',
         mainDate: '',
+        text1: '',
+        text2: '',
+        text3: '',
         mainText: '',
+        myLink: '',
         fileUrl: process.env.NO_IMAGE_URL,
       },
       commonData: {},
+
+      homeCommonData: {
+        hiddenDate: false,
+        hiddenBtn: false,
+        hiddenLink: false,
+        hiddenText1: false,
+        hiddenText2: false,
+        hiddenText3: false,
+        btnName: '拡大表示',
+        linkName: 'リンク先へJump',
+        text1name: '価格',
+        text2name: '生年月日',
+        text3name: '性別',
+        hiddenMainText: false,
+      },
+      homeCommonWork: {
+        hiddenDate: false,
+        hiddenBtn: false,
+        hiddenLink: false,
+        hiddenText1: false,
+        hiddenText2: false,
+        hiddenText3: false,
+        btnName: '',
+        linkName: '',
+        text1name: '',
+        text2name: '',
+        text3name: '',
+        hiddenMainText: false,
+      },
+      homeCommon: {},
+
       todaySetFlg: false,
       maxSortNo: 0,
       editId: '',
@@ -624,14 +846,13 @@ export default {
     getInterval() {
       return this.$store.getters['storeheader/getDbHeadersInterval']
     },
-    // dbGetMyPageById() {
-    //   return this.$store.getters['storehome/getMyPageById']
-    //   // return this.$store.getters['storehome/getMyPageById'(id)]
-    //   // return this.$store.getters['storehome/getMyPageById(id)']
-    //   // }
+
+    // dbHeaders() {
+    //   return this.$store.getters['storeheader/orderdDbHeaders']
     // },
-    dbHeaders() {
-      return this.$store.getters['storeheader/orderdDbHeaders']
+
+    dbHomeCommon() {
+      return this.$store.getters['storehome/getCommonById']('common')
     },
   },
   // elementへのマウントが行われた後処理される。
@@ -645,13 +866,7 @@ export default {
   created() {
     // 下記の storehome は store/storehome.js のファイル名
     this.$store.dispatch('storehome/init')
-
-    // 下記の storeheader は store/storeheader.js のファイル名
     this.$store.dispatch('storeheader/init')
-
-    // カルーセルの interval 取得 → 設定
-    // const testData = this.$store.getters['storeheader/getDbHeadersInterval']
-    // console.log('testData ------ in created(): ' + testData)
   },
 
   // ④ updated 画面が更新された後、呼び出される。
@@ -664,30 +879,73 @@ export default {
     // test1() {
     //   // console.log($.fn.jquery)
     //   // alert(this.fn.jquery)
-
-    //   // console.log('----- manFlg --- in test1: ' + this.manFlg)
-    //   console.log('----- isLogin --- in test1: ' + this.isLog())
-    // },
-    // isLog() {
-    //   // return this.$store.getters['user/isLogin']
-    //   // this.isLogged = this.$store.getters['user/isLogin']
-    //   this.isLogged = this.$store.getters['user/isLogin']
-    //   console.log('home-4 ------ isLogged: ', this.isLogged)
-    //   return this.isLogged
     // },
 
-    // test2() {
-    // const testData = this.$store.getters['storeheader/getDbHeadersInterval']
-    // const testData = this.getInterval
-    // console.log('testData ------ in test2(): ' + testData)
-    // console.log('mInterval ------ in mIntervalSet(): ' + this.mInterval)
-    //   console.log('home.titleName: ' + this.home.titleName)
+    // modal 関連 ---------- start
+    showModal() {
+      this.homeCommonWork = JSON.parse(JSON.stringify(this.homeCommonData))
+      this.$refs['modal-1'].show()
+    },
+
+    // claseModal() {
+    //   this.$refs['modal-1'].hide()
     // },
+
+    regCommon() {
+      // modalウィンドウを閉じる
+      this.$refs['modal-1'].hide()
+
+      // Firestre への保存
+      // console.log('1-1 ------ homeCommonWork ----: ', this.homeCommonWork)
+
+      this.$store
+        .dispatch('storehome/updateCommon', this.homeCommonWork)
+        .then((value) => {
+          // console.log('3-1-OK +++++++++ in home-(): ', value)
+          if (value === 'regOK') {
+            this.toastFileUpdate('登録', '登録しました。')
+          } else {
+            alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+          }
+        })
+        .catch((error) => {
+          alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？: ', error)
+          // console.log('3-1-NG ***** error ***** in home-(): ', error)
+        })
+    },
+
+    myDataSet() {
+      // console.log('***** Test log ***** in myDataSet()')
+      try {
+        // this.commonData = this.dbCommon.myData
+        this.homeCommonData = this.dbHomeCommon.homeCommon
+        this.mInterval = Number(this.dbHomeCommon.mInterval)
+        // this.inputInterval = Number(this.dbHomeCommon.mInterval)
+      } catch (error) {
+        // alert('***** error ***** in myDataSet(): ' + error)
+        // console.log('***** error ***** in myDataSet(): ' + error)
+      }
+    },
+    // modal 関連 ---------- end
 
     setIntervalCarousel() {
       // 下記の storeheader は store/storeheader.js のファイル名
-      // this.$store.dispatch('storeheader/update', { myDataNo: '1', header: this.myData2 })
-      this.$store.dispatch('storeheader/updateInterval', { id: this.dbHeaderId, mInterval: this.inputInterval })
+      // this.$store.dispatch('storeheader/updateInterval', { id: this.dbHeaderId, mInterval: this.inputInterval })
+      this.$store
+        .dispatch('storehome/updateInterval', this.inputInterval)
+        .then((value) => {
+          // console.log('3-1-OK +++++++++ in home-(): ', value)
+          if (value === 'regOK') {
+            this.toastFileUpdate('登録', '登録しました。')
+          } else {
+            alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+          }
+        })
+        .catch((error) => {
+          alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？: ', error)
+          // console.log('3-1-NG ***** error ***** in home-(): ', error)
+        })
+
       this.mInterval = Number(this.inputInterval)
     },
     // num を myHeader.vue へ渡す
@@ -704,6 +962,7 @@ export default {
       this.showCarousel = true
       this.showTopics = false
       this.toggleDel = false
+      this.inputInterval = Number(this.dbHomeCommon.mInterval)
     },
     onTopics() {
       // this.myImages = []
@@ -802,7 +1061,21 @@ export default {
       }).then((result) => {
         if (result.value) {
           // DBに保存されている画像削除
-          this.$store.dispatch('storehome/removeCarousel', id)
+          this.$store
+            .dispatch('storehome/removeCarousel', id)
+            .then((value) => {
+              // console.log('3-1-OK +++++++++ in home-(): ', value)
+              if (value === 'regOK') {
+                this.toastFileUpdate('登録', '登録しました。')
+              } else {
+                alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+              }
+            })
+            .catch((error) => {
+              alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？: ', error)
+              // console.log('3-1-NG ***** error ***** in home-(): ', error)
+            })
+
           this.toastFileUpdate('ファイル 登録', '完了しました。')
           // this.imageDeleteCarousel()
         }
@@ -814,34 +1087,21 @@ export default {
       // this.showImageFlg = false
     },
     // メニューデータをFireStoreからロードしてセット
-    mIntervalSet() {
-      // if (this.mInterval <= 500) {
-      if (this.mIntervalFlg === true) {
-        try {
-          // alert('テスト in myDataSet(): ')
-          // this.mInterval = Number(this.dbHeaders[0].mInterval)
-          // this.inputInterval = this.dbHeaders[0].mInterval
-          this.mInterval = Number(this.getInterval)
+    // mIntervalSet() {
+    //   if (this.mIntervalFlg === true) {
+    //     try {
+    //       this.mInterval = Number(this.getInterval)
 
-          this.inputInterval = this.getInterval
-          this.dbHeaderId = this.dbHeaders[0].id
-          // console.log('mInterval ------ in mIntervalSet(): ' + this.mInterval)
+    //       this.inputInterval = this.getInterval
+    //       this.dbHeaderId = this.dbHeaders[0].id
 
-          // this.mInterval = Number(this.dbHeaders[0].myData.mInterval)
-          // this.inputInterval = this.dbHeaders[0].myData.mInterval
-          // this.dbHeaderId = this.dbHeaders[0].myData.id
-
-          // this.inputInterval = Number(this.dbHeaders[0].myData.mInterval)
-          // this.myData.mHome1 = this.dbHeaders[0].myData.mHome1
-          this.mIntervalFlg = false
-        } catch (error) {
-          this.mIntervalFlg = true
-          // alert('テスト in mIntervalSet(): ' + error)
-          // console.log('テスト in myDataSet(): ' + error)
-        }
-      }
-      // }
-    },
+    //       this.mIntervalFlg = false
+    //     } catch (error) {
+    //       this.mIntervalFlg = true
+    //       // alert('テスト in mIntervalSet(): ' + error)
+    //     }
+    //   }
+    // },
     // $().button('toggle'),
     // fireStore DB へのデータ追加
     addCarousel() {
@@ -856,7 +1116,21 @@ export default {
       }
       // console.log('2-sortNo: ', this.carouselReg.sortNo)
       // 下記の storehome は store/storehome.js のファイル名
-      this.$store.dispatch('storehome/addCarousel', this.carouselReg)
+      this.$store
+        .dispatch('storehome/addCarousel', this.carouselReg)
+        .then((value) => {
+          // console.log('3-1-OK +++++++++ in home-(): ', value)
+          if (value === 'regOK') {
+            this.toastFileUpdate('登録', '登録しました。')
+          } else {
+            alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+          }
+        })
+        .catch((error) => {
+          alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？: ', error)
+          // console.log('3-1-NG ***** error ***** in home-(): ', error)
+        })
+
       this.carouselReg = {}
     },
     // 画像ファイルの保存
@@ -1008,36 +1282,69 @@ export default {
     },
 
     // ----------------- 管理機能： カルーセル end ----------------------
+
     add() {
       // 下記の storehome は store/storehome.js のファイル名
       // console.log('titelName1: ' + this.home.titleName)
       // this.$store.dispatch('storehome/add', { titelName: this.home.titleName, mainText: this.home.mainText })
       this.home.sortNo = Number(this.home.sortNo)
-      this.$store.dispatch('storehome/add', this.home)
+      this.$store
+        .dispatch('storehome/add', this.home)
+        .then((value) => {
+          // console.log('3-1-OK +++++++++ in home-(): ', value)
+          if (value === 'regOK') {
+            this.toastFileUpdate('登録', '登録しました。')
+          } else {
+            alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+          }
+        })
+        .catch((error) => {
+          alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？: ', error)
+          // console.log('3-1-NG ***** error ***** in home-(): ', error)
+        })
     },
     update() {
       // 下記の storehome は store/storehome.js のファイル名
       // console.log('======= id: ', this.editId)
       this.home.sortNo = Number(this.home.sortNo)
-      this.$store.dispatch('storehome/update', { id: this.editId, home: this.home })
+      this.$store
+        .dispatch('storehome/update', { id: this.editId, home: this.home })
+        .then((value) => {
+          // console.log('3-1-OK +++++++++ in home-(): ', value)
+          if (value === 'regOK') {
+            this.toastFileUpdate('登録', '登録しました。')
+          } else {
+            alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+          }
+        })
+        .catch((error) => {
+          alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？: ', error)
+          // console.log('3-1-NG ***** error ***** in home-(): ', error)
+        })
     },
     edit(id) {
       this.showEdit = true
       this.showReg = false
       const myPage = this.$store.getters['storehome/getMyPageById'](id)
-      this.home.sortNo = myPage.home.sortNo
-      this.home.titleName = myPage.home.titleName
-      this.home.mainDate = myPage.home.mainDate
-      this.home.mainText = myPage.home.mainText
-      this.home.fileUrl = myPage.home.fileUrl
+
+      this.home = JSON.parse(JSON.stringify(myPage.home))
+
       this.editId = id
     },
-    editCancel() {
+    initHome() {
       this.home.sortNo = this.maxSortNo
       this.home.titleName = ''
       this.todaySet2()
       this.home.fileUrl = process.env.NO_IMAGE_URL
+      this.home.text1 = ''
+      this.home.text2 = ''
+      this.home.text3 = ''
       this.home.mainText = ''
+      this.home.myLink = ''
+    },
+
+    editCancel() {
+      this.initHome()
       this.showEdit = false
       this.showReg = true
     },
@@ -1057,11 +1364,8 @@ export default {
     // },
     dataResetEdit() {
       const myPage = this.$store.getters['storehome/getMyPageById'](this.editId)
-      this.home.sortNo = myPage.home.sortNo
-      this.home.titleName = myPage.home.titleName
-      this.home.mainDate = myPage.home.mainDate
-      this.home.mainText = myPage.home.mainText
-      this.home.fileUrl = myPage.home.fileUrl
+
+      this.home = JSON.parse(JSON.stringify(myPage.home))
     },
     remove(id) {
       this.$swal({
@@ -1075,23 +1379,44 @@ export default {
       }).then((result) => {
         if (result.value) {
           // DBに保存されている画像削除
-          this.$store.dispatch('storehome/remove', id)
+          this.$store
+            .dispatch('storehome/remove', id)
+            .then((value) => {
+              // console.log('3-1-OK +++++++++ in home-(): ', value)
+              if (value === 'regOK') {
+                this.toastFileUpdate('登録', '登録しました。')
+              } else {
+                alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+              }
+            })
+            .catch((error) => {
+              alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？: ', error)
+              // console.log('3-1-NG ***** error ***** in home-(): ', error)
+            })
         }
       })
     },
     toggle(dbHome) {
-      this.$store.dispatch('storehome/toggle', dbHome)
+      this.$store
+        .dispatch('storehome/toggle', dbHome)
+        .then((value) => {
+          // console.log('3-1-OK +++++++++ in home-(): ', value)
+          if (value === 'regOK') {
+            this.toastFileUpdate('登録', '登録しました。')
+          } else {
+            alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+          }
+        })
+        .catch((error) => {
+          alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？: ', error)
+          // console.log('3-1-NG ***** error ***** in home-(): ', error)
+        })
     },
     onSubmitEdit(evt) {
       // console.log('in onSubmitEdit')
       evt.preventDefault()
       this.update()
-      // 以下はinputの入力をリセット
-      this.home.sortNo = this.maxSortNo
-      this.home.titleName = ''
-      this.todaySet2()
-      this.home.mainText = ''
-      this.home.fileUrl = process.env.NO_IMAGE_URL
+      this.initHome()
       // this.showImageFlg = false
       this.showEdit = false
       this.showReg = true
@@ -1105,11 +1430,8 @@ export default {
       evt.preventDefault()
       this.add()
       // 以下はinputの入力をリセット
+      this.initHome()
       this.home.sortNo = ++this.maxSortNo
-      this.home.titleName = ''
-      this.todaySet2()
-      this.home.mainText = ''
-      this.home.fileUrl = process.env.NO_IMAGE_URL
 
       // その他の初期化
       // this.showImageFlg = false
@@ -1117,17 +1439,43 @@ export default {
     },
     onReset(evt) {
       evt.preventDefault()
-      this.home.sortNo = this.maxSortNo
-      this.home.titleName = ''
-      this.todaySet2()
-      this.home.fileUrl = process.env.NO_IMAGE_URL
-      this.home.mainText = ''
+      this.initHome()
       this.show = false
       // this.showImageFlg = false
       this.$nextTick(() => {
         this.show = true
       })
     },
+
+    toggleChk(num) {
+      switch (num) {
+        case 1:
+          this.homeCommonWork.hiddenDate = !this.homeCommonWork.hiddenDate
+          break
+        case 2:
+          this.homeCommonWork.hiddenBtn = !this.homeCommonWork.hiddenBtn
+          break
+        case 3:
+          this.homeCommonWork.hiddenLink = !this.homeCommonWork.hiddenLink
+          break
+        case 11:
+          this.homeCommonWork.hiddenText1 = !this.homeCommonWork.hiddenText1
+          break
+        case 12:
+          this.homeCommonWork.hiddenText2 = !this.homeCommonWork.hiddenText2
+          break
+        case 13:
+          this.homeCommonWork.hiddenText3 = !this.homeCommonWork.hiddenText3
+          break
+        case 14:
+          this.homeCommonWork.hiddenMainText = !this.homeCommonWork.hiddenMainText
+          break
+        default:
+          // console.log('---- error --- num in toggleChk(): ' + num)
+          break
+      }
+    },
+
     fileExtension(e) {
       const file = (e.target.files || e.dataTransfer.files)[0]
 
@@ -1369,7 +1717,6 @@ export default {
         })
     },
     imageListEdit() {
-      // this.hihyouji = true
       // FireStrage のフォルダとファイルのリストを取得
       // this.showImageReg = false
       // console.log('showImageReg: ' + this.showImageReg)
@@ -1606,7 +1953,6 @@ export default {
 
       const YYYYMMDD = String(YYYY) + '-' + String(MM) + '-' + String(DD)
       this.home.mainDate = YYYYMMDD
-      // console.log('mainDate in todaySet2(): ', this.page.mainDate)
     },
     // todaySet3() {
     //   const myNow = new Date()
@@ -1704,6 +2050,11 @@ export default {
   margin: 0;
   padding: 0;
 }
+
+del {
+  color: rgba(255, 0, 0, 1);
+}
+
 /* h1,
 h2 {
   font-weight: normal;

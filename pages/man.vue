@@ -43,7 +43,13 @@
         <!-- 3 Menuボタンのカラー -->
         <b-input-group class="col-12 m-0 mt-1 p-0" prepend="Menuボタン:">
           <b-input-group-prepend is-text><b>通常時の色</b></b-input-group-prepend>
-          <b-form-select v-model="selectedMenuBtnColor" :options="optionsColor"></b-form-select>
+          <b-form-select v-model="selectedMenuBtnColorInput" :options="optionsColor" @change="setSelectedMenuBtnColor()"></b-form-select>
+          <div class="px-2">
+            <b-input-group-append is-text>
+              <input class="p-0" type="checkbox" :checked="chkMenu" @change="toggleChkMenu()" />
+              <b class="pl-1">塗りつぶし</b>
+            </b-input-group-append>
+          </div>
           <b-button :variant="selectedMenuBtnColor">{{ selectedMenuBtnColor }}</b-button>
         </b-input-group>
         <!-- 3 end -->
@@ -501,35 +507,26 @@ export default {
       },
       commonData: {},
 
-      // add new ------- start
-      // topTitleLogo: 'building',
-      // topTitleLogoTemp: '',
-      // tabIconRadio: 'selfRegFile',
       selected: '選択されていません。',
-      // showReg: true,
       showTabReg: false,
       showLogoReg: false,
       showLogoReg2: false,
       toggleDel: false,
-      // toggleShow: false,
-      // page: {
-      //   fileUrl: '',
-      // },
+
       myImages: [
         {
           name: '',
           url: '',
         },
       ],
-      // newImage: '',
+
       newFile: '',
       fileName: '',
-      // fileType: '',
-      // add new ------- end
 
       // カラー設定
-      // colorInput: {},
+      chkMenu: true,
       selectedMenuBtnColor: 'a35-royalblue',
+      selectedMenuBtnColorInput: 'a35-royalblue',
       selectedMenuBtnColor2: '',
       selectedBtnBorderColor: '',
       optionsColor: [
@@ -741,16 +738,34 @@ export default {
       this.$nuxt.$emit('selnum', num)
     },
 
-    formatterMenu(value) {
-      // const tempValue = 'rgba(' + value + Math.round(this.myData2.buttonOpacityBar * 100) /  100 + ')'
-      const red = parseInt(value.substring(1, 3), 16)
-      const green = parseInt(value.substring(3, 5), 16)
-      const blue = parseInt(value.substring(5, 7), 16)
-      const tempValue = 'background-color:rgba(' + red + ',' + green + ',' + blue + ',' + this.buttonOpacityBarTemp / 100 + ');'
-      this.myData2.buttonBarRGB = tempValue
-      // console.log(tempValue)
-      return value
+    //     setMenuBtnColor() {
+
+    // setSelectedMenuBtnColor
+    //     },
+
+    toggleChkMenu() {
+      this.chkMenu = !this.chkMenu
+      this.setSelectedMenuBtnColor()
     },
+
+    setSelectedMenuBtnColor() {
+      if (this.chkMenu) {
+        this.selectedMenuBtnColor = this.selectedMenuBtnColorInput
+      } else {
+        this.selectedMenuBtnColor = 'outline-' + this.selectedMenuBtnColorInput
+        // console.log('1-1 selectedMenuBtnColor --------: ', this.selectedMenuBtnColor)
+      }
+    },
+
+    // formatterMenu(value) {
+    //   const red = parseInt(value.substring(1, 3), 16)
+    //   const green = parseInt(value.substring(3, 5), 16)
+    //   const blue = parseInt(value.substring(5, 7), 16)
+    //   const tempValue = 'background-color:rgba(' + red + ',' + green + ',' + blue + ',' + this.buttonOpacityBarTemp / 100 + ');'
+    //   this.myData2.buttonBarRGB = tempValue
+    //   // console.log(tempValue)
+    //   return value
+    // },
     // カラー設定 1 Menu
     buttonColorMenuHover(hovered) {
       this.isHovered = hovered
@@ -824,8 +839,7 @@ export default {
       // this.myData2.buttonOpacityBar = this.buttonOpacityBarTemp
 
       // メニューBar（1行目：ボタン行）の RGB をDBへ保存
-      // this.myData2.buttonHeaderRGB = 'background-color:rgba(11,11,11,' + this.buttonOpacityBarTemp / 100 + ');'
-      this.myData2.buttonHeaderRGB = 'background-color:rgba(255,255,255,' + this.buttonOpacityBarTemp / 100 + ');'
+      // this.myData2.buttonHeaderRGB = 'background-color:rgba(255,255,255,' + this.buttonOpacityBarTemp / 100 + ');'
 
       // メニューBar（2行目：タイトル行） の RGB をDBへ保存
       const red = parseInt(this.myData2.buttonColorMenuBar.substring(1, 3), 16)

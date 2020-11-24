@@ -39,19 +39,17 @@ export const actions = {
     }
   }),
   // mInterval の更新
-  updateInterval: firestoreAction((context, { id, mInterval }) => {
-    if (id) {
-      // console.log('1 id in store/storeheader.js: ' + id)
-      // console.log('2 mInterval in store/storeheader.js: ' + mInterval)
-      // mInterval = '2000'
+  // updateInterval: firestoreAction((context, { id, mInterval }) => {
+  //   console.log('1 id in store/storeheader.js: ' + id)
+  //   if (id) {
+  //     console.log('2 mInterval in store/storeheader.js: ' + mInterval)
 
-      dbHeadersRef.doc(id).update({
-        // myDataRef.doc(id).update({
-        mInterval,
-        // mInterval: myData.mInterval
-      })
-    }
-  }),
+  //     dbHeadersRef.doc(id).update({
+  //       mInterval,
+  //     })
+  //   }
+  // }),
+
   set: firestoreAction((context, myData) => {
     if (dbHeadersRef.id) {
       // console.log('1-myData.id in store/storeheader.js: ' + dbHeadersRef.id)
@@ -85,14 +83,8 @@ export const getters = {
     return _.sortBy(state.dbHeaders, 'myDataNo')
   },
 
-  // Home カルーセルのパラパラ間隔 interval の取得
-  getDbHeadersInterval: (state) => {
-    // console.log('------------------ ccccc: ' + state.dbHeaders.myData.mHome1)
-    // console.log('1 ------------------ : ' + state.dbHeaders[0].myDataNo)
-    // console.log('2 ------------------ : ' + state.dbHeaders[0].mInterval)
-    // eslint-disable-next-line no-undef
-    // return _.sortBy(state.dbHeaders, 'myData.id')
-    // eslint-disable-next-line no-undef
-    return state.dbHeaders[0].mInterval
-  },
+  // Home カルーセルのパラパラ間隔 interval の取得   ←storehome.js へ移動
+  // getDbHeadersInterval: (state) => {
+  //   return state.dbHeaders[0].mInterval
+  // },
 }

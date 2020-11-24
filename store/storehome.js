@@ -1,21 +1,21 @@
+/* eslint-disable no-const-assign */
 import { firestoreAction } from 'vuexfire'
 import firebase from '~/plugins/firebase'
 import 'firebase/app'
-// import 'firebase/firestore' // ここには使用するFirebaseSDKモジュールを記載
 import 'firebase/firebase-firestore' // ここには使用するFirebaseSDKモジュールを記載
 
-// ＊＊＊＊＊＊ dbHomes, dbHomesCarousel の名前は他の箇所と合わせること。
 const db = firebase.firestore()
 
 // dbHomes はトピックス用DB
 const dbHomesRef = db.collection('dbHomes')
-// const dbCarouselsRef = db.collection('dbHomes.carousel')
 const dbCarouselsRef = db.collection('dbHomesCarousel')
+const commonRef = db.collection('dbHomesCommon')
+// const dbResult = ''
 
-// ＊＊＊＊＊＊ dbHomes, dbHomesCarousel の名前は他の箇所と合わせること。
 export const state = () => ({
   dbHomes: [],
   dbHomesCarousel: [],
+  dbHomesCommon: [],
 })
 
 export const actions = {
@@ -23,80 +23,239 @@ export const actions = {
     // ＊＊＊＊＊＊ dbHomes, dbHomesCarousel の名前は他の箇所と合わせること。
     bindFirestoreRef('dbHomes', dbHomesRef)
     bindFirestoreRef('dbHomesCarousel', dbCarouselsRef)
+    bindFirestoreRef('dbHomesCommon', commonRef)
   }),
-  addCarousel: firestoreAction((context, carousel) => {
-    // if (carousel.comment.trim()) {
-    // if (carousel.trim()) {
-    // console.log('carousel.imageUrl in store/storeheader.js: ' + carousel)
-    // console.log('carousel.imageUrl in store/storeheader.js: ' + carousel.comment)
-    // console.log('carousel.imageUrl in store/storeheader.js: ' + carousel.imageUrl)
-    // carousel2.comment = carousel.comment
-    // carousel2.imageUrl = carousel.imageUrl
 
-    dbCarouselsRef.add({
-      // carousel2,
-      carousel,
-      // myDbNo: '1'
-      created: firebase.firestore.FieldValue.serverTimestamp(),
-    })
-    // }
+  addCarousel: firestoreAction(async (context, carousel) => {
+    let myResult = ''
+
+    await dbCarouselsRef
+      .add({
+        carousel,
+        created: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+      .then(() => {
+        // console.log('2-2-OK DB登録-OK ------- in updateCommon')
+        myResult = 'regOK'
+      })
+      // .catch((error) => {
+      .catch(() => {
+        // alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+        // console.log('2-2-NG DB登録-NG ------- in updateCommon: ', error)
+        myResult = 'regNG'
+      })
+
+    // 結果の戻し
+    return myResult
   }),
+
   // add: firestoreAction((context, { titleName, mainText }) => {
-  add: firestoreAction((context, home) => {
-    // if (home.comment.trim()) {
-    // console.log('myDb in store/storeheader.js: ' + home.comment)
-    dbHomesRef.add({
-      home,
-      // myDbNo: '1'
-      // created: firebase.firestore.FieldValue.serverTimestamp()
-    })
-    // }
+  add: firestoreAction(async (context, home) => {
+    let myResult = ''
+
+    await dbHomesRef
+      .add({
+        home,
+      })
+      .then(() => {
+        // console.log('2-2-OK DB登録-OK ------- in updateCommon')
+        myResult = 'regOK'
+      })
+      // .catch((error) => {
+      .catch(() => {
+        // alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+        // console.log('2-2-NG DB登録-NG ------- in updateCommon: ', error)
+        myResult = 'regNG'
+      })
+
+    // 結果の戻し
+    return myResult
   }),
-  update: firestoreAction((context, { id, home }) => {
-    // 更新する場合、ひょっとしたら id を削除して追加？
+
+  addCommon: firestoreAction(async (context, homeCommon) => {
+    let myResult = ''
+
+    await commonRef
+      .add({
+        homeCommon,
+        // created: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+      .then(() => {
+        // console.log('2-2-OK DB登録-OK ------- in updateCommon')
+        myResult = 'regOK'
+      })
+      // .catch((error) => {
+      .catch(() => {
+        // alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+        // console.log('2-2-NG DB登録-NG ------- in updateCommon: ', error)
+        myResult = 'regNG'
+      })
+
+    // 結果の戻し
+    return myResult
+  }),
+
+  update: firestoreAction(async (context, { id, home }) => {
+    let myResult = ''
+
     if (id) {
-      // console.log('1-id in store/storeheader.js: ' + id)
-      // dbHomesRef.set({
-      dbHomesRef.doc(id).update({
-        // console.log('2-myDb.id in store/storeheader.js: ' + myDb.id)
-        home,
-        // created: firebase.firestore.FieldValue.serverTimestamp()
-      })
+      await dbHomesRef
+        .doc(id)
+        .update({
+          home,
+          // created: firebase.firestore.FieldValue.serverTimestamp()
+        })
+        .then(() => {
+          // console.log('2-2-OK DB登録-OK ------- in updateCommon')
+          myResult = 'regOK'
+        })
+        // .catch((error) => {
+        .catch(() => {
+          // alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+          // console.log('2-2-NG DB登録-NG ------- in updateCommon: ', error)
+          myResult = 'regNG'
+        })
+
+      // 結果の戻し
+      return myResult
     }
   }),
-  update_old: firestoreAction((context, myDb) => {
-    if (myDb.id) {
-      // console.log('1-myDb.id in store/storeheader.js: ' + myDb.id)
-      // dbHomesRef.set({
-      dbHomesRef.doc(myDb.id).update({
-        // console.log('2-myDb.id in store/storeheader.js: ' + myDb.id)
-        myDb,
-        // created: firebase.firestore.FieldValue.serverTimestamp()
+
+  updateCommon: firestoreAction(async (context, homeCommon) => {
+    let myResult = ''
+
+    await commonRef
+      .doc('common')
+      .update({
+        homeCommon,
       })
-    }
+      .then(() => {
+        // console.log('2-2-OK DB登録-OK ------- in updateCommon')
+        myResult = 'regOK'
+      })
+      // .catch((error) => {
+      .catch(() => {
+        // alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+        // console.log('2-2-NG DB登録-NG ------- in updateCommon: ', error)
+        myResult = 'regNG'
+      })
+
+    // 結果の戻し
+    return myResult
   }),
-  set: firestoreAction((context, home) => {
-    // 更新する場合、ひょっとしたら id を削除して追加？
+
+  // mInterval の更新
+  updateInterval: firestoreAction(async (context, mInterval) => {
+    let myResult = ''
+
+    await commonRef
+      .doc('common')
+      .update({
+        mInterval,
+      })
+      .then(() => {
+        // console.log('2-2-OK DB登録-OK ------- in updateCommon')
+        myResult = 'regOK'
+      })
+      // .catch((error) => {
+      .catch(() => {
+        // alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+        // console.log('2-2-NG DB登録-NG ------- in updateCommon: ', error)
+        myResult = 'regNG'
+      })
+
+    // 結果の戻し
+    return myResult
+  }),
+
+  set: firestoreAction(async (context, home) => {
+    let myResult = ''
+
     if (dbHomesRef.id) {
-      // console.log('1-myDb.id in store/storeheader.js: ' + dbHomesRef.id)
-      // dbHomesRef.set({
-      dbHomesRef.doc(home.id).update({
-        // console.log('2-myDb.id in store/storeheader.js: ' + myDb.id)
-        home,
-        // created: firebase.firestore.FieldValue.serverTimestamp()
-      })
+      await dbHomesRef
+        .doc(home.id)
+        .update({
+          home,
+        })
+        .then(() => {
+          // console.log('2-2-OK DB登録-OK ------- in updateCommon')
+          myResult = 'regOK'
+        })
+        // .catch((error) => {
+        .catch(() => {
+          // alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+          // console.log('2-2-NG DB登録-NG ------- in updateCommon: ', error)
+          myResult = 'regNG'
+        })
+
+      // 結果の戻し
+      return myResult
     }
   }),
-  removeCarousel: firestoreAction((context, id) => {
-    dbCarouselsRef.doc(id).delete()
+
+  removeCarousel: firestoreAction(async (context, id) => {
+    let myResult = ''
+
+    await dbCarouselsRef
+      .doc(id)
+      .delete()
+      .then(() => {
+        // console.log('2-2-OK DB登録-OK ------- in updateCommon')
+        myResult = 'regOK'
+      })
+      // .catch((error) => {
+      .catch(() => {
+        // alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+        // console.log('2-2-NG DB登録-NG ------- in updateCommon: ', error)
+        myResult = 'regNG'
+      })
+
+    // 結果の戻し
+    return myResult
   }),
-  remove: firestoreAction((context, id) => {
-    dbHomesRef.doc(id).delete()
+
+  remove: firestoreAction(async (context, id) => {
+    let myResult = ''
+
+    await dbHomesRef
+      .doc(id)
+      .delete()
+      .then(() => {
+        // console.log('2-2-OK DB登録-OK ------- in updateCommon')
+        myResult = 'regOK'
+      })
+      // .catch((error) => {
+      .catch(() => {
+        // alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+        // console.log('2-2-NG DB登録-NG ------- in updateCommon: ', error)
+        myResult = 'regNG'
+      })
+
+    // 結果の戻し
+    return myResult
   }),
-  toggle: firestoreAction((context, myDb) => {
-    dbHomesRef.doc(myDb.id).update({
-      done: !myDb.done,
-    })
+
+  toggle: firestoreAction(async (context, myDb) => {
+    let myResult = ''
+
+    await dbHomesRef
+      .doc(myDb.id)
+      .update({
+        done: !myDb.done,
+      })
+      .then(() => {
+        // console.log('2-2-OK DB登録-OK ------- in updateCommon')
+        myResult = 'regOK'
+      })
+      // .catch((error) => {
+      .catch(() => {
+        // alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+        // console.log('2-2-NG DB登録-NG ------- in updateCommon: ', error)
+        myResult = 'regNG'
+      })
+
+    // 結果の戻し
+    return myResult
   }),
 }
 
@@ -111,24 +270,21 @@ export const getters = {
     return state.dbHomes.find((home) => home.id === id)
   },
 
+  getCommonById: (state) => (id) => {
+    // console.log('myTemp -------- in getCommonById ccc.js: ' + myTemp)
+    return state.dbHomesCommon.find((key) => key.id === id)
+  },
+
   // Home コンポーネント情報の取得
   orderdDbHomes: (state) => {
-    // console.log('1 ------------------ in storehome.js: ')
-    // console.log('2 ------------------ in storehome.js: ' + state.dbHomes.length)
-    // console.log('3 ------------------ in storehome.js: ' + state.dbHomes[0].home.titleName)
     // eslint-disable-next-line no-undef
     // return _.sortBy(state.dbHomes, 'myDb.id')
     // eslint-disable-next-line no-undef
     return _.sortBy(state.dbHomes, 'home.sortNo').reverse()
     // return _.sortBy(state.dbHomes, 'home.mainDate').reverse()
-    // return _.sortBy(state.dbHomes, 'home.mainDate')
   },
 
-  // ＊＊＊＊＊＊ dbHomes, dbHomesCarousel の名前は他の箇所と合わせること。
   orderdDbCarousels: (state) => {
-    // console.log('------------------ : ' + state.dbHomesCarousel.length)
-    // console.log('------------------ : ' + state.dbHomesCarousel[0].carousel.imageUrl)
-    // console.log('------------------ : ' + state.dbHomesCarousel[0].carousel.comment)
     // console.log('------------------ : ' + state.dbHomesCarousel[0].carousel)
     // eslint-disable-next-line no-undef
     // return _.sortBy(state.dbHomes, 'myDb.id')

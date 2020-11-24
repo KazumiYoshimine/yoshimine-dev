@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid no-gutters">
     <!-- ---------- バックグラウンド画像 start ----------- -->
     <!--
     <div class="bg-image myColor">
