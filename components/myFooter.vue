@@ -7,7 +7,10 @@
     <div v-show="showSitemap" class="m-0 p-0">
       <div class="row m-0 p-0 pt-3 d-flex justify-content-between" style="background-color: black">
         <h5 class="m-0 mx-2 text-white">サイトマップ</h5>
-        <b-button :size="commonData.selectedBtnSize" to="/home" :variant="commonData.selectedMenuBtnColor" class="m-0 mr-3 px-1 py-0" :class="isBorder2(0, commonData.myBorder)" @click="selnum(0)">{{ home1 }}</b-button>
+        <!-- <div class="bg-white"> -->
+        <b-button :size="commonData.selectedBtnSize" to="/home" :variant="commonData.selectedMenuBtnColor" class="m-0 mr-3 px-1 py-0 bg-white" :class="isBorder2(0, commonData.myBorder)" @click="selnum(0)">{{ home1 }}</b-button>
+        <!-- </div> -->
+
         <!-- 以下の１行は消すな！ -->
         <!-- <b-button :size="commonData.selectedBtnSize" to="/notCreated" :variant="commonData.selectedMenuBtnColor" class="m-0 mr-3 px-1 py-0">このウェブサイトについて</b-button> -->
       </div>
@@ -22,23 +25,23 @@
               <!-- <b-list-group-item to="/c11" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(11) }" @click="selected = 11">{{ myData.m11 }}</b-list-group-item> -->
               <!-- <b-list-group-item to="/c11" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(11) }" @click="selnumSide(11)">{{ myData.m11 }}</b-list-group-item> -->
               <!-- <b-list-group-item to="/c11" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(11) }" @click="selnum(11)">{{ myData.m11 }}</b-list-group-item> -->
-              <b-list-group-item to="/c11" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(11) }">{{ myData.m11 }}</b-list-group-item>
+              <b-list-group-item to="/b11" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(11) }">{{ myData.m11 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu12">
               <!-- <b-list-group-item to="/c12" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(12) }" @click="selected = 12">{{ myData.m12 }}</b-list-group-item> -->
-              <b-list-group-item to="/c12" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(12) }">{{ myData.m12 }}</b-list-group-item>
+              <b-list-group-item to="/b12" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(12) }">{{ myData.m12 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu13">
-              <b-list-group-item to="/c13" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(13) }">{{ myData.m13 }}</b-list-group-item>
+              <b-list-group-item to="/b13" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(13) }">{{ myData.m13 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu14">
-              <b-list-group-item to="/c14" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(14) }">{{ myData.m14 }}</b-list-group-item>
+              <b-list-group-item to="/b14" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(14) }">{{ myData.m14 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu15">
-              <b-list-group-item to="/c15" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(15) }">{{ myData.m15 }}</b-list-group-item>
+              <b-list-group-item to="/b15" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(15) }">{{ myData.m15 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu16">
-              <b-list-group-item to="/c16" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(16) }">{{ myData.m16 }}</b-list-group-item>
+              <b-list-group-item to="/b16" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(16) }">{{ myData.m16 }}</b-list-group-item>
             </div>
           </b-list-group>
         </div>
@@ -50,22 +53,22 @@
           <b-list-group>
             <b-list-group-item class="m-0 mt-1 p-0 text-center text-light bg-secondary">{{ myData.m2 }}</b-list-group-item>
             <div v-show="myData.chkMenu21">
-              <b-list-group-item to="/c21" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(21) }">{{ myData.m21 }}</b-list-group-item>
+              <b-list-group-item to="/b21" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(21) }">{{ myData.m21 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu22">
-              <b-list-group-item to="/c22" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(22) }">{{ myData.m22 }}</b-list-group-item>
+              <b-list-group-item to="/b22" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(22) }">{{ myData.m22 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu23">
-              <b-list-group-item to="/c23" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(23) }">{{ myData.m23 }}</b-list-group-item>
+              <b-list-group-item to="/b23" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(23) }">{{ myData.m23 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu24">
-              <b-list-group-item to="/c24" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(24) }">{{ myData.m24 }}</b-list-group-item>
+              <b-list-group-item to="/b24" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(24) }">{{ myData.m24 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu25">
-              <b-list-group-item to="/c25" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(25) }">{{ myData.m25 }}</b-list-group-item>
+              <b-list-group-item to="/b25" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(25) }">{{ myData.m25 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu26">
-              <b-list-group-item to="/c26" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(26) }">{{ myData.m26 }}</b-list-group-item>
+              <b-list-group-item to="/b26" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(26) }">{{ myData.m26 }}</b-list-group-item>
             </div>
           </b-list-group>
         </div>
@@ -101,22 +104,22 @@
           <b-list-group>
             <b-list-group-item class="m-0 mt-1 p-0 text-center text-light bg-secondary">{{ myData.m4 }}</b-list-group-item>
             <div v-show="myData.chkMenu41">
-              <b-list-group-item to="/a41" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(41) }">{{ myData.m41 }}</b-list-group-item>
+              <b-list-group-item to="/b41" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(41) }">{{ myData.m41 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu42">
-              <b-list-group-item to="/a42" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(42) }">{{ myData.m42 }}</b-list-group-item>
+              <b-list-group-item to="/b42" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(42) }">{{ myData.m42 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu43">
-              <b-list-group-item to="/a43" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(43) }">{{ myData.m43 }}</b-list-group-item>
+              <b-list-group-item to="/b43" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(43) }">{{ myData.m43 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu44">
-              <b-list-group-item to="/a44" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(44) }">{{ myData.m44 }}</b-list-group-item>
+              <b-list-group-item to="/b44" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(44) }">{{ myData.m44 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu45">
-              <b-list-group-item to="/a45" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(45) }">{{ myData.m45 }}</b-list-group-item>
+              <b-list-group-item to="/b45" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(45) }">{{ myData.m45 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu46">
-              <b-list-group-item to="/a46" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(46) }">{{ myData.m46 }}</b-list-group-item>
+              <b-list-group-item to="/b46" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(46) }">{{ myData.m46 }}</b-list-group-item>
             </div>
           </b-list-group>
         </div>
@@ -127,22 +130,22 @@
           <b-list-group>
             <b-list-group-item class="m-0 mt-1 p-0 text-center text-light bg-secondary">{{ myData.m5 }}</b-list-group-item>
             <div v-show="myData.chkMenu51">
-              <b-list-group-item to="/d51" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(51) }">{{ myData.m51 }}</b-list-group-item>
+              <b-list-group-item to="/a51" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(51) }">{{ myData.m51 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu52">
-              <b-list-group-item to="/d52" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(52) }">{{ myData.m52 }}</b-list-group-item>
+              <b-list-group-item to="/a52" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(52) }">{{ myData.m52 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu53">
-              <b-list-group-item to="/d53" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(53) }">{{ myData.m53 }}</b-list-group-item>
+              <b-list-group-item to="/a53" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(53) }">{{ myData.m53 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu54">
-              <b-list-group-item to="/d54" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(54) }">{{ myData.m54 }}</b-list-group-item>
+              <b-list-group-item to="/a54" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(54) }">{{ myData.m54 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu55">
-              <b-list-group-item to="/d55" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(55) }">{{ myData.m55 }}</b-list-group-item>
+              <b-list-group-item to="/a55" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(55) }">{{ myData.m55 }}</b-list-group-item>
             </div>
             <div v-show="myData.chkMenu56">
-              <b-list-group-item to="/d56" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(56) }">{{ myData.m56 }}</b-list-group-item>
+              <b-list-group-item to="/a56" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(56) }">{{ myData.m56 }}</b-list-group-item>
             </div>
           </b-list-group>
         </div>
@@ -176,87 +179,87 @@
       </div>
 
       <!-- Side MENU start -->
-      <div v-for="dbSide in dbSides" :key="dbSide.id" class="m-0 p-0">
-        <div v-show="dbSide.myData.chkSideMenu" class="m-0 p-0">
-          <div class="row m-0 p-2" style="background-color: black">
-            <!-- ========== PR動画 ========== -->
-            <div v-show="dbSide.myData.chkMenu2" class="col-4 m-0 p-2">
-              <b-list-group>
-                <!-- <b-list-group-item class="m-0 mt-1 p-0 text-center text-light bg-secondary">{{ dbSide.myData.v1 }}</b-list-group-item> -->
-                <b-list-group-item class="text-break m-0 p-0 text-center text-light bg-dark font-weight-bold">{{ dbSide.myData.v1 }}</b-list-group-item>
+      <!-- <div v-for="dbSide in dbSides" :key="dbSide.id" class="m-0 p-0"> -->
+      <div v-if="dbSides" v-show="dbSides.mySide.chkSideMenu" class="m-0 p-0">
+        <div class="row m-0 p-2" style="background-color: black">
+          <!-- ========== PR動画 ========== -->
+          <div v-show="dbSides.mySide.chkMenu2" class="col-4 m-0 p-2">
+            <b-list-group>
+              <!-- <b-list-group-item class="m-0 mt-1 p-0 text-center text-light bg-secondary">{{ dbSides.mySide.v1 }}</b-list-group-item> -->
+              <b-list-group-item class="text-break m-0 p-0 text-center text-light bg-dark font-weight-bold">{{ dbSides.mySide.v1 }}</b-list-group-item>
 
-                <div v-show="dbSide.myData.chkMenu11">
-                  <!-- <b-list-group-item to="/video1" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(111) }" @click="selected = 111">{{ dbSide.myData.v11 }}</b-list-group-item> -->
-                  <b-list-group-item to="/video1" class="m-0 p-0 pl-1" :class="{ active: isSelected(111) }" @click="selnum(111)">{{ dbSide.myData.v11 }}</b-list-group-item>
-                  <!-- <b-list-group-item to="/video1" class="m-0 p-1" :class="{ active: isSelected(111) }" @click="selnumSide(111)">{{ dbSide.myData.v11 }}</b-list-group-item> -->
-                </div>
+              <div v-show="dbSides.mySide.chkMenu11">
+                <!-- <b-list-group-item to="/video1" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(111) }" @click="selected = 111">{{ dbSides.mySide.v11 }}</b-list-group-item> -->
+                <b-list-group-item to="/video1" class="m-0 p-0 pl-1" :class="{ active: isSelected(111) }" @click="selnum(111)">{{ dbSides.mySide.v11 }}</b-list-group-item>
+                <!-- <b-list-group-item to="/video1" class="m-0 p-1" :class="{ active: isSelected(111) }" @click="selnumSide(111)">{{ dbSides.mySide.v11 }}</b-list-group-item> -->
+              </div>
 
-                <div v-show="dbSide.myData.chkMenu12">
-                  <b-list-group-item to="/video2" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(112) }" @click="selnum(112)">{{ dbSide.myData.v12 }}</b-list-group-item>
-                </div>
+              <div v-show="dbSides.mySide.chkMenu12">
+                <b-list-group-item to="/video2" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(112) }" @click="selnum(112)">{{ dbSides.mySide.v12 }}</b-list-group-item>
+              </div>
 
-                <div v-show="dbSide.myData.chkMenu13">
-                  <b-list-group-item to="/video3" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(113) }" @click="selnum(113)">{{ dbSide.myData.v13 }}</b-list-group-item>
-                </div>
+              <div v-show="dbSides.mySide.chkMenu13">
+                <b-list-group-item to="/video3" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(113) }" @click="selnum(113)">{{ dbSides.mySide.v13 }}</b-list-group-item>
+              </div>
 
-                <div v-show="dbSide.myData.chkMenu14">
-                  <b-list-group-item to="/video4" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(114) }" @click="selnum(114)">{{ dbSide.myData.v14 }}</b-list-group-item>
-                </div>
+              <div v-show="dbSides.mySide.chkMenu14">
+                <b-list-group-item to="/video4" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(114) }" @click="selnum(114)">{{ dbSides.mySide.v14 }}</b-list-group-item>
+              </div>
 
-                <div v-show="dbSide.myData.chkMenu15">
-                  <b-list-group-item to="/video5" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(115) }" @click="selnum(115)">{{ dbSide.myData.v15 }}</b-list-group-item>
-                </div>
-              </b-list-group>
-            </div>
-
-            <!-- ========== リンク集 ========== -->
-            <div v-show="dbSide.myData.chkMenu2" class="col-4 m-0 p-2">
-              <b-list-group>
-                <b-list-group-item class="text-break m-0 p-0 text-center text-light bg-dark font-weight-bold">{{ dbSide.myData.l1 }}</b-list-group-item>
-                <div v-show="dbSide.myData.chkMenu21">
-                  <b-list-group-item target="_blank" :href="dbSide.myData.l11a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(121) }" @click="selnum(121)">{{ dbSide.myData.l11 }}</b-list-group-item>
-                </div>
-                <div v-show="dbSide.myData.chkMenu22">
-                  <b-list-group-item target="_blank" :href="dbSide.myData.l12a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(122) }" @click="selnum(122)">{{ dbSide.myData.l12 }}</b-list-group-item>
-                </div>
-                <div v-show="dbSide.myData.chkMenu23">
-                  <b-list-group-item target="_blank" :href="dbSide.myData.l13a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(123) }" @click="selnum(123)">{{ dbSide.myData.l13 }}</b-list-group-item>
-                </div>
-                <div v-show="dbSide.myData.chkMenu24">
-                  <b-list-group-item target="_blank" :href="dbSide.myData.l14a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(124) }" @click="selnum(124)">{{ dbSide.myData.l14 }}</b-list-group-item>
-                </div>
-                <div v-show="dbSide.myData.chkMenu25">
-                  <b-list-group-item target="_blank" :href="dbSide.myData.l15a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(125) }" @click="selnum(125)">{{ dbSide.myData.l15 }}</b-list-group-item>
-                </div>
-              </b-list-group>
-            </div>
-
-            <!-- ========== アクセスマップ ========== -->
-            <div v-show="dbSide.myData.chkMenu3" class="col-4 m-0 p-2">
-              <b-list-group>
-                <b-list-group-item class="text-break m-0 p-0 text-center text-light bg-dark font-weight-bold">{{ dbSide.myData.m1 }}</b-list-group-item>
-                <div v-show="dbSide.myData.chkMenu31">
-                  <b-list-group-item target="_blank" :href="dbSide.myData.m11a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(131) }" @click="selnum(131)">{{ dbSide.myData.m11 }}</b-list-group-item>
-                </div>
-                <div v-show="dbSide.myData.chkMenu32">
-                  <b-list-group-item target="_blank" :href="dbSide.myData.m12a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(132) }" @click="selnum(132)">{{ dbSide.myData.m12 }}</b-list-group-item>
-                </div>
-                <div v-show="dbSide.myData.chkMenu33">
-                  <b-list-group-item target="_blank" :href="dbSide.myData.m13a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(133) }" @click="selnum(133)">{{ dbSide.myData.m13 }}</b-list-group-item>
-                </div>
-                <div v-show="dbSide.myData.chkMenu34">
-                  <b-list-group-item target="_blank" :href="dbSide.myData.m14a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(134) }" @click="selnum(134)">{{ dbSide.myData.m14 }}</b-list-group-item>
-                </div>
-                <div v-show="dbSide.myData.chkMenu35">
-                  <b-list-group-item target="_blank" :href="dbSide.myData.m15a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(135) }" @click="selnum(135)">{{ dbSide.myData.m15 }}</b-list-group-item>
-                </div>
-              </b-list-group>
-            </div>
-            <!-- 以下の１行は改行できないため、半角スペースを挿入 -->
-            <!-- <p class="col-12">&nbsp;</p> -->
+              <div v-show="dbSides.mySide.chkMenu15">
+                <b-list-group-item to="/video5" class="m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(115) }" @click="selnum(115)">{{ dbSides.mySide.v15 }}</b-list-group-item>
+              </div>
+            </b-list-group>
           </div>
+
+          <!-- ========== リンク集 ========== -->
+          <div v-show="dbSides.mySide.chkMenu2" class="col-4 m-0 p-2">
+            <b-list-group>
+              <b-list-group-item class="text-break m-0 p-0 text-center text-light bg-dark font-weight-bold">{{ dbSides.mySide.l1 }}</b-list-group-item>
+              <div v-show="dbSides.mySide.chkMenu21">
+                <b-list-group-item target="_blank" :href="dbSides.mySide.l11a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(121) }" @click="selnum(121)">{{ dbSides.mySide.l11 }}</b-list-group-item>
+              </div>
+              <div v-show="dbSides.mySide.chkMenu22">
+                <b-list-group-item target="_blank" :href="dbSides.mySide.l12a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(122) }" @click="selnum(122)">{{ dbSides.mySide.l12 }}</b-list-group-item>
+              </div>
+              <div v-show="dbSides.mySide.chkMenu23">
+                <b-list-group-item target="_blank" :href="dbSides.mySide.l13a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(123) }" @click="selnum(123)">{{ dbSides.mySide.l13 }}</b-list-group-item>
+              </div>
+              <div v-show="dbSides.mySide.chkMenu24">
+                <b-list-group-item target="_blank" :href="dbSides.mySide.l14a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(124) }" @click="selnum(124)">{{ dbSides.mySide.l14 }}</b-list-group-item>
+              </div>
+              <div v-show="dbSides.mySide.chkMenu25">
+                <b-list-group-item target="_blank" :href="dbSides.mySide.l15a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(125) }" @click="selnum(125)">{{ dbSides.mySide.l15 }}</b-list-group-item>
+              </div>
+            </b-list-group>
+          </div>
+
+          <!-- ========== アクセスマップ ========== -->
+          <div v-show="dbSides.mySide.chkMenu3" class="col-4 m-0 p-2">
+            <b-list-group>
+              <b-list-group-item class="text-break m-0 p-0 text-center text-light bg-dark font-weight-bold">{{ dbSides.mySide.m1 }}</b-list-group-item>
+              <div v-show="dbSides.mySide.chkMenu31">
+                <b-list-group-item target="_blank" :href="dbSides.mySide.m11a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(131) }" @click="selnum(131)">{{ dbSides.mySide.m11 }}</b-list-group-item>
+              </div>
+              <div v-show="dbSides.mySide.chkMenu32">
+                <b-list-group-item target="_blank" :href="dbSides.mySide.m12a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(132) }" @click="selnum(132)">{{ dbSides.mySide.m12 }}</b-list-group-item>
+              </div>
+              <div v-show="dbSides.mySide.chkMenu33">
+                <b-list-group-item target="_blank" :href="dbSides.mySide.m13a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(133) }" @click="selnum(133)">{{ dbSides.mySide.m13 }}</b-list-group-item>
+              </div>
+              <div v-show="dbSides.mySide.chkMenu34">
+                <b-list-group-item target="_blank" :href="dbSides.mySide.m14a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(134) }" @click="selnum(134)">{{ dbSides.mySide.m14 }}</b-list-group-item>
+              </div>
+              <div v-show="dbSides.mySide.chkMenu35">
+                <b-list-group-item target="_blank" :href="dbSides.mySide.m15a" class="text-break m-0 p-0 pl-1 bg-mycolor" :class="{ active: isSelected(135) }" @click="selnum(135)">{{ dbSides.mySide.m15 }}</b-list-group-item>
+              </div>
+            </b-list-group>
+          </div>
+          <!-- 以下の１行は改行できないため、半角スペースを挿入 -->
+          <!-- <p class="col-12">&nbsp;</p> -->
         </div>
       </div>
+      <!-- </div> -->
       <!-- Side MENU end -->
     </div>
     <!-- サイトマップ end -->
@@ -330,7 +333,8 @@ export default {
   // computedは、値が変わるとその値に依存しているすべてのバインディングが更新される
   computed: {
     dbSides() {
-      return this.$store.getters['storeside/orderdDbSides']
+      // return this.$store.getters['storeside/orderdDbSides']
+      return this.$store.getters['storeside/getSideById']('side')
     },
   },
   mounted() {

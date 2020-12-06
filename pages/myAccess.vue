@@ -1,8 +1,6 @@
 <template>
   <div class="container-fluid no-gutters">
-    <div v-for="dbHeader in dbHeaders" :key="dbHeader.id" class="m-0 p-0">
-      <h5 class="text-light text-center m-0 p-0 py-2" :style="commonData.buttonColorBasicSet">{{ dbHeader.myData.m65 }}</h5>
-    </div>
+    <h5 v-if="myMenu" class="text-light text-center m-0 p-0 py-2" :style="myCommon.buttonColorBasicSet">{{ myMenu.m65 }}</h5>
 
     <div id="mydiv" class="d-flex m-0 mt-3 p-0">
       <h6></h6>
@@ -21,8 +19,8 @@
           <!-- <div v-for="dbPage in dbPages" :key="dbPage.id" class="m-0 my-1 p-0"> -->
           <div class="row m-2 p-0 border border-secondary" style="background-color: gainsboro">
             <div class="col-1 m-0 p-1 text-center">
-              <!-- <b-button :size="commonData.selectedBtnSize" class="px-1 py-0 m-0 mt-1" variant="primary" @click="edit(dbPage.id)">編集</b-button> -->
-              <b-button :size="commonData.selectedBtnSize" class="px-1 py-2 m-0 mt-1" @click="remove()">削除</b-button>
+              <!-- <b-button :size="myCommon.selectedBtnSize" class="px-1 py-0 m-0 mt-1" variant="primary" @click="edit(dbPage.id)">編集</b-button> -->
+              <b-button :size="myCommon.selectedBtnSize" class="px-1 py-2 m-0 mt-1" @click="remove()">削除</b-button>
             </div>
 
             <div class="col-11 m-0 p-0 px-1 text-wrap border-left border-secondary" style="background-color: gainsboro">
@@ -38,7 +36,7 @@
             <div class="m-0 p-0 mt-2" style="background-color:linen;">
               <div class="d-flex flex-low">
                 <h4 class="mx-2 my-0 p-0 pt-1">編集</h4>
-                <b-button :size="commonData.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="editCancel()">編集取消</b-button>
+                <b-button :size="myCommon.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="editCancel()">編集取消</b-button>
               </div>
               <b-form @submit="onSubmitEdit" @reset="onReset">
                 <div class="row p-0 pt-2 m-0 mr-1">
@@ -56,7 +54,7 @@
                   <b-form-textarea v-model="page.a" class="col-10" required placeholder="" rows="3" max-rows="6"></b-form-textarea>
                 </div>
 
-                <b-button :size="commonData.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button>
+                <b-button :size="myCommon.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button>
               </b-form>
 
               <hr />
@@ -76,9 +74,9 @@
           <!-- <b-form-textarea v-model="mapUrl" class="m-0 p-0" required placeholder="地図情報を入力してください。"></b-form-textarea> -->
           <!-- </div> -->
 
-          <b-button :size="commonData.selectedBtnSize" style="background-color: skyblue" class="m-0 ml-2 px-1 py-0 text-body" @click="onReg()">登録</b-button>
-          <b-button :size="commonData.selectedBtnSize" style="background-color: skyblue" class="m-0 ml-2 px-1 py-0 text-body" @click="onClear()">データクリア</b-button>
-          <b-button :size="commonData.selectedBtnSize" style="background-color: skyblue" class="m-0 ml-2 px-1 py-0 text-body" @click="onReset()">登録済みデータへ戻す</b-button>
+          <b-button :size="myCommon.selectedBtnSize" style="background-color: skyblue" class="m-0 ml-2 px-1 py-0 text-body" @click="onReg()">登録</b-button>
+          <b-button :size="myCommon.selectedBtnSize" style="background-color: skyblue" class="m-0 ml-2 px-1 py-0 text-body" @click="onClear()">データクリア</b-button>
+          <b-button :size="myCommon.selectedBtnSize" style="background-color: skyblue" class="m-0 ml-2 px-1 py-0 text-body" @click="onReset()">登録済みデータへ戻す</b-button>
 
           <hr />
         </div>
@@ -98,7 +96,7 @@
       </div>
     </div>
     <!-- ========================== 管理機能 end ========= -->
-    <p>{{ commonDataSet() }}</p>
+    <p>{{ myCommonSet() }}</p>
     <!-- <p>{{ myfunc() }}</p> -->
     <!-- <br /> -->
   </div>
@@ -109,7 +107,8 @@
 export default {
   data() {
     return {
-      commonData: {},
+      myCommon: {},
+      myMenu: {},
       mapUrl: '',
       tempUrl: '',
     }
@@ -128,7 +127,8 @@ export default {
       // return tempAccess
     },
     dbHeaders() {
-      return this.$store.getters['storeheader/orderdDbHeaders']
+      // return this.$store.getters['storeheader/orderdDbHeaders']
+      return this.$store.getters['storeheader/getDbHeadersById']('menu')
     },
   },
   // created は画面を開いたとき呼ばれる。
@@ -139,15 +139,19 @@ export default {
     // 下記の storeheader は store/storeheader.js のファイル名
     this.$store.dispatch('storeheader/init')
 
-    this.$nuxt.$on('mydata', (myData) => {
-      this.myData = myData
-    })
+    // this.$nuxt.$on('mydata', (myData) => {
+    //   this.myData = myData
+    // })
   },
   // elementへのマウントが行われた後処理される。
   // SSR(Firebase等)では使えない。
   mounted() {
-    this.$nuxt.$on('commondata', (commonData) => {
-      this.commonData = commonData
+    this.$nuxt.$on('mycommon', (myCommon) => {
+      this.myCommon = myCommon
+    })
+
+    this.$nuxt.$on('mymenu', (myMenu) => {
+      this.myMenu = myMenu
     })
   },
 
@@ -176,14 +180,14 @@ export default {
       this.tempUrl = ''
       // this.$router.go()
     },
-    commonDataSet() {
+    myCommonSet() {
       try {
         this.mapUrl = this.dbAccessById.mapUrl
-        // console.log('mapUrl in commonDataSet(): ', this.mapUrl)
+        // console.log('mapUrl in myCommonSet(): ', this.mapUrl)
         this.myfunc()
       } catch (error) {
         // alert('テスト in myDataSet(): ' + error)
-        // console.log('エラー in commonDataSet(): ' + error)
+        // console.log('エラー in myCommonSet(): ' + error)
       }
     },
     myfunc() {

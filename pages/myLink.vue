@@ -1,8 +1,6 @@
 <template>
   <div class="container-fluid">
-    <div v-for="dbHeader in dbHeaders" :key="dbHeader.id" class="m-0 p-0">
-      <h5 class="text-light text-center m-0 p-1" :style="commonData.buttonColorBasicSet">{{ dbHeader.myData.m64 }}</h5>
-    </div>
+    <h5 v-if="myMenu" class="text-light text-center m-0 p-1" :style="myCommon.buttonColorBasicSet">{{ myMenu.m64 }}</h5>
 
     <div class="row m-0 mt-2 p-0 border text-center align-self-center" style="background-color: aliceblue">
       <span class="col-3">会社名</span>
@@ -74,9 +72,9 @@
           <!-- <div v-for="(dbPage, index) in dbPages" :key="dbPage.id" class="row m-0 p-0 border text-break overflow-auto"> -->
           <div v-for="dbPage in dbPages" :key="dbPage.id" class="row m-0 p-0 border text-break overflow-auto">
             <div class="col-1 m-0 p-0 align-self-center">
-              <b-button :size="commonData.selectedBtnSize" class="px-1 py-0 m-1" variant="primary" @click="edit(dbPage.id)">編集</b-button>
+              <b-button :size="myCommon.selectedBtnSize" class="px-1 py-0 m-1" variant="primary" @click="edit(dbPage.id)">編集</b-button>
               <br />
-              <b-button :size="commonData.selectedBtnSize" class="px-1 py-0 m-1" @click="remove(dbPage.id)">削除</b-button>
+              <b-button :size="myCommon.selectedBtnSize" class="px-1 py-0 m-1" @click="remove(dbPage.id)">削除</b-button>
             </div>
 
             <b-link target="_blank" :href="dbPage.page.linkUrl" class="col-3 m-0 p-0 px-1 align-self-center">{{ dbPage.page.titleName }}</b-link>
@@ -127,7 +125,7 @@
           <div class="m-0 p-0 mt-2" style="background-color: linen">
             <div class="d-flex flex-low">
               <h4 class="mx-2 my-0 p-0 pt-1">編集</h4>
-              <b-button :size="commonData.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="editCancel()">編集取消</b-button>
+              <b-button :size="myCommon.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="editCancel()">編集取消</b-button>
             </div>
 
             <b-form @submit="onSubmitEdit" @reset="onReset">
@@ -174,8 +172,8 @@
               </div>
 
               <!-- </div> -->
-              <b-button :size="commonData.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button>
-              <b-button :size="commonData.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="dataReset()">データリセット</b-button>
+              <b-button :size="myCommon.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button>
+              <b-button :size="myCommon.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="dataReset()">データリセット</b-button>
             </b-form>
 
             <!-- 必須ではない項目はここへ記載 -->
@@ -189,13 +187,13 @@
             <!-- 画像添付 start-->
             <div class="mx-2 pb-2">
               <p class="mb-0">画像を変更する場合は、「画像変更」ボタンをクリックしてください。</p>
-              <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageListEdit()">画像変更</button>
-              <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageTorikesi()">変更取消</button>
-              <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageCancel()">添付しない</button>
+              <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageListEdit()">画像変更</button>
+              <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageTorikesi()">変更取消</button>
+              <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageCancel()">添付しない</button>
             </div>
 
             <!-- <div v-show="showImageFlg" class="col-12"> -->
-            <!-- <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageList()">画像リスト表示</button> -->
+            <!-- <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageList()">画像リスト表示</button> -->
             <div v-show="toggleShow">
               <!-- ここから -->
               <div class="m-2">
@@ -258,8 +256,8 @@
                 <b-form-textarea v-model="page.mainText" class="col-9" required placeholder="事業内容を記入してください。" rows="3" max-rows="6"></b-form-textarea>
               </div>
 
-              <b-button :size="commonData.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button>
-              <b-button :size="commonData.selectedBtnSize" type="reset" variant="dark" class="m-1 px-1 py-0">リセット</b-button>
+              <b-button :size="myCommon.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button>
+              <b-button :size="myCommon.selectedBtnSize" type="reset" variant="dark" class="m-1 px-1 py-0">リセット</b-button>
             </b-form>
 
             <!-- 必須ではない項目はここへ記載 -->
@@ -269,12 +267,12 @@
             <!-- 画像添付 start-->
             <div class="mx-2 pb-2">
               <p class="mb-0">画像を添付する場合は、「画像添付」ボタンをクリックしてください。</p>
-              <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageList()">画像添付</button>
-              <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageCancel()">キャンセル</button>
+              <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageList()">画像添付</button>
+              <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageCancel()">キャンセル</button>
             </div>
 
             <!-- <div v-show="showImageFlg" class="col-12"> -->
-            <!-- <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageList()">画像リスト表示</button> -->
+            <!-- <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageList()">画像リスト表示</button> -->
             <div v-show="toggleShow">
               <!-- ここから -->
               <div class="m-2">
@@ -323,8 +321,8 @@
 
                 <!-- <p>アップロードファイル名： {{ fileName }}</p> -->
                 <!-- アップロードボタン -->
-                <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-0 px-1 py-0" @click="upload()">Upload</b-button>
-                <b-button :size="commonData.selectedBtnSize" class="ml-2 m-0 px-1 py-0" my-0 @click="reset()">Cancel</b-button>
+                <b-button :size="myCommon.selectedBtnSize" variant="primary" class="m-0 px-1 py-0" @click="upload()">Upload</b-button>
+                <b-button :size="myCommon.selectedBtnSize" class="ml-2 m-0 px-1 py-0" my-0 @click="reset()">Cancel</b-button>
                 <!-- upload()の最後で、リスト表示 -->
               </div>
             </div>
@@ -334,8 +332,8 @@
             <!-- <div class="col-12 m-0 p-2 mt-2"> -->
             <div class="col-12 m-0 p-2 mt-2" style="background-color: honeydew">
               <h5>画像削除</h5>
-              <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-0 ml-2 px-1 py-0" @click="imageDelete()">画像リスト表示</b-button>
-              <b-button :size="commonData.selectedBtnSize" class="m-0 ml-2 px-1 py-0" @click="imageDeleteCancel()">非表示</b-button>
+              <b-button :size="myCommon.selectedBtnSize" variant="primary" class="m-0 ml-2 px-1 py-0" @click="imageDelete()">画像リスト表示</b-button>
+              <b-button :size="myCommon.selectedBtnSize" class="m-0 ml-2 px-1 py-0" @click="imageDeleteCancel()">非表示</b-button>
             </div>
             <!-- </div> -->
 
@@ -348,7 +346,7 @@
                     <!-- <div v-for="myImage in myImages" :key="myImage.id" class="p-1 col-4" style="background-color:lightslategray;"> -->
                     <div class="border m-0 p-0">
                       <b-img :src="myImage.url" fluid class="m-0" alt="file" />
-                      <b-button :size="commonData.selectedBtnSize" class="m-1 ml-2 px-1 py-0 d-flex" @click="deleteImage(myImage.name, myImage.url)">削除</b-button>
+                      <b-button :size="myCommon.selectedBtnSize" class="m-1 ml-2 px-1 py-0 d-flex" @click="deleteImage(myImage.name, myImage.url)">削除</b-button>
                     </div>
                   </div>
                   <!-- <div class="float-cb col-12"></div> -->
@@ -384,8 +382,8 @@ export default {
     return {
       todaySetFlg: false,
       editId: '',
-      myData: {},
-      commonData: {},
+      myMenu: {},
+      myCommon: {},
       selected: '選択されていません。',
       showEdit: false,
       showReg: true,
@@ -444,7 +442,8 @@ export default {
     //   // }
     // },
     dbHeaders() {
-      return this.$store.getters['storeheader/orderdDbHeaders']
+      // return this.$store.getters['storeheader/orderdDbHeaders']
+      return this.$store.getters['storeheader/getDbHeadersById']('menu')
     },
   },
   // created は画面を開いたとき呼ばれる。
@@ -458,8 +457,12 @@ export default {
   // elementへのマウントが行われた後処理される。
   // SSR(Firebase等)では使えない。
   mounted() {
-    this.$nuxt.$on('commondata', (commonData) => {
-      this.commonData = commonData
+    this.$nuxt.$on('mymenu', (myMenu) => {
+      this.myMenu = myMenu
+    })
+
+    this.$nuxt.$on('mycommon', (myCommon) => {
+      this.myCommon = myCommon
     })
   },
 

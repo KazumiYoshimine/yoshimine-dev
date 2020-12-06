@@ -1,8 +1,6 @@
 <template>
   <div class="container-fluid">
-    <div v-for="dbHeader in dbHeaders" :key="dbHeader.id" class="m-0 p-0">
-      <h5 class="text-light text-center m-0 p-0 py-2" :style="commonData.buttonColorBasicSet">{{ dbHeader.myData.m62 }}</h5>
-    </div>
+    <h5 v-if="myMenu" class="text-light text-center m-0 p-0 py-2" :style="myCommon.buttonColorBasicSet">{{ myMenu.m62 }}</h5>
 
     <div class="row">
       <!-- <div class="col-12 m-0 p-1">
@@ -40,8 +38,8 @@
             </b-form-group>
           </div>
 
-          <b-button :size="commonData.selectedBtnSize" type="submit" variant="primary">登録</b-button>
-          <b-button :size="commonData.selectedBtnSize" type="reset" variant="dark">リセット</b-button>
+          <b-button :size="myCommon.selectedBtnSize" type="submit" variant="primary">登録</b-button>
+          <b-button :size="myCommon.selectedBtnSize" type="reset" variant="dark">リセット</b-button>
         </b-form>
       </div>
       <!-- <br /> -->
@@ -89,7 +87,8 @@ export default {
       subject: '',
       message: '',
     },
-    commonData: {},
+    myCommon: {},
+    myMenu: {},
     showMailFlg: false,
     show: true,
   }),
@@ -100,7 +99,8 @@ export default {
     },
 
     dbHeaders() {
-      return this.$store.getters['storeheader/orderdDbHeaders']
+      // return this.$store.getters['storeheader/orderdDbHeaders']
+      return this.$store.getters['storeheader/getDbHeadersById']('menu')
     },
   },
   // created は画面を開いたとき呼ばれる。
@@ -109,17 +109,17 @@ export default {
     // this.$store.dispatch('b31DB/init')
 
     // 下記の storeheader は store/storeheader.js のファイル名
-    // this.$store.dispatch('storeheader/init')
+    this.$store.dispatch('storeheader/init')
 
-    this.$nuxt.$on('mydata', (myData) => {
-      this.myData = myData
+    this.$nuxt.$on('mymenu', (myMenu) => {
+      this.myMenu = myMenu
     })
   },
   // elementへのマウントが行われた後処理される。
   // SSR(Firebase等)では使えない。
   mounted() {
-    this.$nuxt.$on('commondata', (commonData) => {
-      this.commonData = commonData
+    this.$nuxt.$on('mycommon', (myCommon) => {
+      this.myCommon = myCommon
     })
   },
 

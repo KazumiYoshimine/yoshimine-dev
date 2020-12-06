@@ -240,7 +240,7 @@ export const actions = {
     // console.log('layout ---- in db_update: ', layout)
     await eachPageRef
       .doc(pageNo)
-      .update({
+      .set({
         layout,
       })
       .then(() => {

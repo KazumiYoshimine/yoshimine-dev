@@ -4,10 +4,9 @@
       <h5 class="text-light text-center m-0 p-1" :style="commonData.buttonColorBasicSet">{{ dbHeader.myData.m32 }}</h5>
     </div>
 
-    <div class="row no-gutters">
-      <!-- main表示 -->
-      <!-- 以下の :key="dbPage.id" でソートされる -->
-      <div v-for="(dbPage, index) in dbPages" :key="dbPage.id" class="col-md-6">
+    <!-- ＝＝＝＝ レイアウト type:0 の時 start ＝＝＝＝＝＝＝＝＝ -->
+    <div v-if="layout.type === 0" class="row no-gutters">
+      <div v-for="(dbPage, index) in dbPages" :key="dbPage.id" class="col-sm-6 col-md-4">
         <div class="card no-gutters m-1">
           <div v-b-modal="'data-' + index">
             <!-- タイトル ＆ 日付 -->
@@ -16,53 +15,47 @@
               <p :hidden="cCommonData.hiddenDate" class="m-0 p-0">{{ dbPage.page.mainDate }}</p>
             </div>
 
-            <div class="row m-0 p-0">
-              <div class="m-0 p-0 border col-md-4 col-sm-5">
-                <!-- 画像 -->
+            <div class="m-0 p-0 border">
+              <!-- +++++++ 画像等のファイル表示 start -->
+              <div v-if="dbPage.page.displayType === 'image'" class="m-0 p-0">
+                <b-embed :src="dbPage.page.fileUrl" class="m-0" type="embed" alt="file" fluid />
+              </div>
+              <div v-else-if="dbPage.page.displayType === 'googleDocViewer'" class="m-0 p-0">
+                <b-embed :src="dbPage.page.googleUrl" class="m-0" type="embed" alt="file" fluid />
+              </div>
+              <div v-else class="m-0 p-0">
                 <!-- <b-embed :src="dbPage.page.fileUrl" class="m-0" type="embed" alt="file" fluid /> -->
-                <!-- +++++++ 画像等のファイル表示 start -->
-                <div v-if="dbPage.page.displayType === 'image'" class="m-0 p-0">
-                  <b-embed :src="dbPage.page.fileUrl" class="m-0" type="embed" alt="file" fluid />
-                </div>
-                <div v-else-if="dbPage.page.displayType === 'googleDocViewer'" class="m-0 p-0">
-                  <b-embed :src="dbPage.page.googleUrl" class="m-0" type="embed" alt="file" fluid />
-                </div>
-                <div v-else class="m-0 p-0">
-                  <!-- <b-embed :src="dbPage.page.fileUrl" class="m-0" type="embed" alt="file" fluid /> -->
-                  <p class="m-0 p-0">表示未対応のファイル形式です。</p>
-                  <!-- <p class="m-0 p-0">下の「ダウンロード」ボタンからダウンロードして、ご利用ください。</p> -->
-                  <br />
-                </div>
-                <!-- +++++++ 画像等のファイル表示 end -->
+                <p class="m-0 p-0">表示未対応のファイル形式です。</p>
+                <!-- <p class="m-0 p-0">下の「ダウンロード」ボタンからダウンロードして、ご利用ください。</p> -->
+                <br />
+              </div>
+              <!-- +++++++ 画像等のファイル表示 end -->
 
-                <!-- 1行目 -->
-                <div class="row m-0 p-0">
-                  <p :hidden="cCommonData.hiddenText1" class="col-4 m-0 p-0 px-1">{{ cCommonData.text1name }}</p>
-                  <p :hidden="cCommonData.hiddenText1" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text1 }}</p>
-                </div>
-
-                <!-- 2行目 -->
-                <div class="row m-0 p-0">
-                  <p :hidden="cCommonData.hiddenText2" class="col-4 m-0 p-0 px-1">{{ cCommonData.text2name }}</p>
-                  <p :hidden="cCommonData.hiddenText2" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text2 }}</p>
-                </div>
-
-                <!-- 3行目 -->
-                <div class="row m-0 p-0">
-                  <p :hidden="cCommonData.hiddenText3" class="col-4 m-0 p-0 px-1">{{ cCommonData.text3name }}</p>
-                  <p :hidden="cCommonData.hiddenText3" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text3 }}</p>
-                </div>
+              <!-- 1行目 -->
+              <div class="row m-0 p-0">
+                <p :hidden="cCommonData.hiddenText1" class="col-4 m-0 p-0 px-1">{{ cCommonData.text1name }}</p>
+                <p :hidden="cCommonData.hiddenText1" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text1 }}</p>
               </div>
 
-              <!-- 本文表示 mainText (長文) -->
-              <div class="m-0 p-0 col-md-8 col-sm-7 p-0 text-wrap card-body" style="background-color: whitesmoke">
-                <p class="m-0 p-2 text-break overflow-auto" style="overflow-wrap: break-word; max-height: 230px">{{ dbPage.page.mainText }}</p>
-                <!-- <h5 :hidden="cCommonData.hiddenMainText" class="text-justify text-break m-0 p-2 bg-a13-linen" style="white-space: pre-wrap">{{ dbPage.page.mainText }}</h5> -->
+              <!-- 2行目 -->
+              <div class="row m-0 p-0">
+                <p :hidden="cCommonData.hiddenText2" class="col-4 m-0 p-0 px-1">{{ cCommonData.text2name }}</p>
+                <p :hidden="cCommonData.hiddenText2" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text2 }}</p>
               </div>
+
+              <!-- 3行目 -->
+              <div class="row m-0 p-0">
+                <p :hidden="cCommonData.hiddenText3" class="col-4 m-0 p-0 px-1">{{ cCommonData.text3name }}</p>
+                <p :hidden="cCommonData.hiddenText3" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text3 }}</p>
+              </div>
+            </div>
+
+            <!-- 本文表示 mainText (長文) -->
+            <div class="m-0 p-0 p-0 text-wrap card-body" style="background-color: whitesmoke">
+              <p :hidden="cCommonData.hiddenMainText" class="m-0 p-0 pl-1 text-justify text-break overflow-auto bg-a13-linen" style="overflow-wrap: break-word; max-height: 62px; white-space: pre-wrap">{{ dbPage.page.mainText }}</p>
             </div>
           </div>
 
-          <!-- <div class="m-0 p-0 border col-12"> -->
           <!-- <div class="m-0 p-0 col-12"> -->
           <div class="m-0 p-0">
             <!-- ボタン start -->
@@ -91,9 +84,7 @@
         <b-modal :id="'data-' + index" hide-header size="xl">
           <!-- タイトル表示 -->
           <div class="border m-1 mt-3 p-2 d-flex justify-content-between" style="background-color: honeydew">
-            <!-- <h5 class="m-0 px-1 float-left">{{ dbPage.page.titleName }}</h5> -->
             <h5 class="m-0 px-1">{{ dbPage.page.titleName }}</h5>
-            <!-- <p :hidden="cCommonData.hiddenDate" class="text-right m-0 pl-2 pr-2">{{ dbPage.page.mainDate }}</p> -->
             <p :hidden="cCommonData.hiddenDate" class="m-0 pl-2 pr-2">{{ dbPage.page.mainDate }}</p>
           </div>
 
@@ -141,23 +132,200 @@
         <!-- 。。。。。。。。。。。 モーダル表示 end 。。。。。。。。。。。 -->
       </div>
     </div>
+    <!-- ＝＝＝＝ レイアウト type:0 の時 start =================== -->
+
+    <!-- ＝＝＝＝ レイアウト type:1 の時 start =================== -->
+    <div v-else class="row no-gutters">
+      <div v-for="(dbPage, index) in dbPages" :key="dbPage.id" class="col-md-6">
+        <div class="card no-gutters m-1">
+          <div v-b-modal="'data-' + index">
+            <!-- タイトル ＆ 日付 -->
+            <div class="px-1 d-flex justify-content-between align-items-center" style="background-color: honeydew">
+              <h5 class="m-0 p-0">{{ dbPage.page.titleName }}</h5>
+              <p :hidden="cCommonData.hiddenDate" class="m-0 p-0">{{ dbPage.page.mainDate }}</p>
+            </div>
+
+            <div class="row m-0 p-0">
+              <div class="m-0 p-0 border col-md-5 col-sm-6">
+                <!-- +++++++ 画像等のファイル表示 start -->
+                <div v-if="dbPage.page.displayType === 'image'" class="m-0 p-0">
+                  <b-embed :src="dbPage.page.fileUrl" class="m-0" type="embed" alt="file" fluid />
+                </div>
+                <div v-else-if="dbPage.page.displayType === 'googleDocViewer'" class="m-0 p-0">
+                  <b-embed :src="dbPage.page.googleUrl" class="m-0" type="embed" alt="file" fluid />
+                </div>
+                <div v-else class="m-0 p-0">
+                  <!-- <b-embed :src="dbPage.page.fileUrl" class="m-0" type="embed" alt="file" fluid /> -->
+                  <p class="m-0 p-0">表示未対応のファイル形式です。</p>
+                  <!-- <p class="m-0 p-0">下の「ダウンロード」ボタンからダウンロードして、ご利用ください。</p> -->
+                  <br />
+                </div>
+                <!-- +++++++ 画像等のファイル表示 end -->
+
+                <!-- 1行目 -->
+                <div class="row m-0 p-0">
+                  <p :hidden="cCommonData.hiddenText1" class="col-4 m-0 p-0 px-1">{{ cCommonData.text1name }}</p>
+                  <p :hidden="cCommonData.hiddenText1" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text1 }}</p>
+                </div>
+
+                <!-- 2行目 -->
+                <div class="row m-0 p-0">
+                  <p :hidden="cCommonData.hiddenText2" class="col-4 m-0 p-0 px-1">{{ cCommonData.text2name }}</p>
+                  <p :hidden="cCommonData.hiddenText2" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text2 }}</p>
+                </div>
+
+                <!-- 3行目 -->
+                <div class="row m-0 p-0">
+                  <p :hidden="cCommonData.hiddenText3" class="col-4 m-0 p-0 px-1">{{ cCommonData.text3name }}</p>
+                  <p :hidden="cCommonData.hiddenText3" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text3 }}</p>
+                </div>
+              </div>
+
+              <!-- 本文表示 mainText (長文) -->
+              <div class="m-0 p-0 col-md-7 col-sm-6 p-0 text-wrap card-body" style="background-color: whitesmoke">
+                <!-- <p class="m-0 p-2 text-break overflow-auto" style="overflow-wrap: break-word; max-height: 230px">{{ dbPage.page.mainText }}</p> -->
+                <!-- <h5 :hidden="cCommonData.hiddenMainText" class="text-justify text-break m-0 p-2 bg-a13-linen" style="white-space: pre-wrap">{{ dbPage.page.mainText }}</h5> -->
+                <p :hidden="cCommonData.hiddenMainText" class="text-justify text-break m-0 p-2 bg-a13-linen" style="overflow-wrap: break-word; max-height: 230px; white-space: pre-wrap">{{ dbPage.page.mainText }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="m-0 p-0 border col-12"> -->
+          <!-- <div class="m-0 p-0 col-12"> -->
+          <div class="m-0 p-0">
+            <!-- ボタン start -->
+            <div class="d-flex justify-content-between align-items-center">
+              <!-- 拡大ボタン -->
+              <div v-b-modal="'data-' + index">
+                <b-button :hidden="cCommonData.hiddenBtn" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">{{ cCommonData.btnName }}</b-button>
+              </div>
+
+              <!-- Linkボタン -->
+              <div v-if="dbPage.page.myLink" class="m-0 p-0">
+                <b-button :hidden="cCommonData.hiddenLink" :to="dbPage.page.myLink" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">{{ cCommonData.linkName }}</b-button>
+              </div>
+
+              <!-- 新しいページに Google Doc Viewer で表示 -->
+              <b-button :hidden="cCommonData.hiddenNewTab" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 text-body" style="background-color: honeydew" @click="openNewTab(dbPage.page.fileUrl, dbPage.page.displayType)">{{ cCommonData.newTab }}</b-button>
+
+              <!-- 端末(PC等)へダウンロード -->
+              <b-button :hidden="cCommonData.hiddenDownload" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 text-body" style="background-color: honeydew" @click="downloadFile(dbPage)">{{ cCommonData.download }}</b-button>
+            </div>
+            <!-- ボタン end -->
+          </div>
+        </div>
+
+        <!-- 。。。。。。。。。。。 モーダル表示 start 。。。。。。。。。。。 -->
+        <b-modal :id="'data-' + index" hide-header size="xl">
+          <!-- タイトル表示 -->
+          <div class="border m-1 mt-3 p-2 d-flex justify-content-between" style="background-color: honeydew">
+            <h5 class="m-0 px-1">{{ dbPage.page.titleName }}</h5>
+            <p :hidden="cCommonData.hiddenDate" class="m-0 pl-2 pr-2">{{ dbPage.page.mainDate }}</p>
+          </div>
+
+          <!-- 画像表示 -->
+          <!-- <b-embed type="embed" :src="dbPage.page.fileUrl" class="m-0" alt="file"></b-embed> -->
+          <!-- <b-img :src="dbPage.page.fileUrl" fluid alt="Responsive image"></b-img> -->
+          <!-- <b-embed :src="dbPage.page.fileUrl" class="m-0" type="embed" alt="file" fluid /> -->
+          <!-- +++++++ 画像等のファイル表示 start -->
+          <!-- <b-embed :src="dbPage.page.fileUrl" class="m-0" type="embed" alt="file" fluid /> -->
+          <div v-if="dbPage.page.displayType === 'image'" class="m-0 p-0">
+            <b-embed :src="dbPage.page.fileUrl" class="m-0" type="embed" alt="file" fluid />
+          </div>
+          <div v-else-if="dbPage.page.displayType === 'googleDocViewer'" class="m-0 p-0">
+            <b-embed :src="dbPage.page.googleUrl" class="m-0" type="embed" alt="file" fluid />
+          </div>
+          <div v-else class="m-0 p-0">
+            <!-- <b-embed :src="dbPage.page.fileUrl" class="m-0" type="embed" alt="file" fluid /> -->
+            <p class="m-0 p-0">表示未対応のファイル形式です。</p>
+            <!-- <p class="m-0 p-0">下の「ダウンロード」ボタンからダウンロードして、ご利用ください。</p> -->
+            <br />
+          </div>
+          <!-- +++++++ 画像等のファイル表示 end -->
+
+          <div class="modal-body m-1 p-1">
+            <!-- 本文表示 text1,2,3 -->
+            <div class="row m-0 p-0">
+              <h5 :hidden="cCommonData.hiddenText1" class="col-4 m-0 p-0 px-1">{{ cCommonData.text1name }}</h5>
+              <h5 :hidden="cCommonData.hiddenText1" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text1 }}</h5>
+            </div>
+
+            <div class="row m-0 p-0">
+              <h5 :hidden="cCommonData.hiddenText2" class="col-4 m-0 p-0 px-1">{{ cCommonData.text2name }}</h5>
+              <h5 :hidden="cCommonData.hiddenText2" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text2 }}</h5>
+            </div>
+
+            <div class="row m-0 p-0">
+              <h5 :hidden="cCommonData.hiddenText3" class="col-4 m-0 p-0 px-1">{{ cCommonData.text3name }}</h5>
+              <h5 :hidden="cCommonData.hiddenText3" class="col-8 m-0 p-0 px-1">{{ dbPage.page.text3 }}</h5>
+            </div>
+
+            <!-- 本文表示 mainText (長文) -->
+            <h5 :hidden="cCommonData.hiddenMainText" class="text-justify text-break m-0 p-2 bg-a13-linen" style="white-space: pre-wrap">{{ dbPage.page.mainText }}</h5>
+          </div>
+        </b-modal>
+        <!-- 。。。。。。。。。。。 モーダル表示 end 。。。。。。。。。。。 -->
+      </div>
+    </div>
+    <!-- ＝＝＝＝ レイアウト type:1 の時 end ===================== -->
+    <!-- </div> -->
 
     <div v-show="isLogin" class="m-0 p-0">
       <!-- ============================== 管理機能 ============================== -->
       <div class="row no-gutters mt-2 p-2 bg-dark">
         <div class="col-12 d-flex justify-content-between align-items-center">
           <h5 class="mx-1 m-0 p-0 py-1 text-white">以下は管理機能です。</h5>
+
           <!-- modal 起動ボタン start ***** -->
-          <b-button id="show-btn" class="m-0 p-1" @click="showModal">PageGroup-B 共通設定</b-button>
-          <!-- <b-button @click="showModal">page設定</b-button> -->
+          <b-button id="show-btn1" class="m-0 p-1" @click="showModal1">Page 設定</b-button>
+          <b-button id="show-btn2" class="m-0 p-1" @click="showModal2">PageGroup-B 共通設定</b-button>
           <!-- modal 起動ボタン end ***** -->
         </div>
 
-        <!--PageGroup-B 共通設定の modalウィンドウ start ***** -->
+        <!--Page設定の modalウィンドウ start ********** -->
 
-        <!-- <b-modal id="modal-1"> -->
-        <!-- <b-modal id="modal-1" ref="modal-1" hide-footer title="ページ設定"> -->
-        <b-modal id="modal-1" ref="modal-1" hide-footer hide-header>
+        <!-- <b-modal id="modal-1" ref="modal-1" hide-footer hide-header> -->
+        <b-modal id="modal-1" ref="modal-1" title="ページのレイアウト設定" hide-footer>
+          <div class="m-2">下の画像から選択してください。</div>
+          <p class="m-0 p-0">
+            現在の設定： レイアウト <strong>{{ layoutInput.type + 1 }} </strong>
+          </p>
+          <!-- <div class="m-2">
+            <strong>{{ selectedFile }}</strong>
+          </div> -->
+
+          <!-- 画像の表示と選択 -->
+          <!-- <div class="row m-0 p-0"> -->
+          <div class="row no-gutters">
+            <!-- <div class="col-6 image_box border m-1 p-0 pt-1" style="background-color: whitesmoke" @click="selEachPage(0)"> -->
+            <b-button class="col-6 p-1 bg-info" @click="selEachPage(0)">
+              <p class="m-0 p-1">レイアウト1</p>
+              <!-- <p class="m-0 p-0">{{ layout.fileUrl[0] }}</p> -->
+              <b-embed :src="layout.fileUrl[0]" class="m-0" type="embed" alt="file" fluid />
+            </b-button>
+            <!-- </div> -->
+            <!-- <br /> -->
+            <!-- <div class="col-6 image_box border m-1 p-0 pt-1" style="background-color: whitesmoke" @click="selEachPage(1)"> -->
+            <b-button class="col-6 p-1 bg-info" @click="selEachPage(1)">
+              <p class="m-0 p-1">レイアウト2</p>
+              <!-- <p class="m-0 p-0">{{ layout.fileUrl[1] }}</p> -->
+              <b-embed :src="layout.fileUrl[1]" class="m-0" type="embed" alt="file" fluid />
+            </b-button>
+            <!-- </div> -->
+          </div>
+
+          <!-- 登録、閉じる button start -->
+          <div class="modal-footer m-0 mt-2 p-0">
+            <b-button class="mt-1" variant="outline-primary" @click="regEachPage">設定</b-button>
+            <b-button class="mt-1" variant="outline-dark" @click="$bvModal.hide('modal-1')">閉じる</b-button>
+          </div>
+          <!-- button end -->
+        </b-modal>
+        <!--Page 設定の modalウィンドウ end ********** -->
+
+        <!--PageGroup-B 共通設定の modalウィンドウ start ********** -->
+
+        <b-modal id="modal-2" ref="modal-2" hide-footer hide-header>
           <p class="my-2">以下の項目の「表示/非表示」及び「名称変更」</p>
           <!-- <label for="example-datepicker">Choose a date</label> -->
           <!-- <b-form-datepicker id="example-datepicker" v-model="cCommonWork.text1name" class="mb-2"></b-form-datepicker> -->
@@ -273,11 +441,11 @@
           <!-- 登録、閉じる button start -->
           <div class="modal-footer m-0 mt-2 p-0">
             <b-button class="mt-1" variant="outline-primary" @click="regCommon">登録</b-button>
-            <b-button class="mt-1" variant="outline-dark" @click="$bvModal.hide('modal-1')">閉じる</b-button>
+            <b-button class="mt-1" variant="outline-dark" @click="$bvModal.hide('modal-2')">閉じる</b-button>
           </div>
           <!-- button end -->
         </b-modal>
-        <!--PageGroup-B 共通設定の modalウィンドウ end ***** -->
+        <!--PageGroup-B 共通設定の modalウィンドウ end ********** -->
 
         <!-- 現在の登録状況 ＆ 削除 start -->
         <div class="col-12 m-0 mt-2 p-0" style="background-color: lightsteelblue">
@@ -702,6 +870,12 @@ export default {
       commonData: {},
       cCommon: {},
 
+      layout: {
+        type: 0,
+        fileUrl: [],
+      },
+      layoutInput: {},
+
       selected: '',
       selectedFile: '選択されていません。',
 
@@ -797,6 +971,10 @@ export default {
       return this.$store.getters['bbb/orderdMainDate']
     },
 
+    dbEachPage() {
+      return this.$store.getters['bbb/getEachPageById']('b32')
+    },
+
     dbCcommon() {
       return this.$store.getters['bbb/getCommonById']('common')
     },
@@ -805,7 +983,7 @@ export default {
       return this.$store.getters['storeheader/orderdDbHeaders']
     },
 
-    // 以下は b?? コレクション用
+    // 以下は b31File コレクション用
     dbFiles() {
       // return this.$store.getters['bbb/orderdDbFiles']
       const tempFiles = this.$store.getters['bbb/orderdDbFiles']
@@ -820,6 +998,7 @@ export default {
     this.$store.dispatch('bbb/init', db.collection('bbb').doc(this.pageNo).collection(this.pageNo).orderBy('page.mainDate', 'desc'))
     this.$store.dispatch('bbb/initFile', db.collection('bbbFile').doc(this.pageNo).collection(this.pageNo).orderBy('created', 'desc'))
     this.$store.dispatch('bbb/initCommon')
+    this.$store.dispatch('bbb/initEachPage')
 
     // 下記の storeheader は store/storeheader.js のファイル名
     this.$store.dispatch('storeheader/init')
@@ -841,6 +1020,18 @@ export default {
   // SSR(Firebase等)では使えない。
   updated() {
     this.selnum(32)
+
+    if (typeof this.dbEachPage !== 'undefined') {
+      this.layout = this.dbEachPage.layout
+      // console.log('2-1 ---- layout: ', this.layout)
+      // this.layout.type = Number(this.dbEachPage.layout.type)
+      // console.log('2-2 ---- layout: ', this.layout)
+      // 上の行をコメントアウトして、以下の行を活かすと、暴走する
+      // this.layout = JSON.parse(JSON.stringify(this.dbEachPage.layout))
+
+      // } else {
+      //   console.log('1-18 layout ***** ')
+    }
   },
 
   // ⑨ methods は呼び出される度に実行
@@ -937,18 +1128,57 @@ export default {
     //   this.$refs['modal-content'].show()
     // },
 
-    showModal() {
-      this.cCommonWork = JSON.parse(JSON.stringify(this.cCommonData))
+    showModal1() {
+      this.layoutInput = JSON.parse(JSON.stringify(this.dbEachPage.layout))
+      // console.log('3-10 layout ------ showModal(): ', this.layoutInput)
+      // this.cCommonWork = JSON.parse(JSON.stringify(this.cCommonData))
+      // this.layout = this.dbEachPage
+      // console.log('1-1 layout ----------- : ', this.layout)
+      // console.log('1-2 type ----------- : ', this.layout.type)
+      // console.log('1-3 fileUrl[0] ----------- : ', this.layout.fileUrl[0])
+      // console.log('1-3 fileUrl[1] ----------- : ', this.layout.fileUrl[1])
       this.$refs['modal-1'].show()
+    },
+
+    showModal2() {
+      this.cCommonWork = JSON.parse(JSON.stringify(this.cCommonData))
+      this.$refs['modal-2'].show()
     },
 
     // claseModal() {
     //   this.$refs['modal-1'].hide()
     // },
 
-    regCommon() {
+    regEachPage() {
+      // console.log('1-11 -- layoutInput -----: ', this.layoutInput)
+      // console.log('1-12 -- layoutInput -----: ', this.layoutInput)
       // modalウィンドウを閉じる
       this.$refs['modal-1'].hide()
+
+      // Firestre への保存
+      // console.log('1-1 ------ cCommonWork ----: ', this.cCommonWork)
+      this.$store
+        .dispatch('bbb/updateEachPage', { pageNo: this.pageNo, layout: this.layoutInput })
+        .then((value) => {
+          if (value === 'regOK') {
+            this.toastFileUpdate('登録', '登録しました。')
+            this.layout.type = this.layoutInput.type
+          } else {
+            alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+          }
+        })
+        .catch((error) => {
+          alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？: ', error)
+        })
+    },
+
+    selEachPage(num) {
+      this.layoutInput.type = num
+    },
+
+    regCommon() {
+      // modalウィンドウを閉じる
+      this.$refs['modal-2'].hide()
 
       // Firestre への保存
       // console.log('1-1 ------ cCommonWork ----: ', this.cCommonWork)
@@ -970,17 +1200,17 @@ export default {
     // modal 関連 ---------- end
 
     myDataSet() {
-      // console.log('***** Test log ***** in myDataSet()')
+      // console.log('----- Test log ----- in myDataSet()')
       try {
-        // this.commonData = this.dbCommon.myData
         this.cCommonData = this.dbCcommon.cCommon
+        // this.layout = this.dbEachPage.layout
       } catch (error) {
         // alert('***** error ***** in myDataSet(): ' + error)
         // console.log('***** error ***** in myDataSet(): ' + error)
       }
     },
 
-    // b?? のDB関連 start
+    // b31File のDB関連 start
     // initFileItem() {
     //   this.fileItem = {}
     //   // this.selectedFile = '選択されていません。'
@@ -990,7 +1220,7 @@ export default {
       // this.$store.dispatch('bbb/addFile', this.fileItem)
       this.$store.dispatch('bbb/addFile', { pageNo: this.pageNo, fileItem: this.fileItem })
     },
-    // b??File のDB関連 end
+    // b31File のDB関連 end
 
     // bbb DB へのデータ追加
     initPageData() {

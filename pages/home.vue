@@ -18,8 +18,8 @@
     <!-- ------------------ トピックス Start ------------------ -->
     <div class="row m-0 mt-3 p-0">
       <div class="col-12 m-0 p-1">
-        <!-- <h5 class="text-light bg-info text-center m-0 p-1">{{ commonData.mTopics }}</h5> -->
-        <h5 class="text-light text-center m-0 p-1" :style="commonData.buttonColorBasicSet">{{ commonData.mTopics }}</h5>
+        <!-- <h5 class="text-light bg-info text-center m-0 p-1">{{ myCommon.mTopics }}</h5> -->
+        <h5 class="text-light text-center m-0 p-1" :style="myCommon.buttonColorBasicSet">{{ myCommon.mTopics }}</h5>
         <!-- </div> -->
       </div>
     </div>
@@ -65,12 +65,12 @@
             <div class="m-0 p-0 d-flex justify-content-between">
               <!-- 拡大ボタン -->
               <div v-b-modal="'data-' + index" class="m-0">
-                <b-button :hidden="homeCommonData.hiddenBtn" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">{{ homeCommonData.btnName }}</b-button>
+                <b-button :hidden="homeCommonData.hiddenBtn" :size="myCommon.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">{{ homeCommonData.btnName }}</b-button>
               </div>
 
               <!-- Linkボタン -->
               <div v-if="dbHome.home.myLink" class="m-0 p-0">
-                <b-button :hidden="homeCommonData.hiddenLink" :to="dbHome.home.myLink" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">{{ homeCommonData.linkName }}</b-button>
+                <b-button :hidden="homeCommonData.hiddenLink" :to="dbHome.home.myLink" :size="myCommon.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">{{ homeCommonData.linkName }}</b-button>
               </div>
             </div>
             <!-- ボタン end -->
@@ -109,7 +109,7 @@
           </div>
 
           <!-- 本文表示 mainText (長文) -->
-          <h5 :hidden="homeCommonData.hiddenMainText" class="text-justify text-break m-0 p-2 bg-a13-linen" style="white-space: pre-wrap">{{ dbHome.home.mainText }}</h5>
+          <h5 :hidden="homeCommonData.hiddenMainText" class="text-justify text-break m-0 p-2 bg-linen" style="white-space: pre-wrap">{{ dbHome.home.mainText }}</h5>
         </b-modal>
         <!-- 。。。。。。。。。。。 モーダル表示 end 。。。。。。。。。。。 -->
         <!-- </div> -->
@@ -126,8 +126,8 @@
         <h4 class="m-0 p-0 text-white">管理機能</h4>
         <!-- <b-button variant="primary" class="m-1 ml-2 px-1 py-0" @click="regCarousel">登録</b-button> -->
         <!-- <b-button variant="primary" class="m-1 ml-2 px-1 py-0" @click="onCarousel()">① カルーセル</b-button> -->
-        <b-button :size="commonData.selectedBtnSize" style="background-color: midnightblue" class="m-0 ml-2 px-1 py-0" @click="onCarousel()">① パラパラ画像</b-button>
-        <b-button :size="commonData.selectedBtnSize" style="background-color: midnightblue" class="m-0 ml-2 px-1 py-0" @click="onTopics()">② トピックス</b-button>
+        <b-button :size="myCommon.selectedBtnSize" style="background-color: midnightblue" class="m-0 ml-2 px-1 py-0" @click="onCarousel()">① パラパラ画像</b-button>
+        <b-button :size="myCommon.selectedBtnSize" style="background-color: midnightblue" class="m-0 ml-2 px-1 py-0" @click="onTopics()">② トピックス</b-button>
         <div class="d-flex align-items-center justify-content-end text-white m-0 p-0">a1.0.0</div>
       </div>
       <!-- </div> -->
@@ -142,7 +142,7 @@
             <h5 class="col-4 m-0 p-0 pt-2">パラパラの間隔:</h5>
             <b-form-input v-model="inputInterval" class="col-3" required placeholder="入力例：2000" />
             <p class="col-2 m-0 pt-2">[ミリ秒]</p>
-            <b-button :size="commonData.selectedBtnSize" class="col-2 m-1 ml-2 px-1 py-0" variant="primary" @click="setIntervalCarousel()">登録</b-button>
+            <b-button :size="myCommon.selectedBtnSize" class="col-2 m-1 ml-2 px-1 py-0" variant="primary" @click="setIntervalCarousel()">登録</b-button>
           </div>
           <!-- ーーーーー ーーー パラパラの間隔 end -->
 
@@ -159,7 +159,7 @@
                   <b-img :src="dbCarousel.carousel.imageUrl" fluid class="m-0" alt="file"> </b-img>
                   <p class="m-0 ml-1">{{ dbCarousel.carousel.sortNo }}</p>
                   <p class="m-0 ml-1">{{ dbCarousel.carousel.comment }}</p>
-                  <b-button :size="commonData.selectedBtnSize" class="m-1 ml-2 px-1 py-0 d-flex" @click="deleteCarousel(dbCarousel.id)">削除</b-button>
+                  <b-button :size="myCommon.selectedBtnSize" class="m-1 ml-2 px-1 py-0 d-flex" @click="deleteCarousel(dbCarousel.id)">削除</b-button>
                 </div>
               </b-form-group>
             </div>
@@ -209,8 +209,8 @@
 
               <!-- 以下の row は改行のため -->
               <div class="row col-12 mt-2">
-                <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-1 ml-2 px-1 py-0" @click="regCarousel">登録</b-button>
-                <b-button :size="commonData.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="cancelCarousel">登録取消</b-button>
+                <b-button :size="myCommon.selectedBtnSize" variant="primary" class="m-1 ml-2 px-1 py-0" @click="regCarousel">登録</b-button>
+                <b-button :size="myCommon.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="cancelCarousel">登録取消</b-button>
               </div>
 
               <!-- 以下の float-cb について： 上記の float-left の解除ができないので、style で設定 -->
@@ -242,9 +242,9 @@
                 <div v-show="reserve">
                   <!-- <p>アップロードファイル名： {{ fileName }}</p> -->
                   <!-- アップロードボタン -->
-                  <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-0 px-1 py-0" @click="uploadImageCarousel()">Upload</b-button>
-                  <!-- <b-button :size="commonData.selectedBtnSize" class="ml-2 m-0 px-1 py-0" my-0 @click="resetCarousel()">Cancel</b-button> -->
-                  <b-button :size="commonData.selectedBtnSize" class="ml-2 m-0 px-1 py-0" my-0 @click="reset()">Cancel</b-button>
+                  <b-button :size="myCommon.selectedBtnSize" variant="primary" class="m-0 px-1 py-0" @click="uploadImageCarousel()">Upload</b-button>
+                  <!-- <b-button :size="myCommon.selectedBtnSize" class="ml-2 m-0 px-1 py-0" my-0 @click="resetCarousel()">Cancel</b-button> -->
+                  <b-button :size="myCommon.selectedBtnSize" class="ml-2 m-0 px-1 py-0" my-0 @click="reset()">Cancel</b-button>
                   <!-- upload()の最後で、リスト表示 -->
                 </div>
               </div>
@@ -253,8 +253,8 @@
               <!-- 画像削除 Start -->
               <div class="col-12 m-0 p-2 mt-2" style="background-color: lightslategray">
                 <h5>画像削除</h5>
-                <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-0 ml-2 px-1 py-0" @click="imageDeleteCarousel()">画像リスト表示</b-button>
-                <b-button :size="commonData.selectedBtnSize" class="m-0 ml-2 px-1 py-0" @click="imageDeleteCancel()">閉じる</b-button>
+                <b-button :size="myCommon.selectedBtnSize" variant="primary" class="m-0 ml-2 px-1 py-0" @click="imageDeleteCarousel()">画像リスト表示</b-button>
+                <b-button :size="myCommon.selectedBtnSize" class="m-0 ml-2 px-1 py-0" @click="imageDeleteCancel()">閉じる</b-button>
               </div>
               <!-- 画像リスト表示 Start -->
               <div v-show="toggleDel" class="row m-0">
@@ -262,7 +262,7 @@
                   <div class="border m-0 p-0">
                     <b-img :src="myImage.url" fluid class="m-0" alt="file" />
                     <br />
-                    <b-button :size="commonData.selectedBtnSize" class="m-1 ml-2 px-1 py-0 d-flex" @click="deleteImageCarousel(myImage.name, myImage.url)">削除</b-button>
+                    <b-button :size="myCommon.selectedBtnSize" class="m-1 ml-2 px-1 py-0 d-flex" @click="deleteImageCarousel(myImage.name, myImage.url)">削除</b-button>
                   </div>
                 </div>
               </div>
@@ -422,10 +422,9 @@
 
                   <!-- 本文表示 mainText (長文) -->
                   <p :hidden="homeCommonData.hiddenMainText" class="m-0 p-0 pl-1 text-break overflow-auto" style="overflow-wrap: break-word; max-height: 62px; background-color: linen">{{ dbHome.home.mainText }}</p>
-                  <!-- <p class="m-0 p-0 pl-1 text-break overflow-auto" style="overflow-wrap: break-word; max-height: 62px; background-color: gainsboro">{{ dbHome.home.mainText }}</p> -->
                   <!-- <p class="m-0 p-0">{{ dbHome.home.mainText }}</p> -->
-                  <b-button :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 float-left" variant="primary" @click="edit(dbHome.id)">編集</b-button>
-                  <b-button :size="commonData.selectedBtnSize" class="px-1 py-0 m-1" @click="remove(dbHome.id)">削除</b-button>
+                  <b-button :size="myCommon.selectedBtnSize" class="px-1 py-0 m-1 float-left" variant="primary" @click="edit(dbHome.id)">編集</b-button>
+                  <b-button :size="myCommon.selectedBtnSize" class="px-1 py-0 m-1" @click="remove(dbHome.id)">削除</b-button>
                 </div>
               </div>
             </div>
@@ -436,11 +435,11 @@
               <!-- <h4 class="mx-2 mt-0 p-0 pt-1 float-left">編集</h4> -->
               <div class="d-flex flex-low">
                 <h4 class="mx-2 my-0 p-0 pt-1">編集</h4>
-                <b-button :size="commonData.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="editCancel()">編集取消</b-button>
+                <b-button :size="myCommon.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="editCancel()">編集取消</b-button>
               </div>
               <b-form @submit="onSubmitEdit">
-                <b-button :size="commonData.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button>
-                <b-button :size="commonData.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="dataResetEdit()">データリセット</b-button>
+                <b-button :size="myCommon.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button>
+                <b-button :size="myCommon.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="dataResetEdit()">データリセット</b-button>
 
                 <!-- SortNo -->
                 <div class="row p-0 pt-2 m-0 mr-2">
@@ -514,13 +513,13 @@
               <!-- 画像添付 start-->
               <div class="mx-2 pb-2">
                 <p class="mb-0">画像を変更する場合は、「画像変更」ボタンをクリックしてください。</p>
-                <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageListEdit()">画像変更</button>
-                <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageTorikesi()">変更取消</button>
-                <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageCancel()">添付しない</button>
+                <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageListEdit()">画像変更</button>
+                <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageTorikesi()">変更取消</button>
+                <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageCancel()">添付しない</button>
               </div>
 
               <!-- <div v-show="showImageFlg" class="col-12"> -->
-              <!-- <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageList()">画像リスト表示</button> -->
+              <!-- <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageList()">画像リスト表示</button> -->
               <div v-show="toggleShow">
                 <div class="m-2">
                   下の画像から選択してください。: <strong>{{ selected }}</strong>
@@ -550,8 +549,8 @@
             <div class="m-0 mt-1 p-0" style="background-color: lightblue">
               <h4 class="mx-2 mb-0 p-0 pt-1">新規登録</h4>
               <b-form @submit="onSubmit" @reset="onReset">
-                <b-button :size="commonData.selectedBtnSize" type="submit" variant="primary" class="m-0 ml-2 px-1 py-0">登録</b-button>
-                <b-button :size="commonData.selectedBtnSize" type="reset" variant="dark" class="m-0 px-1 py-0">リセット</b-button>
+                <b-button :size="myCommon.selectedBtnSize" type="submit" variant="primary" class="m-0 ml-2 px-1 py-0">登録</b-button>
+                <b-button :size="myCommon.selectedBtnSize" type="reset" variant="dark" class="m-0 px-1 py-0">リセット</b-button>
 
                 <!-- SortNo -->
                 <div class="row p-0 pt-2 m-0 mr-2">
@@ -623,12 +622,12 @@
               <!-- 画像添付 start-->
               <div class="mx-2 pb-2">
                 <p class="mb-0">画像を添付する場合は、「画像添付」ボタンをクリックしてください。</p>
-                <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageList()">画像添付</button>
-                <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageCancel()">キャンセル</button>
+                <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageList()">画像添付</button>
+                <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageCancel()">キャンセル</button>
               </div>
 
               <!-- <div v-show="showImageFlg" class="col-12"> -->
-              <!-- <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageList()">画像リスト表示</button> -->
+              <!-- <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageList()">画像リスト表示</button> -->
               <div v-show="toggleShow">
                 <!-- ここから -->
                 <div class="m-2">
@@ -672,8 +671,8 @@
               <div v-show="reserve">
                 <!-- <p>アップロードファイル名： {{ fileName }}</p> -->
                 <!-- アップロードボタン -->
-                <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-0 px-1 py-0" @click="upload()">Upload</b-button>
-                <b-button :size="commonData.selectedBtnSize" class="ml-2 m-0 px-1 py-0" my-0 @click="reset()">Cancel</b-button>
+                <b-button :size="myCommon.selectedBtnSize" variant="primary" class="m-0 px-1 py-0" @click="upload()">Upload</b-button>
+                <b-button :size="myCommon.selectedBtnSize" class="ml-2 m-0 px-1 py-0" my-0 @click="reset()">Cancel</b-button>
                 <!-- upload()の最後で、リスト表示 -->
               </div>
             </div>
@@ -682,8 +681,8 @@
             <!-- 画像削除 Start -->
             <div class="col-12 m-0 p-2 mt-2" style="background-color: lightslategray">
               <h5>画像削除</h5>
-              <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-0 ml-2 px-1 py-0" @click="imageDelete()">画像リスト表示</b-button>
-              <b-button :size="commonData.selectedBtnSize" class="m-0 ml-2 px-1 py-0" @click="imageDeleteCancel()">キャンセル</b-button>
+              <b-button :size="myCommon.selectedBtnSize" variant="primary" class="m-0 ml-2 px-1 py-0" @click="imageDelete()">画像リスト表示</b-button>
+              <b-button :size="myCommon.selectedBtnSize" class="m-0 ml-2 px-1 py-0" @click="imageDeleteCancel()">キャンセル</b-button>
 
               <!-- 画像リスト表示 -->
               <div v-show="toggleDel" class="col-12 m-0 p-0">
@@ -693,7 +692,7 @@
                     <div v-for="myImage in myImages" :key="myImage.id" class="col-4 m-0 p-1">
                       <div class="border m-0 p-0" style="background-color: white">
                         <b-embed :src="myImage.url" fluid class="m-0" type="embed" alt="file" />
-                        <b-button :size="commonData.selectedBtnSize" class="m-1 ml-2 px-1 py-0" @click="deleteImageTopics(myImage.name, myImage.url)">削除</b-button>
+                        <b-button :size="myCommon.selectedBtnSize" class="m-1 ml-2 px-1 py-0" @click="deleteImageTopics(myImage.name, myImage.url)">削除</b-button>
                       </div>
                     </div>
                   </div>
@@ -767,7 +766,7 @@ export default {
         myLink: '',
         fileUrl: process.env.NO_IMAGE_URL,
       },
-      commonData: {},
+      myCommon: {},
 
       homeCommonData: {
         hiddenDate: false,
@@ -858,8 +857,8 @@ export default {
   // elementへのマウントが行われた後処理される。
   // SSR(Firebase等)では使えない。
   mounted() {
-    this.$nuxt.$on('commondata', (commonData) => {
-      this.commonData = commonData
+    this.$nuxt.$on('mycommon', (myCommon) => {
+      this.myCommon = myCommon
     })
   },
   // created は画面を開いたとき呼ばれる。
@@ -917,7 +916,7 @@ export default {
     myDataSet() {
       // console.log('***** Test log ***** in myDataSet()')
       try {
-        // this.commonData = this.dbCommon.myData
+        // this.myCommon = this.dbCommon.myData
         this.homeCommonData = this.dbHomeCommon.homeCommon
         this.mInterval = Number(this.dbHomeCommon.mInterval)
         // this.inputInterval = Number(this.dbHomeCommon.mInterval)

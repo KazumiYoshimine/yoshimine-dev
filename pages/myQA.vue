@@ -1,8 +1,6 @@
 <template>
   <div class="container-fluid">
-    <div v-for="dbHeader in dbHeaders" :key="dbHeader.id" class="m-0 p-0">
-      <h5 class="text-light text-center m-0 p-1" :style="commonData.buttonColorBasicSet">{{ dbHeader.myData.m61 }}</h5>
-    </div>
+    <h5 v-if="myMenu" class="text-light text-center m-0 p-1" :style="myCommon.buttonColorBasicSet">{{ myMenu.m61 }}</h5>
 
     <b-card no-body>
       <b-tabs v-model="tabSelected" card style="background-color: whitesmoke">
@@ -64,8 +62,8 @@
       <!-- ============================== 管理機能 ============================== -->
       <div class="row d-flex flex-row m-0 mt-2 p-2 bg-dark">
         <h5 class="mx-2 m-0 p-0 py-1 text-white">以下は管理機能です。</h5>
-        <b-button :size="commonData.selectedBtnSize" style="background-color: midnightblue" class="m-0 ml-2 px-1 py-0" @click="onQA()">① Ｑ＆Ａ登録</b-button>
-        <b-button :size="commonData.selectedBtnSize" style="background-color: midnightblue" class="m-0 ml-2 px-1 py-0" @click="onCategory()">② カテゴリー設定</b-button>
+        <b-button :size="myCommon.selectedBtnSize" style="background-color: midnightblue" class="m-0 ml-2 px-1 py-0" @click="onQA()">① Ｑ＆Ａ登録</b-button>
+        <b-button :size="myCommon.selectedBtnSize" style="background-color: midnightblue" class="m-0 ml-2 px-1 py-0" @click="onCategory()">② カテゴリー設定</b-button>
       </div>
 
       <!-- ------------------------------ Tab(カテゴリー)設定 ----- -->
@@ -114,8 +112,8 @@
               <div class="row m-0 mx-1 p-0 border border-secondary" style="background-color: gainsboro">
                 <!-- 編集／削除 ボタン -->
                 <div class="col-2 m-0 p-1">
-                  <b-button :size="commonData.selectedBtnSize" class="px-1 py-0 m-0 mt-1" variant="primary" @click="editDbTab(dbTab.id)">編集</b-button>
-                  <b-button :size="commonData.selectedBtnSize" class="px-1 py-0 m-0 mt-1" @click="removeTab(dbTab.id)">削除</b-button>
+                  <b-button :size="myCommon.selectedBtnSize" class="px-1 py-0 m-0 mt-1" variant="primary" @click="editDbTab(dbTab.id)">編集</b-button>
+                  <b-button :size="myCommon.selectedBtnSize" class="px-1 py-0 m-0 mt-1" @click="removeTab(dbTab.id)">削除</b-button>
                 </div>
 
                 <!-- 表示／非表示 -->
@@ -151,15 +149,15 @@
             </div>
             <!-- 現在の登録状況 ＆ 削除 end -->
           </div>
-          <!-- <b-button :size="commonData.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button> -->
-          <!-- <b-button :size="commonData.selectedBtnSize" variant="info" class="m-1 px-1 py-0" @click="updateCategory()">登録</b-button> -->
+          <!-- <b-button :size="myCommon.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button> -->
+          <!-- <b-button :size="myCommon.selectedBtnSize" variant="info" class="m-1 px-1 py-0" @click="updateCategory()">登録</b-button> -->
 
           <!-- ¥¥¥¥¥¥¥¥¥ 編集 start -->
           <div v-show="showEditTab" class="col-12 m-0 p-0">
             <div class="m-0 p-0 mt-2" style="background-color: linen">
               <div class="d-flex flex-low">
                 <h4 class="mx-2 my-0 p-0 pt-1">編集</h4>
-                <b-button :size="commonData.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="editCancelTab()">編集取消</b-button>
+                <b-button :size="myCommon.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="editCancelTab()">編集取消</b-button>
               </div>
               <b-form @submit="onSubmitTabEdit" @reset="onResetTab">
                 <!-- 表示／非表示 -->
@@ -191,8 +189,8 @@
                   <b-form-input v-model="editTab.tabName" class="col-8" required placeholder="カテゴリー名を入力してください。" rows="3" max-rows="6"></b-form-input>
                 </div>
 
-                <b-button :size="commonData.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button>
-                <!-- <b-button :size="commonData.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="dataReset()">データクリアー</b-button> -->
+                <b-button :size="myCommon.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button>
+                <!-- <b-button :size="myCommon.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="dataReset()">データクリアー</b-button> -->
               </b-form>
 
               <hr />
@@ -247,8 +245,8 @@
 
                 <br />
 
-                <b-button :size="commonData.selectedBtnSize" type="submit" variant="primary" class="m-1 mt-2 px-1 py-0">登録</b-button>
-                <b-button :size="commonData.selectedBtnSize" type="reset" variant="dark" class="m-0 mt-2 px-1 py-0">データクリア</b-button>
+                <b-button :size="myCommon.selectedBtnSize" type="submit" variant="primary" class="m-1 mt-2 px-1 py-0">登録</b-button>
+                <b-button :size="myCommon.selectedBtnSize" type="reset" variant="dark" class="m-0 mt-2 px-1 py-0">データクリア</b-button>
               </b-form>
 
               <hr />
@@ -304,8 +302,8 @@
             <div v-for="dbPage in dbPages" :key="dbPage.id" class="m-0 my-1 p-0">
               <div class="row m-0 mx-1 p-0 border border-secondary" style="background-color: gainsboro">
                 <div class="col-1 m-0 p-1">
-                  <b-button :size="commonData.selectedBtnSize" class="px-1 py-0 m-0 mt-1" variant="primary" @click="edit(dbPage.id)">編集</b-button>
-                  <b-button :size="commonData.selectedBtnSize" class="px-1 py-0 m-0 mt-1" @click="remove(dbPage.id)">削除</b-button>
+                  <b-button :size="myCommon.selectedBtnSize" class="px-1 py-0 m-0 mt-1" variant="primary" @click="edit(dbPage.id)">編集</b-button>
+                  <b-button :size="myCommon.selectedBtnSize" class="px-1 py-0 m-0 mt-1" @click="remove(dbPage.id)">削除</b-button>
                 </div>
 
                 <div class="col-1 m-0 p-1 border-left border-secondary" style="background-color: gainsboro">
@@ -332,7 +330,7 @@
               <!-- <h4 class="mx-2 mt-0 p-0 pt-1 float-left">編集</h4> -->
               <div class="d-flex flex-low">
                 <h4 class="mx-2 my-0 p-0 pt-1">編集</h4>
-                <b-button :size="commonData.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="editCancel()">編集取消</b-button>
+                <b-button :size="myCommon.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="editCancel()">編集取消</b-button>
               </div>
               <b-form @submit="onSubmitEdit" @reset="onReset">
                 <!-- Sort -->
@@ -353,8 +351,8 @@
                   <b-form-textarea v-model="page.a" class="col-10" required placeholder="" rows="3" max-rows="6"></b-form-textarea>
                 </div>
 
-                <b-button :size="commonData.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button>
-                <!-- <b-button :size="commonData.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="dataReset()">データクリアー</b-button> -->
+                <b-button :size="myCommon.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button>
+                <!-- <b-button :size="myCommon.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="dataReset()">データクリアー</b-button> -->
               </b-form>
 
               <hr />
@@ -386,8 +384,8 @@
                   <b-form-textarea v-model="page.a" class="col-10" required placeholder="回答欄です" rows="3" max-rows="6"></b-form-textarea>
                 </div>
 
-                <b-button :size="commonData.selectedBtnSize" type="submit" variant="primary" class="m-1 mt-2 px-1 py-0">登録</b-button>
-                <b-button :size="commonData.selectedBtnSize" type="reset" variant="dark" class="m-0 mt-2 px-1 py-0">データクリア</b-button>
+                <b-button :size="myCommon.selectedBtnSize" type="submit" variant="primary" class="m-1 mt-2 px-1 py-0">登録</b-button>
+                <b-button :size="myCommon.selectedBtnSize" type="reset" variant="dark" class="m-0 mt-2 px-1 py-0">データクリア</b-button>
               </b-form>
 
               <hr />
@@ -400,7 +398,7 @@
       </div>
     </div>
     <!-- <p>{{ CategoryDataSet() }}</p> -->
-    <!-- <b-button :size="commonData.selectedBtnSize" class="m-1 ml-2 px-1 py-0 d-flex" @click="test1()">テスト１</b-button> -->
+    <!-- <b-button :size="myCommon.selectedBtnSize" class="m-1 ml-2 px-1 py-0 d-flex" @click="test1()">テスト１</b-button> -->
     <!-- <br /> -->
   </div>
 </template>
@@ -472,8 +470,8 @@ export default {
       // tab2Flg: '',
       // tab3Flg: ''
       // },
-      myData: {},
-      commonData: {},
+      myMenu: {},
+      myCommon: {},
       showEdit: false,
       showEditTab: false,
       showReg: true,
@@ -559,7 +557,8 @@ export default {
     //   return this.$store.getters['QADB/getCategoryById']('category1')
     // },
     dbHeaders() {
-      return this.$store.getters['storeheader/orderdDbHeaders']
+      // return this.$store.getters['storeheader/orderdDbHeaders']
+      return this.$store.getters['storeheader/getDbHeadersById']('menu')
     },
   },
   // created は画面を開いたとき呼ばれる。
@@ -572,16 +571,16 @@ export default {
 
     // 下記の storeheader は store/storeheader.js のファイル名
     this.$store.dispatch('storeheader/init')
-
-    this.$nuxt.$on('mydata', (myData) => {
-      this.myData = myData
-    })
   },
   // elementへのマウントが行われた後処理される。
   // SSR(Firebase等)では使えない。
   mounted() {
-    this.$nuxt.$on('commondata', (commonData) => {
-      this.commonData = commonData
+    this.$nuxt.$on('mycommon', (myCommon) => {
+      this.myCommon = myCommon
+    })
+
+    this.$nuxt.$on('mymenu', (myMenu) => {
+      this.myMenu = myMenu
     })
   },
 

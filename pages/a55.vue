@@ -10,7 +10,7 @@
      -->
     <!-- ---------- バックグラウンド画像 end ----------- -->
 
-    <!-- <h5 class="text-light bg-info text-center m-0 p-1">{{ myData.m4 }} - {{ myData.m43 }}</h5> -->
+    <!-- <h5 class="text-light bg-info text-center m-0 p-1">{{ myData.m5 }} - {{ myData.m55 }}</h5> -->
 
     <div class="row no-gutters">
       <!-- main表示 -->
@@ -143,13 +143,13 @@
 import firebase from '~/plugins/firebase'
 const storage = firebase.storage()
 const storageRef = storage.ref()
-const imagesRef = storageRef.child('aaa/a43')
+const imagesRef = storageRef.child('aaa/a55')
 const db = firebase.firestore()
 
 export default {
   data() {
     return {
-      pageNo: 'a43',
+      pageNo: 'a55',
       selected: '選択されていません。',
       showReg: true,
       // reserve: false,
@@ -208,7 +208,7 @@ export default {
   // ④ updated 画面が更新された後、呼び出される。
   // SSR(Firebase等)では使えない。
   updated() {
-    this.selnum(43)
+    this.selnum(55)
   },
 
   // ⑨ methods は呼び出される度に実行

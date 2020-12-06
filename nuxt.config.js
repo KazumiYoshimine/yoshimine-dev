@@ -73,8 +73,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  // plugins: ['~/plugins/my-import', '~/plugins/my-inject', '~/plugins/firebase.js', { src: '~/plugins/window.js' }],
-  plugins: ['~/plugins/my-import', '~/plugins/my-inject', '~/plugins/firebase.js'],
+  plugins: ['~/plugins/ui.js', '~/plugins/my-import', '~/plugins/my-inject', '~/plugins/firebase.js'],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,

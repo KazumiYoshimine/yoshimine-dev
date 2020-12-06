@@ -16,30 +16,36 @@ export const actions = {
   init: firestoreAction(({ bindFirestoreRef }) => {
     bindFirestoreRef('dbSides', dbSidesRef)
   }),
-  // add: firestoreAction((context, { titleName, mainText }) => {
-  add: firestoreAction((context, myData) => {
+
+  add: firestoreAction((context, { id, mySide }) => {
     // if (myData.mHome1.trim()) {
     // console.log('myData in store/storeside.js: ' + myData.mHome1)
-    dbSidesRef.add({
-      myData,
-      myDataNo: '1',
+    dbSidesRef.doc(id).add({
+      mySide,
+      // myDataNo: '1',
       // created: firebase.firestore.FieldValue.serverTimestamp()
     })
     // }
   }),
-  update: firestoreAction((context, myData) => {
-    // console.log('0-myData.id in store/storeside.js: ' + myData.id)
-    // console.log('0-myData.v1 in store/storeside.js: ' + myData.v1)
-    if (myData.id) {
-      // console.log('1-myData.id in store/storeside.js: ' + myData.id)
-      // dbSidesRef.set({
-      dbSidesRef.doc(myData.id).update({
-        // console.log('2-myData.id in store/storeside.js: ' + myData.id)
-        myData,
-        // created: firebase.firestore.FieldValue.serverTimestamp()
-      })
-    }
+
+  set: firestoreAction((context, { id, mySide }) => {
+    // console.log('1-myData.id in store/storeside.js: ' + dbSidesRef.id)
+    dbSidesRef.doc(id).set({
+      // console.log('2-myData.id in store/storeside.js: ' + myData.id)
+      mySide,
+      // created: firebase.firestore.FieldValue.serverTimestamp()
+    })
   }),
+
+  update: firestoreAction((context, { id, mySide }) => {
+    // console.log('0-myData.v1 in store/storeside.js: ' + myData.v1)
+    dbSidesRef.doc(id).update({
+      // console.log('2-myData.id in store/storeside.js: ' + myData.id)
+      mySide,
+      // created: firebase.firestore.FieldValue.serverTimestamp()
+    })
+  }),
+
   // mInterval の更新
   updateInterval: firestoreAction((context, { id, mInterval }) => {
     if (id) {
@@ -54,23 +60,14 @@ export const actions = {
       })
     }
   }),
-  set: firestoreAction((context, myData) => {
-    if (dbSidesRef.id) {
-      // console.log('1-myData.id in store/storeside.js: ' + dbSidesRef.id)
-      // dbSidesRef.set({
-      dbSidesRef.doc(myData.id).update({
-        // console.log('2-myData.id in store/storeside.js: ' + myData.id)
-        myData,
-        // created: firebase.firestore.FieldValue.serverTimestamp()
-      })
-    }
-  }),
+
   remove: firestoreAction((context, id) => {
     dbSidesRef.doc(id).delete()
   }),
-  toggle: firestoreAction((context, myData) => {
-    dbSidesRef.doc(myData.id).update({
-      done: !myData.done,
+
+  toggle: firestoreAction((context, { id, mySide }) => {
+    dbSidesRef.doc(id).update({
+      done: !mySide.done,
     })
   }),
 }
@@ -82,13 +79,12 @@ export const getters = {
     // eslint-disable-next-line no-undef
     return _.sortBy(state.dbSides, 'myData.myDataNo')
   },
-  getSideByDataNo: (state) => (dataNo) => {
-    return state.dbSides.find((dbData) => dbData.id === 'r3hqtN35p5jgABNTOgAR')
-  },
+  // getSideByDataNo: (state) => (dataNo) => {
+  //   return state.dbSides.find((dbData) => dbData.id === 'r3hqtN35p5jgABNTOgAR')
+  // },
   getSideById: (state) => (id) => {
     // const temp = state.dbSides.find((myData) => myData.id === id)
-    // console.log('1111111111: ', temp)
-
-    return state.dbSides.find((myData) => myData.id === id)
+    // console.log('getSideById-1 --- getData: ', temp)
+    return state.dbSides.find((key) => key.id === id)
   },
 }

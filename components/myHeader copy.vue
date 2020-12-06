@@ -18,182 +18,185 @@
         </b-link>
         <!--   連絡先等   -->
         <div v-if="commonData.mLink" class="m-0 p-0">
-          <a class="m-0 mt-2 mr-3" :href="commonData.mLink" target="_blank">{{ commonData.mContact }}</a>
+          <a class="m-0 p-0" :href="commonData.mLink" target="_blank">{{ commonData.mContact }}</a>
         </div>
         <div v-else class="m-0 p-0">
-          <a class="m-0 mt-2 mr-3">{{ commonData.mContact }}</a>
+          <a class="m-0 p-0">{{ commonData.mContact }}</a>
         </div>
       </div>
     </div>
 
     <div class="mb-3">
-      <b-navbar toggleable="md" type="light" class="m-0 p-1" :style="commonData.buttonBarRGB">
-        <!-- <b-button to="/" :variant="commonData.selectedMenuBtnColor" :size="commonData.selectedBtnSize" :class="{ 'border border-danger rounded-lg': isBorder(0) }" class="m-1 p-1" @click="selnum(0)">{{ commonData.mHome1 }}</b-button> -->
-        <!-- <b-button to="/home" :variant="commonData.selectedMenuBtnColor" :size="commonData.selectedBtnSize" :class="{ 'border border-danger rounded-lg': isBorder(0) }" class="m-1 p-1" @click="selnum(0)">{{ commonData.mHome1 }}</b-button> -->
-        <b-button id="idBorder" to="/home" :variant="commonData.selectedMenuBtnColor" :size="commonData.selectedBtnSize" :class="isBorder2(0, commonData.myBorder)" class="m-1 p-1" @click="selnum(0)">{{ commonData.mHome1 }}</b-button>
+      <b-navbar toggleable="md" type="light" class="d-flex justify-content-between m-0 p-1" :style="commonData.buttonBarRGB">
+        <div class="d-flex flex-row m-0 p-0">
+          <!-- HOME ボタン -->
+          <b-button id="idBorder" to="/home" :variant="commonData.selectedMenuBtnColor" :size="commonData.selectedBtnSize" :class="isBorder2(0, commonData.myBorder)" class="m-1 p-1" @click="selnum(0)">{{ commonData.mHome1 }}</b-button>
 
-        <b-navbar-toggle target="nav-collapse" />
-        <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-nav>
-            <!-- 1 -->
-            <div class="m-0 p-0" @mouseover="onOver(1)" @mouseleave="onLeave(1)">
-              <div v-show="myData.chkMenu1">
-                <b-dropdown id="dropdown-menu-1" ref="dropdown1" :size="commonData.selectedBtnSize" :text="myData.m1" :variant="commonData.selectedMenuBtnColor" :class="isBorder2(1, commonData.myBorder)" class="m-1 p-0">
-                  <div v-show="myData.chkMenu11">
-                    <b-dropdown-item to="/c11" :active="isSelected(11)">{{ myData.m11 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu12">
-                    <b-dropdown-item to="/c12" :active="isSelected(12)">{{ myData.m12 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu13">
-                    <b-dropdown-item to="/c13" :active="isSelected(13)">{{ myData.m13 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu14">
-                    <b-dropdown-item to="/c14" :active="isSelected(14)">{{ myData.m14 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu15">
-                    <b-dropdown-item to="/c15" :active="isSelected(15)">{{ myData.m15 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu16">
-                    <b-dropdown-item to="/c16" :active="isSelected(16)">{{ myData.m16 }}</b-dropdown-item>
-                  </div>
-                </b-dropdown>
+          <b-navbar-toggle target="nav-collapse" />
+          <b-collapse id="nav-collapse" is-nav>
+            <b-navbar-nav>
+              <!-- HOME ボタン -->
+              <!-- <b-button id="idBorder" to="/home" :variant="commonData.selectedMenuBtnColor" :size="commonData.selectedBtnSize" :class="isBorder2(0, commonData.myBorder)" class="m-1 p-1" @click="selnum(0)">{{ commonData.mHome1 }}</b-button> -->
+
+              <!-- 1 -->
+              <div class="m-0 p-0" @mouseover="onOver(1)" @mouseleave="onLeave(1)">
+                <div v-show="myData.chkMenu1">
+                  <b-dropdown id="dropdown-menu-1" ref="dropdown1" :size="commonData.selectedBtnSize" :text="myData.m1" :variant="commonData.selectedMenuBtnColor" :class="isBorder2(1, commonData.myBorder)" class="m-1 p-0">
+                    <div v-show="myData.chkMenu11">
+                      <b-dropdown-item to="/b11" :active="isSelected(11)">{{ myData.m11 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu12">
+                      <b-dropdown-item to="/b12" :active="isSelected(12)">{{ myData.m12 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu13">
+                      <b-dropdown-item to="/b13" :active="isSelected(13)">{{ myData.m13 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu14">
+                      <b-dropdown-item to="/b14" :active="isSelected(14)">{{ myData.m14 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu15">
+                      <b-dropdown-item to="/b15" :active="isSelected(15)">{{ myData.m15 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu16">
+                      <b-dropdown-item to="/b16" :active="isSelected(16)">{{ myData.m16 }}</b-dropdown-item>
+                    </div>
+                  </b-dropdown>
+                </div>
               </div>
-            </div>
 
-            <!-- 2 -->
-            <div @mouseover="onOver(2)" @mouseleave="onLeave(2)">
-              <div v-show="myData.chkMenu2">
-                <b-dropdown id="dropdown-menu-2" ref="dropdown2" :size="commonData.selectedBtnSize" :text="myData.m2" :variant="commonData.selectedMenuBtnColor" :class="isBorder2(2, commonData.myBorder)" class="m-1">
-                  <div v-show="myData.chkMenu21">
-                    <b-dropdown-item to="/c21" :active="isSelected(21)">{{ myData.m21 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu22">
-                    <b-dropdown-item to="/c22" :active="isSelected(22)">{{ myData.m22 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu23">
-                    <b-dropdown-item to="/c23" :active="isSelected(23)">{{ myData.m23 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu24">
-                    <b-dropdown-item to="/c24" :active="isSelected(24)">{{ myData.m24 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu25">
-                    <b-dropdown-item to="/c25" :active="isSelected(25)">{{ myData.m25 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu26">
-                    <b-dropdown-item to="/c26" :active="isSelected(26)">{{ myData.m26 }}</b-dropdown-item>
-                  </div>
-                </b-dropdown>
+              <!-- 2 -->
+              <div @mouseover="onOver(2)" @mouseleave="onLeave(2)">
+                <div v-show="myData.chkMenu2">
+                  <b-dropdown id="dropdown-menu-2" ref="dropdown2" :size="commonData.selectedBtnSize" :text="myData.m2" :variant="commonData.selectedMenuBtnColor" :class="isBorder2(2, commonData.myBorder)" class="m-1">
+                    <div v-show="myData.chkMenu21">
+                      <b-dropdown-item to="/b21" :active="isSelected(21)">{{ myData.m21 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu22">
+                      <b-dropdown-item to="/b22" :active="isSelected(22)">{{ myData.m22 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu23">
+                      <b-dropdown-item to="/b23" :active="isSelected(23)">{{ myData.m23 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu24">
+                      <b-dropdown-item to="/b24" :active="isSelected(24)">{{ myData.m24 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu25">
+                      <b-dropdown-item to="/b25" :active="isSelected(25)">{{ myData.m25 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu26">
+                      <b-dropdown-item to="/b26" :active="isSelected(26)">{{ myData.m26 }}</b-dropdown-item>
+                    </div>
+                  </b-dropdown>
+                </div>
               </div>
-            </div>
 
-            <!-- 3 -->
-            <div @mouseover="onOver(3)" @mouseleave="onLeave(3)">
-              <div v-show="myData.chkMenu3">
-                <b-dropdown id="dropdown-menu-3" ref="dropdown3" :size="commonData.selectedBtnSize" :text="myData.m3" :variant="commonData.selectedMenuBtnColor" :class="isBorder2(3, commonData.myBorder)" class="m-1">
-                  <div v-show="myData.chkMenu31">
-                    <b-dropdown-item to="/b31" :active="isSelected(31)">{{ myData.m31 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu32">
-                    <b-dropdown-item to="/b32" :active="isSelected(32)">{{ myData.m32 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu33">
-                    <b-dropdown-item to="/b33" :active="isSelected(33)">{{ myData.m33 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu34">
-                    <b-dropdown-item to="/b34" :active="isSelected(34)">{{ myData.m34 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu35">
-                    <b-dropdown-item to="/b35" :active="isSelected(35)">{{ myData.m35 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu36">
-                    <b-dropdown-item to="/b36" :active="isSelected(36)">{{ myData.m36 }}</b-dropdown-item>
-                  </div>
-                </b-dropdown>
+              <!-- 3 -->
+              <div @mouseover="onOver(3)" @mouseleave="onLeave(3)">
+                <div v-show="myData.chkMenu3">
+                  <b-dropdown id="dropdown-menu-3" ref="dropdown3" :size="commonData.selectedBtnSize" :text="myData.m3" :variant="commonData.selectedMenuBtnColor" :class="isBorder2(3, commonData.myBorder)" class="m-1">
+                    <div v-show="myData.chkMenu31">
+                      <b-dropdown-item to="/b31" :active="isSelected(31)">{{ myData.m31 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu32">
+                      <b-dropdown-item to="/b32" :active="isSelected(32)">{{ myData.m32 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu33">
+                      <b-dropdown-item to="/b33" :active="isSelected(33)">{{ myData.m33 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu34">
+                      <b-dropdown-item to="/b34" :active="isSelected(34)">{{ myData.m34 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu35">
+                      <b-dropdown-item to="/b35" :active="isSelected(35)">{{ myData.m35 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu36">
+                      <b-dropdown-item to="/b36" :active="isSelected(36)">{{ myData.m36 }}</b-dropdown-item>
+                    </div>
+                  </b-dropdown>
+                </div>
               </div>
-            </div>
 
-            <!-- 4 -->
-            <div @mouseover="onOver(4)" @mouseleave="onLeave(4)">
-              <div v-show="myData.chkMenu4">
-                <b-dropdown id="dropdown-menu-4" ref="dropdown4" :size="commonData.selectedBtnSize" :text="myData.m4" :variant="commonData.selectedMenuBtnColor" :class="isBorder2(4, commonData.myBorder)" class="m-1">
-                  <div v-show="myData.chkMenu41">
-                    <b-dropdown-item to="/a41" :active="isSelected(41)">{{ myData.m41 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu42">
-                    <b-dropdown-item to="/a42" :active="isSelected(42)">{{ myData.m42 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu43">
-                    <b-dropdown-item to="/a43" :active="isSelected(43)">{{ myData.m43 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu44">
-                    <b-dropdown-item to="/a44" :active="isSelected(44)">{{ myData.m44 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu45">
-                    <b-dropdown-item to="/a45" :active="isSelected(45)">{{ myData.m45 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu46">
-                    <b-dropdown-item to="/a46" :active="isSelected(46)">{{ myData.m46 }}</b-dropdown-item>
-                  </div>
-                </b-dropdown>
+              <!-- 4 -->
+              <div @mouseover="onOver(4)" @mouseleave="onLeave(4)">
+                <div v-show="myData.chkMenu4">
+                  <b-dropdown id="dropdown-menu-4" ref="dropdown4" :size="commonData.selectedBtnSize" :text="myData.m4" :variant="commonData.selectedMenuBtnColor" :class="isBorder2(4, commonData.myBorder)" class="m-1">
+                    <div v-show="myData.chkMenu41">
+                      <b-dropdown-item to="/b41" :active="isSelected(41)">{{ myData.m41 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu42">
+                      <b-dropdown-item to="/b42" :active="isSelected(42)">{{ myData.m42 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu43">
+                      <b-dropdown-item to="/b43" :active="isSelected(43)">{{ myData.m43 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu44">
+                      <b-dropdown-item to="/b44" :active="isSelected(44)">{{ myData.m44 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu45">
+                      <b-dropdown-item to="/b45" :active="isSelected(45)">{{ myData.m45 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu46">
+                      <b-dropdown-item to="/b46" :active="isSelected(46)">{{ myData.m46 }}</b-dropdown-item>
+                    </div>
+                  </b-dropdown>
+                </div>
               </div>
-            </div>
 
-            <!-- 5 動画コレクション用 -->
-            <div @mouseover="onOver(5)" @mouseleave="onLeave(5)">
-              <div v-show="myData.chkMenu5">
-                <b-dropdown id="dropdown-menu-5" ref="dropdown5" :size="commonData.selectedBtnSize" :text="myData.m5" :variant="commonData.selectedMenuBtnColor" :class="isBorder2(5, commonData.myBorder)" class="m-1">
-                  <div v-show="myData.chkMenu51">
-                    <b-dropdown-item to="/d51" :active="isSelected(51)">{{ myData.m51 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu52">
-                    <b-dropdown-item to="/d52" :active="isSelected(52)">{{ myData.m52 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu53">
-                    <b-dropdown-item to="/d53" :active="isSelected(53)">{{ myData.m53 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu54">
-                    <b-dropdown-item to="/d54" :active="isSelected(54)">{{ myData.m54 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu55">
-                    <b-dropdown-item to="/d55" :active="isSelected(55)">{{ myData.m55 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu56">
-                    <b-dropdown-item to="/d56" :active="isSelected(56)">{{ myData.m56 }}</b-dropdown-item>
-                  </div>
-                </b-dropdown>
+              <!-- 5 動画コレクション用 -->
+              <div @mouseover="onOver(5)" @mouseleave="onLeave(5)">
+                <div v-show="myData.chkMenu5">
+                  <b-dropdown id="dropdown-menu-5" ref="dropdown5" :size="commonData.selectedBtnSize" :text="myData.m5" :variant="commonData.selectedMenuBtnColor" :class="isBorder2(5, commonData.myBorder)" class="m-1">
+                    <div v-show="myData.chkMenu51">
+                      <b-dropdown-item to="/a51" :active="isSelected(51)">{{ myData.m51 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu52">
+                      <b-dropdown-item to="/a52" :active="isSelected(52)">{{ myData.m52 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu53">
+                      <b-dropdown-item to="/a53" :active="isSelected(53)">{{ myData.m53 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu54">
+                      <b-dropdown-item to="/a54" :active="isSelected(54)">{{ myData.m54 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu55">
+                      <b-dropdown-item to="/a55" :active="isSelected(55)">{{ myData.m55 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu56">
+                      <b-dropdown-item to="/a56" :active="isSelected(56)">{{ myData.m56 }}</b-dropdown-item>
+                    </div>
+                  </b-dropdown>
+                </div>
               </div>
-            </div>
 
-            <!-- 6 カスタマイズ -->
-            <div @mouseover="onOver(6)" @mouseleave="onLeave(6)">
-              <div v-show="myData.chkMenu6">
-                <b-dropdown id="dropdown-menu-6" ref="dropdown6" :size="commonData.selectedBtnSize" :text="myData.m6" :variant="commonData.selectedMenuBtnColor" :class="isBorder2(6, commonData.myBorder)" class="m-1">
-                  <div v-show="myData.chkMenu61">
-                    <b-dropdown-item to="/myQA" :active="isSelected(61)">{{ myData.m61 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu62">
-                    <!-- <b-dropdown-item to="/myQuestion" :active="isSelected(62)">{{ myData.m62 }}</b-dropdown-item> -->
-                    <b-dropdown-item to="/myQuestion" :active="isSelected(62)" @click="selnum(62)">{{ myData.m62 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu63">
-                    <b-dropdown-item to="/myAbout" :active="isSelected(63)">{{ myData.m63 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu64">
-                    <b-dropdown-item to="/myLink" :active="isSelected(64)">{{ myData.m64 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu65">
-                    <b-dropdown-item to="/myAccess" :active="isSelected(65)">{{ myData.m65 }}</b-dropdown-item>
-                  </div>
-                  <div v-show="myData.chkMenu66">
-                    <b-dropdown-item to="/myParking" :active="isSelected(66)">{{ myData.m66 }}</b-dropdown-item>
-                  </div>
-                </b-dropdown>
+              <!-- 6 カスタマイズ -->
+              <div @mouseover="onOver(6)" @mouseleave="onLeave(6)">
+                <div v-show="myData.chkMenu6">
+                  <b-dropdown id="dropdown-menu-6" ref="dropdown6" :size="commonData.selectedBtnSize" :text="myData.m6" :variant="commonData.selectedMenuBtnColor" :class="isBorder2(6, commonData.myBorder)" class="m-1">
+                    <div v-show="myData.chkMenu61">
+                      <b-dropdown-item to="/myQA" :active="isSelected(61)">{{ myData.m61 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu62">
+                      <!-- <b-dropdown-item to="/myQuestion" :active="isSelected(62)">{{ myData.m62 }}</b-dropdown-item> -->
+                      <b-dropdown-item to="/myQuestion" :active="isSelected(62)" @click="selnum(62)">{{ myData.m62 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu63">
+                      <b-dropdown-item to="/myAbout" :active="isSelected(63)">{{ myData.m63 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu64">
+                      <b-dropdown-item to="/myLink" :active="isSelected(64)">{{ myData.m64 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu65">
+                      <b-dropdown-item to="/myAccess" :active="isSelected(65)">{{ myData.m65 }}</b-dropdown-item>
+                    </div>
+                    <div v-show="myData.chkMenu66">
+                      <b-dropdown-item to="/myParking" :active="isSelected(66)">{{ myData.m66 }}</b-dropdown-item>
+                    </div>
+                  </b-dropdown>
+                </div>
               </div>
-            </div>
-          </b-navbar-nav>
+            </b-navbar-nav>
 
-          <!-- <b-navbar-nav class="ml-auto">
+            <!-- <b-navbar-nav class="ml-auto">
             <b-nav-item-dropdown right>
               <template v-slot:button-content>
                 <em>User</em>
@@ -201,8 +204,9 @@
               <b-dropdown-item href="#">Profile</b-dropdown-item>
               <b-dropdown-item href="#">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
-            </b-navbar-nav> -->
-        </b-collapse>
+          </b-navbar-nav> -->
+          </b-collapse>
+        </div>
 
         <div>
           <!-- ------------------ Sideber start -->
@@ -319,10 +323,10 @@
             <!-- 管理 man start -->
             <div v-show="isLogin" class="m-0 p-0">
               <b-navbar-nav variant="info">
-                <b-button to="/DB" variant="dark" :size="commonData.selectedBtnSize" :class="isBorder2(90, commonData.myBorder)" class="m-1 p-1" @click="selnum(901)">{{ commonData.mArchiveDB }}</b-button>
-                <b-button to="/man" variant="dark" :size="commonData.selectedBtnSize" :class="isBorder2(91, commonData.myBorder)" class="m-1 p-1" @click="selnum(911)">共通設定</b-button>
-                <b-button to="/man1" variant="dark" :size="commonData.selectedBtnSize" :class="isBorder2(92, commonData.myBorder)" class="m-1 p-1" @click="selnum(921)">メニュー設定</b-button>
-                <b-button to="/man2" variant="dark" :size="commonData.selectedBtnSize" :class="isBorder2(93, commonData.myBorder)" class="m-1 p-1" @click="selnum(931)">Side Menu設定</b-button>
+                <b-button to="/DB" :disabled="isMainUser" variant="outline-dark" :size="commonData.selectedBtnSize" :class="isBorder2(90, commonData.myBorder)" class="m-1 p-1" @click="selnum(901)">{{ commonData.mArchiveDB }}</b-button>
+                <b-button to="/man" :disabled="isMainUser" variant="outline-dark" :size="commonData.selectedBtnSize" :class="isBorder2(91, commonData.myBorder)" class="m-1 p-1" @click="selnum(911)">共通設定</b-button>
+                <b-button to="/man1" :disabled="isMainUser" variant="outline-dark" :size="commonData.selectedBtnSize" :class="isBorder2(92, commonData.myBorder)" class="m-1 p-1" @click="selnum(921)">メニュー設定</b-button>
+                <b-button to="/man2" :disabled="isMainUser" variant="outline-dark" :size="commonData.selectedBtnSize" :class="isBorder2(93, commonData.myBorder)" class="m-1 p-1" @click="selnum(931)">Side Menu設定</b-button>
                 <!-- ****** 本コメント、及び下記の2行(add, set) は消すな！ -->
                 <!-- <b-button variant="dark" class="m-1 p-1" @click="add()">add</b-button> -->
                 <!-- <b-button variant="dark" class="m-1 p-1" @click="set()">set</b-button> -->
@@ -362,6 +366,8 @@
     <p>{{ myDataSet() }}</p>
     <p>{{ myDataSendToRightSide() }}</p>
     <p>{{ myDataSendToFooter() }}</p>
+    <p>{{ myDataSendToFooter() }}</p>
+    <p>{{ myCommonUsers() }}</p>
     <!-- <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-0 ml-2 px-1 py-0" @click="test1()">test1</b-button> -->
   </div>
 </template>
@@ -389,6 +395,7 @@ export default {
       manFlg: true,
       // manFlg: false,
       loginUser: {},
+      isMainUser: true,
       selected: 0,
       numBorder: 0,
       visible: true,
@@ -433,7 +440,6 @@ export default {
     }
   },
 
-  // firestore DB からのデータ取得
   // computedは、値が変わるとその値に依存しているすべてのバインディングが更新される
   computed: {
     isLogin() {
@@ -450,9 +456,15 @@ export default {
       // sort する場合(storeheader.jsの最後でソートキーを指定)
       return this.$store.getters['storeheader/orderdDbHeaders']
     },
+
     dbCommon() {
       return this.$store.getters['commonDB/getCommonById']('common')
     },
+
+    dbCommonUsers() {
+      return this.$store.getters['commonDB/getCommonById']('users')
+    },
+
     dbSideById() {
       try {
         const getData = this.$store.getters['storeside/getSideById']('f8sO13EuzfLTFSFeEjQw')
@@ -469,10 +481,30 @@ export default {
         return ''
       }
     },
+
     dbSides() {
       return this.$store.getters['storeside/orderdDbSides']
     },
   },
+
+  // watch は、値が変わるとその値に依存しているすべてのバインディングが更新される
+  // computed との違いは return が不要など、
+  // watch: {
+  //   // ログインユーザが mainUser であったら、this.mainUser = true
+  //   myCommonUsers() {
+  //     const usersData = this.$store.getters['commonDB/getCommonById']('users')
+  //     console.log('20201120-1-1 ------: ', usersData)
+  //     console.log('20201120-1-2 ------: ', usersData.mainUser)
+  //     console.log('20201120-1-3 ------: ', usersData.mainUser[0])
+  //     console.log('20201120-1-4 ------: ', usersData.mainUser[1])
+  //     console.log('20201120-2 ------: ', this.loginUser.email)
+  //     const resultSearch = usersData.mainUser.indexOf(this.loginUser.email)
+  //     console.log('Main User 検索結果： ', resultSearch)
+  //     if (resultSearch > -1) {
+  //       this.isMainUser = false
+  //     }
+  //   },
+  // },
 
   // created は画面を開いたとき呼ばれる。
   created() {
@@ -543,9 +575,7 @@ export default {
   },
   methods: {
     // test1() {
-    //   this.selnum(21)
-    //   // this.$nuxt.$emit('selnumside', '21')
-    //   // this.$nuxt.$emit('selnum', '21')
+    //   this.myCommonUsers()
     // },
 
     logout() {
@@ -557,6 +587,24 @@ export default {
         .then(() => {
           // console.log('ログアウトしました')
         })
+    },
+
+    // ログインユーザが mainUser であったら、this.mainUser = true
+    myCommonUsers() {
+      try {
+        const usersData = this.dbCommonUsers
+        if (usersData !== undefined) {
+          // console.log('20201120-1 ------: ', usersData)
+          // console.log('20201120-2 ------: ', this.loginUser.email)
+          const resultSearch = usersData.mainUser.indexOf(this.loginUser.email)
+          // console.log('20201120-3 ------ Main User 検索結果： ', resultSearch)
+          if (resultSearch > -1) {
+            this.isMainUser = false
+          }
+        }
+      } catch (error) {
+        // console.log('error ****** in myCommonUsers(): ', error)
+      }
     },
 
     // カラー設定 1 Menu
@@ -695,14 +743,30 @@ export default {
       // this.myData.topTitle = 'ようこそ！'
       // console.log('***************** dateTime in dbHeaders: ' + Date())
     },
+
+    // 以下の add は通常、未使用かも？ ←たぶん初期登録で利用
     add() {
       // 下記の storeheader は store/storeheader.js のファイル名
       // this.$store.dispatch('storeheader/add', { titelName: this.myData.titleName, mainText: this.myData.mainText })
-      this.$store.dispatch('storeheader/add', this.myData)
+      this.$store
+        .dispatch('storeheader/add', this.myData)
+        .then((value) => {
+          // console.log('3-1-OK +++++++++ in home-(): ', value)
+          if (value === 'regOK') {
+            this.toastFileUpdate('登録', '登録しました。')
+          } else {
+            alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
+          }
+        })
+        .catch((error) => {
+          alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？: ', error)
+          // console.log('3-1-NG ***** error ***** in home-(): ', error)
+        })
     },
+
+    // 以下の set は通常、未使用かも？ ←たぶん初期登録で利用
     set() {
       // 下記の storeheader は store/storeheader.js のファイル名
-      // this.$store.dispatch('storeheader/add', { titelName: this.myData.titleName, mainText: this.myData.mainText })
       this.$store.dispatch('storeheader/set', this.myData)
     },
   },
@@ -712,55 +776,32 @@ export default {
 <style scoped>
 .btn {
   font-weight: 700;
-  /* padding: 24px 48px; */
-  /* border: 0 none; */
-  /* letter-spacing: 1px; */
   /* text-transform: uppercase; */
 }
 
-/* .b-navber .b-dropdown { */
-/* .b-dropdown {
-  background-color: $navbar-dropdown-bg;
-} */
-
-/* .menu {
-  list-style: none;
-  padding: 0;
-  background-color: #eee;
-}
-.menu li {
-  display: inline-block;
-  padding: 5px;
-} */
-/* .bg-mycolor:hover { */
-/* color: #000;
-  background-color: #add8e6;
-  border-color: #add8e6;
-} */
-
-/* 大デバイス（デスクトップ, 1200px 未満） */
+/* 大デバイス（デスクトップ, 992 以上） */
 @media (min-width: 992px) {
   .myTitle {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
   }
 }
 /* 中デバイス（タブレット, 992px 未満） */
 @media (max-width: 991.98px) {
   .myTitle {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
   }
 }
 /* 小デバイス（横向きモバイル, 768px 未満） */
 @media (max-width: 767.98px) {
   .myTitle {
-    font-size: 1.4rem;
+    font-size: 1rem;
   }
 }
 /* @include media-breakpoint-up(sm) { */
 /* 極小デバイス（縦向きモバイル, 576px 未満） */
 @media (max-width: 575.98px) {
   .myTitle {
-    font-size: 1rem;
+    font-size: 0.4;
   }
 }
 </style>

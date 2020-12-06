@@ -1,24 +1,27 @@
 <template>
   <div>
-    <myHeader class="sticky-top m-0 p-0" />
+    <!-- <myHeader class="sticky-top m-0 p-0" /> -->
+    <!-- <myHeader class="myStickyTop m-0 p-0" /> -->
+    <myHeader class="m-0 p-0" />
     <!-- <div class="container-fluid"> -->
     <!-- <div class="row m-0"> -->
     <!-- 左サイド エリア -->
     <!-- <div class="col-lg-2 col-md-3 d-none d-md-block p-0">
-          <LeftSide />
-        </div> -->
+        <LeftSide />
+      </div> -->
 
     <!-- メイン エリア -->
     <!-- <div class="col-lg-8 col-md-9 col-sm-12 p-0"> -->
     <!-- <div class="col-lg-10 col-md-9 col-sm-12 p-0"> -->
-    <div class="col-12 p-0">
+    <!-- <div class="col-12 p-0"> -->
+    <div class="m-0 p-0">
       <nuxt />
     </div>
 
     <!-- 右サイド エリア -->
     <!-- <div class="col-lg-2 d-none d-lg-block p-0">
-          <RightSide />
-        </div> -->
+        <RightSide />
+      </div> -->
     <!-- </div> -->
     <!-- </div> -->
 
@@ -111,5 +114,35 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+
+/* 大デバイス（デスクトップ, 1200px 未満） */
+@media (min-width: 992px) {
+  /* .myStickyTop {
+    position: sticky;
+    top: 0;
+  } */
+}
+/* 中デバイス（タブレット, 992px 未満） */
+@media (max-width: 991.98px) {
+  /* .myStickyTop {
+    position: fixed;
+    top: 0;
+  } */
+}
+/* 小デバイス（横向きモバイル, 768px 未満） */
+@media (max-width: 767.98px) {
+  /* .myStickyTop {
+    position: sticky;
+    top: 0px;
+  } */
+}
+/* @include media-breakpoint-up(sm) { */
+/* 極小デバイス（縦向きモバイル, 576px 未満） */
+@media (max-width: 575.98px) {
+  /* .myStickyTop {
+    position: sticky;
+    top: 0;
+  } */
 }
 </style>

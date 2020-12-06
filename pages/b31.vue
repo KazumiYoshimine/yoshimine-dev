@@ -1,12 +1,11 @@
 <template>
   <div class="container-fluid no-gutters">
-    <div v-for="dbHeader in dbHeaders" :key="dbHeader.id" class="m-0 p-0">
-      <h5 class="text-light text-center m-0 p-1" :style="commonData.buttonColorBasicSet">{{ dbHeader.myData.m31 }}</h5>
-    </div>
+    <h5 v-if="myMenu" class="text-light text-center m-0 mb-2 p-2" :style="myCommon.buttonColorBasicSet">{{ myMenu.m31 }}</h5>
 
     <!-- ＝＝＝＝ レイアウト type:0 の時 start ＝＝＝＝＝＝＝＝＝ -->
     <div v-if="layout.type === 0" class="row no-gutters">
-      <div v-for="(dbPage, index) in dbPages" :key="dbPage.id" class="col-sm-6 col-md-4">
+      <!-- <div v-for="(dbPage, index) in dbPages" :key="dbPage.id" class="col-sm-6 col-md-4"> -->
+      <div v-for="(dbPage, index) in dbPages" :key="dbPage.id" :class="layout.retsuData[layout.retsuSuu]">
         <div class="card no-gutters m-1">
           <div v-b-modal="'data-' + index">
             <!-- タイトル ＆ 日付 -->
@@ -52,7 +51,7 @@
 
             <!-- 本文表示 mainText (長文) -->
             <div class="m-0 p-0 p-0 text-wrap card-body" style="background-color: whitesmoke">
-              <p :hidden="cCommonData.hiddenMainText" class="m-0 p-0 pl-1 text-justify text-break overflow-auto bg-a13-linen" style="overflow-wrap: break-word; max-height: 62px; white-space: pre-wrap">{{ dbPage.page.mainText }}</p>
+              <p :hidden="cCommonData.hiddenMainText" class="m-0 p-0 pl-1 text-justify text-break overflow-auto bg-linen" style="overflow-wrap: break-word; max-height: 62px; white-space: pre-wrap">{{ dbPage.page.mainText }}</p>
             </div>
           </div>
 
@@ -62,19 +61,22 @@
             <div class="d-flex justify-content-between align-items-center">
               <!-- 拡大ボタン -->
               <div v-b-modal="'data-' + index">
-                <b-button :hidden="cCommonData.hiddenBtn" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">{{ cCommonData.btnName }}</b-button>
+                <!-- <b-button :hidden="cCommonData.hiddenBtn" :size="myCommon.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">{{ cCommonData.btnName }}</b-button> -->
+                <b-button :hidden="cCommonData.hiddenBtn" :size="myCommon.selectedBtnSize" class="m-0 ml-1 my-1 p-0 px-1 text-body" style="background-color: honeydew">{{ cCommonData.btnName }}</b-button>
               </div>
 
               <!-- Linkボタン -->
               <div v-if="dbPage.page.myLink" class="m-0 p-0">
-                <b-button :hidden="cCommonData.hiddenLink" :to="dbPage.page.myLink" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">{{ cCommonData.linkName }}</b-button>
+                <!-- <b-button :hidden="cCommonData.hiddenLink" :to="dbPage.page.myLink" :size="myCommon.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">{{ cCommonData.linkName }}</b-button> -->
+                <b-button :hidden="cCommonData.hiddenLink" :to="dbPage.page.myLink" :size="myCommon.selectedBtnSize" class="m-0 my-1 p-0 px-1 text-body" style="background-color: honeydew">{{ cCommonData.linkName }}</b-button>
               </div>
 
               <!-- 新しいページに Google Doc Viewer で表示 -->
-              <b-button :hidden="cCommonData.hiddenNewTab" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 text-body" style="background-color: honeydew" @click="openNewTab(dbPage.page.fileUrl, dbPage.page.displayType)">{{ cCommonData.newTab }}</b-button>
+              <b-button :hidden="cCommonData.hiddenNewTab" :size="myCommon.selectedBtnSize" class="m-0 my-1 p-0 px-1 text-body" style="background-color: honeydew" @click="openNewTab(dbPage.page.fileUrl, dbPage.page.displayType)">{{ cCommonData.newTab }}</b-button>
 
               <!-- 端末(PC等)へダウンロード -->
-              <b-button :hidden="cCommonData.hiddenDownload" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 text-body" style="background-color: honeydew" @click="downloadFile(dbPage)">{{ cCommonData.download }}</b-button>
+              <!-- <b-button :hidden="cCommonData.hiddenDownload" :size="myCommon.selectedBtnSize" class="px-1 py-0 m-1 text-body" style="background-color: honeydew" @click="downloadFile(dbPage)">{{ cCommonData.download }}</b-button> -->
+              <b-button :hidden="cCommonData.hiddenDownload" :size="myCommon.selectedBtnSize" class="m-0 mr-1 my-1 p-0 px-1 text-body" style="background-color: honeydew" @click="downloadFile(dbPage)">{{ cCommonData.download }}</b-button>
             </div>
             <!-- ボタン end -->
           </div>
@@ -126,7 +128,7 @@
             </div>
 
             <!-- 本文表示 mainText (長文) -->
-            <h5 :hidden="cCommonData.hiddenMainText" class="text-justify text-break m-0 p-2 bg-a13-linen" style="white-space: pre-wrap">{{ dbPage.page.mainText }}</h5>
+            <h5 :hidden="cCommonData.hiddenMainText" class="text-justify text-break m-0 p-2 bg-linen" style="white-space: pre-wrap">{{ dbPage.page.mainText }}</h5>
           </div>
         </b-modal>
         <!-- 。。。。。。。。。。。 モーダル表示 end 。。。。。。。。。。。 -->
@@ -136,7 +138,7 @@
 
     <!-- ＝＝＝＝ レイアウト type:1 の時 start =================== -->
     <div v-else class="row no-gutters">
-      <div v-for="(dbPage, index) in dbPages" :key="dbPage.id" class="col-md-6">
+      <div v-for="(dbPage, index) in dbPages" :key="dbPage.id" :class="layout.retsuData[layout.retsuSuu]">
         <div class="card no-gutters m-1">
           <div v-b-modal="'data-' + index">
             <!-- タイトル ＆ 日付 -->
@@ -184,8 +186,8 @@
               <!-- 本文表示 mainText (長文) -->
               <div class="m-0 p-0 col-md-7 col-sm-6 p-0 text-wrap card-body" style="background-color: whitesmoke">
                 <!-- <p class="m-0 p-2 text-break overflow-auto" style="overflow-wrap: break-word; max-height: 230px">{{ dbPage.page.mainText }}</p> -->
-                <!-- <h5 :hidden="cCommonData.hiddenMainText" class="text-justify text-break m-0 p-2 bg-a13-linen" style="white-space: pre-wrap">{{ dbPage.page.mainText }}</h5> -->
-                <p :hidden="cCommonData.hiddenMainText" class="text-justify text-break m-0 p-2 bg-a13-linen" style="overflow-wrap: break-word; max-height: 230px; white-space: pre-wrap">{{ dbPage.page.mainText }}</p>
+                <!-- <h5 :hidden="cCommonData.hiddenMainText" class="text-justify text-break m-0 p-2 bg-linen" style="white-space: pre-wrap">{{ dbPage.page.mainText }}</h5> -->
+                <p :hidden="cCommonData.hiddenMainText" class="text-justify text-break m-0 p-2 bg-linen" style="overflow-wrap: break-word; max-height: 230px; white-space: pre-wrap">{{ dbPage.page.mainText }}</p>
               </div>
             </div>
           </div>
@@ -197,19 +199,19 @@
             <div class="d-flex justify-content-between align-items-center">
               <!-- 拡大ボタン -->
               <div v-b-modal="'data-' + index">
-                <b-button :hidden="cCommonData.hiddenBtn" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">{{ cCommonData.btnName }}</b-button>
+                <b-button :hidden="cCommonData.hiddenBtn" :size="myCommon.selectedBtnSize" class="m-0 ml-1 my-1 p-0 px-1 text-body" style="background-color: honeydew">{{ cCommonData.btnName }}</b-button>
               </div>
 
               <!-- Linkボタン -->
               <div v-if="dbPage.page.myLink" class="m-0 p-0">
-                <b-button :hidden="cCommonData.hiddenLink" :to="dbPage.page.myLink" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 ml-2 mb-1 float-center text-body" style="background-color: honeydew">{{ cCommonData.linkName }}</b-button>
+                <b-button :hidden="cCommonData.hiddenLink" :to="dbPage.page.myLink" :size="myCommon.selectedBtnSize" class="m-0 my-1 p-0 px-1 text-body" style="background-color: honeydew">{{ cCommonData.linkName }}</b-button>
               </div>
 
               <!-- 新しいページに Google Doc Viewer で表示 -->
-              <b-button :hidden="cCommonData.hiddenNewTab" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 text-body" style="background-color: honeydew" @click="openNewTab(dbPage.page.fileUrl, dbPage.page.displayType)">{{ cCommonData.newTab }}</b-button>
+              <b-button :hidden="cCommonData.hiddenNewTab" :size="myCommon.selectedBtnSize" class="m-0 my-1 p-0 px-1 text-body" style="background-color: honeydew" @click="openNewTab(dbPage.page.fileUrl, dbPage.page.displayType)">{{ cCommonData.newTab }}</b-button>
 
               <!-- 端末(PC等)へダウンロード -->
-              <b-button :hidden="cCommonData.hiddenDownload" :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 text-body" style="background-color: honeydew" @click="downloadFile(dbPage)">{{ cCommonData.download }}</b-button>
+              <b-button :hidden="cCommonData.hiddenDownload" :size="myCommon.selectedBtnSize" class="m-0 mr-1 my-1 p-0 px-1 text-body" style="background-color: honeydew" @click="downloadFile(dbPage)">{{ cCommonData.download }}</b-button>
             </div>
             <!-- ボタン end -->
           </div>
@@ -261,7 +263,7 @@
             </div>
 
             <!-- 本文表示 mainText (長文) -->
-            <h5 :hidden="cCommonData.hiddenMainText" class="text-justify text-break m-0 p-2 bg-a13-linen" style="white-space: pre-wrap">{{ dbPage.page.mainText }}</h5>
+            <h5 :hidden="cCommonData.hiddenMainText" class="text-justify text-break m-0 p-2 bg-linen" style="white-space: pre-wrap">{{ dbPage.page.mainText }}</h5>
           </div>
         </b-modal>
         <!-- 。。。。。。。。。。。 モーダル表示 end 。。。。。。。。。。。 -->
@@ -285,41 +287,74 @@
         <!--Page設定の modalウィンドウ start ********** -->
 
         <!-- <b-modal id="modal-1" ref="modal-1" hide-footer hide-header> -->
-        <b-modal id="modal-1" ref="modal-1" title="ページのレイアウト設定" hide-footer>
-          <div class="m-2">下の画像から選択してください。</div>
-          <p class="m-0 p-0">
-            現在の設定： レイアウト <strong>{{ layoutInput.type + 1 }} </strong>
-          </p>
-          <!-- <div class="m-2">
-            <strong>{{ selectedFile }}</strong>
-          </div> -->
+        <b-modal id="modal-1" ref="modal-1" title="ページのレイアウト設定" class="m-0 p-0" hide-footer>
+          <div class="border m-0 p-2" style="background-color: lightblue">
+            <h6 class="m-0 p-0">① 下の画像をクリックして、レイアウトを選択してください。</h6>
+            <div class="m-0 p-1 d-flex flex-row align-items-center">
+              <p class="m-0 p-0 pr-2">現在の設定：</p>
+              <h5>
+                <strong class="text-primary">レイアウト{{ layoutInput.type + 1 }} </strong>
+              </h5>
+            </div>
 
-          <!-- 画像の表示と選択 -->
-          <!-- <div class="row m-0 p-0"> -->
-          <div class="row no-gutters">
-            <!-- <div class="col-6 image_box border m-1 p-0 pt-1" style="background-color: whitesmoke" @click="selEachPage(0)"> -->
-            <b-button class="col-6 p-1 bg-info" @click="selEachPage(0)">
-              <p class="m-0 p-1">レイアウト1</p>
-              <!-- <p class="m-0 p-0">{{ layout.fileUrl[0] }}</p> -->
-              <b-embed :src="layout.fileUrl[0]" class="m-0" type="embed" alt="file" fluid />
-            </b-button>
-            <!-- </div> -->
-            <!-- <br /> -->
-            <!-- <div class="col-6 image_box border m-1 p-0 pt-1" style="background-color: whitesmoke" @click="selEachPage(1)"> -->
-            <b-button class="col-6 p-1 bg-info" @click="selEachPage(1)">
-              <p class="m-0 p-1">レイアウト2</p>
-              <!-- <p class="m-0 p-0">{{ layout.fileUrl[1] }}</p> -->
-              <b-embed :src="layout.fileUrl[1]" class="m-0" type="embed" alt="file" fluid />
-            </b-button>
-            <!-- </div> -->
+            <div class="row no-gutters">
+              <b-button class="col-6 p-1 bg-info" @click="selEachPage(0)">
+                <p class="m-0 p-1">レイアウト1</p>
+                <b-embed :src="layout.fileUrl[0]" class="m-0" type="embed" alt="file" fluid />
+              </b-button>
+              <b-button class="col-6 p-1 bg-info" @click="selEachPage(1)">
+                <p class="m-0 p-1">レイアウト2</p>
+                <b-embed :src="layout.fileUrl[1]" class="m-0" type="embed" alt="file" fluid />
+              </b-button>
+            </div>
           </div>
+
+          <hr />
+
+          <div class="border m-0 p-2" style="background-color: lightblue">
+            <!-- <div class="m-0 p-0 d-flex justify-content-between align-items-center"> -->
+            <div class="row m-0 p-0 d-flex flex-row align-items-center">
+              <h6 class="col-auto m-0 p-0 pr-3">② 列数(1〜4)を入力してください</h6>
+              <b-form-input v-model="layoutInput.retsuSuu" type="number" class="col-2 border"></b-form-input>
+            </div>
+            <br />
+            <p>【参考】 スマホ等の横幅に応じて以下のように列数が変わります。</p>
+            <ul>
+              <li>設定列数１の場合： 列数１</li>
+              <li>設定列数２の場合： 列数１〜２</li>
+              <li>設定列数３の場合： 列数１〜３</li>
+              <li>設定列数４の場合： 列数２〜４</li>
+            </ul>
+
+            <br />
+
+            <dl>
+              <dd>スマホの場合は、画面を縦や横に回転すると列数が変わります。</dd>
+              <dd>パソコンの場合は、ブラウザの横幅を拡大・縮小すると列数が変わります。</dd>
+            </dl>
+          </div>
+          <!-- <p class="m-0 p-0">
+              現在の設定： レイアウト <strong>{{ layoutInput.retsuSuu }} </strong>
+            </p> -->
+
+          <!-- <div class="row no-gutters">
+              <b-button class="col-6 p-1 bg-info" @click="selEachPage(0)">
+                <p class="m-0 p-1">レイアウト1</p>
+                <b-embed :src="layout.fileUrl[0]" class="m-0" type="embed" alt="file" fluid />
+              </b-button>
+              <b-button class="col-6 p-1 bg-info" @click="selEachPage(1)">
+                <p class="m-0 p-1">レイアウト2</p>
+                <b-embed :src="layout.fileUrl[1]" class="m-0" type="embed" alt="file" fluid />
+              </b-button>
+            </div>
+          </div> -->
 
           <!-- 登録、閉じる button start -->
           <div class="modal-footer m-0 mt-2 p-0">
             <b-button class="mt-1" variant="outline-primary" @click="regEachPage">設定</b-button>
             <b-button class="mt-1" variant="outline-dark" @click="$bvModal.hide('modal-1')">閉じる</b-button>
           </div>
-          <!-- button end -->
+          <!-- 登録、閉じる button end -->
         </b-modal>
         <!--Page 設定の modalウィンドウ end ********** -->
 
@@ -497,25 +532,143 @@
 
                 <!-- 本文表示 mainText -->
                 <p :hidden="cCommonData.hiddenMainText" class="m-0 p-0 pl-1 text-break overflow-auto" style="overflow-wrap: break-word; max-height: 62px; background-color: linen">{{ dbPage.page.mainText }}</p>
-                <b-button :size="commonData.selectedBtnSize" class="px-1 py-0 m-1 float-left" variant="primary" @click="edit(dbPage.id)">編集</b-button>
-                <b-button :size="commonData.selectedBtnSize" class="px-1 py-0 m-1" @click="remove(dbPage.id)">削除</b-button>
+                <b-button href="#scrollEdit" :size="myCommon.selectedBtnSize" class="px-1 py-0 m-1 float-left" variant="primary" @click="edit(dbPage.id)">編集</b-button>
+                <b-button :size="myCommon.selectedBtnSize" class="px-1 py-0 m-1" @click="remove(dbPage.id)">削除</b-button>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- =========== 新規登録 start -->
+        <div v-show="showReg" class="col-12 m-0 p-0">
+          <div class="m-0 p-0 mt-2" style="background-color: lightblue">
+            <h4 class="mx-2 mb-0 p-0 pt-1">新規登録</h4>
+            <b-form @submit="onSubmit" @reset="onReset">
+              <b-button :size="myCommon.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button>
+              <b-button :size="myCommon.selectedBtnSize" type="reset" variant="dark" class="m-1 px-1 py-0">リセット</b-button>
+
+              <!-- タイトル -->
+              <div class="row p-0 pt-2 m-0 mr-2">
+                <!-- <b-form-group label="タイトル(必須)" class="col-sm-3 m-0 mt-1 p-0 px-1" /> -->
+                <b-form-group label="タイトル(必須)" class="col-sm-3 m-0 mt-1 p-0 px-1" />
+                <div class="col-sm-9 m-0 p-0">
+                  <b-form-input v-model="page.titleName" class="border" required placeholder="入力しないと登録できません。" />
+                </div>
+              </div>
+
+              <!-- 日付 & Sort -->
+              <div class="row p-0 pt-2 m-0 mr-2">
+                <b-form-group label="日付(必須)" class="col-3 m-0 px-1 pt-2"> </b-form-group>
+                <div class="col-9 m-0 p-0">
+                  <b-form-datepicker v-model="page.mainDate" class="mb-1"></b-form-datepicker>
+                </div>
+              </div>
+            </b-form>
+
+            <!-- 短文1 -->
+            <div class="row p-0 pt-2 m-0 mr-2">
+              <b-form-group :hidden="cCommonData.hiddenText1" class="col-3 m-0 px-1 pt-2">{{ cCommonData.text1name }}</b-form-group>
+              <div class="col-9 m-0 p-0">
+                <b-form-input v-model="page.text1" :hidden="cCommonData.hiddenText1" class="border" required placeholder="空欄でもOK" />
+              </div>
+            </div>
+
+            <!-- 短文2 -->
+            <div class="row p-0 pt-2 m-0 mr-2">
+              <b-form-group :hidden="cCommonData.hiddenText2" class="col-3 m-0 px-1 pt-2">{{ cCommonData.text2name }}</b-form-group>
+              <div class="col-9 m-0 p-0">
+                <b-form-input v-model="page.text2" :hidden="cCommonData.hiddenText2" class="border" required placeholder="空欄でもOK" />
+              </div>
+            </div>
+
+            <!-- 短文3 -->
+            <div class="row p-0 pt-2 m-0 mr-2">
+              <b-form-group :hidden="cCommonData.hiddenText3" class="col-3 m-0 px-1 pt-2">{{ cCommonData.text3name }}</b-form-group>
+              <div class="col-9 m-0 p-0">
+                <b-form-input v-model="page.text3" :hidden="cCommonData.hiddenText3" class="border" required placeholder="空欄でもOK" />
+              </div>
+            </div>
+
+            <!-- 本文登録（必須ではない） -->
+            <div class="row p-0 pt-2 m-0 mr-1">
+              <span :hidden="cCommonData.hiddenMainText" class="col-3 m-0 mt-2 p-1 pt-3">長文</span>
+              <b-form-textarea v-model="page.mainText" :hidden="cCommonData.hiddenMainText" class="col-9" required placeholder="空欄でもOK。 入力した内容は画像クリックで閲覧できます。" rows="3" max-rows="6"></b-form-textarea>
+            </div>
+
+            <!-- 詳細情報へのリンク登録（必須ではない） -->
+            <div v-show="!cCommonData.hiddenLink" class="row p-0 pt-2 m-0 mr-2">
+              <div class="col-3 m-0 px-1 pt-2">リンク先:</div>
+              <div class="col-9 m-0 p-0">
+                <b-form-input v-model="page.myLink" class="border" required placeholder="関連情報へのジャンプ先を入力  <例> /a41" />
+              </div>
+            </div>
+
+            <hr />
+
+            <!-- 画像添付 start-->
+            <div class="mx-2 pb-2">
+              <p class="mb-0">画像を添付する場合は、「画像添付」ボタンをクリックしてください。</p>
+              <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageListReg()">画像添付</button>
+              <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageCancel()">添付しない</button>
+            </div>
+
+            <div v-show="toggleShow">
+              <div class="m-2">下の画像から選択してください。</div>
+              <div class="m-2">
+                <strong>{{ selectedFile }}</strong>
+              </div>
+
+              <!-- <div class="row no-gutters">
+                <b-form-group v-for="(myImage, index2) in myImages" :key="myImage.id" class="col-4">
+                  <div class="image_box" @click="selImage(myImage.url, index2)">
+                    <b-embed v-model="selected" :src="myImage.url" fluid type="embed" class="m-0 p-1" alt="file"> </b-embed>
+                    <b-form-radio v-model="selected" :value="'No.' + ++index2" class="positionRadioBtn ml-4 p-0"> </b-form-radio>
+                  </div>
+                </b-form-group>
+              </div> -->
+
+              <div class="row no-gutters">
+                <b-form-group v-for="(dbFile, index2) in dbFiles" :key="dbFile.id" class="col-4">
+                  <div class="image_box border m-1 p-0 pt-1" style="background-color: whitesmoke" @click="selImage(dbFile, index2)">
+                    <span class="m-1 p-0">{{ dbFile.fileItem.name }}</span>
+                    <!-- +++++++ 画像等のファイル表示 start -->
+                    <div v-if="dbFile.fileItem.displayType === 'image'" class="m-0 p-0">
+                      <b-embed :src="dbFile.fileItem.httpUrl" class="m-0" type="embed" alt="file" fluid />
+                    </div>
+                    <div v-else-if="dbFile.fileItem.displayType === 'googleDocViewer'" class="m-0 p-0">
+                      <b-embed :src="dbFile.fileItem.googleUrl" class="m-0" type="embed" alt="file" fluid />
+                    </div>
+                    <div v-else class="m-0 p-0">
+                      <p class="m-0 p-0">表示未対応のファイル形式です。</p>
+                      <p class="m-0 p-0">下の「ダウンロード」ボタンからダウンロードして、ご利用ください。</p>
+                      <br />
+                    </div>
+                    <!-- +++++++ 画像等のファイル表示 end -->
+                    <b-form-radio v-model="selected" :value="++index2" class="positionRadioBtn ml-0 p-0"> </b-form-radio>
+                  </div>
+                </b-form-group>
+              </div>
+
+              <!-- 以下の float-cb について： 上記の float-left の解除ができないので、style で設定 -->
+              <div class="float-cb p-2">以下の「画像新規登録・削除」から、新たに画像を追加したり、 不要な画像を削除することができます。</div>
+            </div>
+            <!-- 画像添付 end -->
+          </div>
+        </div>
+        <!-- 新規登録 End -->
 
         <!-- =========== 編集 start -->
         <div v-show="showEdit" class="col-12 m-0 p-0">
           <div class="m-0 p-0 mt-2" style="background-color: linen">
             <!-- <h4 class="mx-2 mt-0 p-0 pt-1 float-left">編集</h4> -->
             <div class="d-flex flex-low">
-              <h4 class="mx-2 my-0 p-0 pt-1">編集</h4>
-              <!-- <b-button :size="commonData.selectedBtnSize" type="text" variant="dark" class="m-1 px-1 py-0">キャンセル</b-button> -->
-              <b-button :size="commonData.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="editCancel()">編集取消</b-button>
+              <h4 id="scrollEdit" class="mx-2 my-0 p-0 pt-1">編集</h4>
+              <!-- <b-button :size="myCommon.selectedBtnSize" type="text" variant="dark" class="m-1 px-1 py-0">キャンセル</b-button> -->
+              <b-button :size="myCommon.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="editCancel()">編集取消</b-button>
             </div>
             <b-form @submit="onSubmitEdit" @reset="onReset">
-              <b-button :size="commonData.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button>
-              <b-button :size="commonData.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="dataReset()">データリセット</b-button>
+              <b-button :size="myCommon.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button>
+              <b-button :size="myCommon.selectedBtnSize" variant="dark" class="m-1 px-1 py-0" @click="dataReset()">データリセット</b-button>
 
               <!-- タイトル -->
               <div class="row p-0 pt-2 m-0 mr-2">
@@ -560,8 +713,8 @@
 
             <!-- 本文登録（必須ではない） -->
             <div class="row p-0 pt-2 m-0 mr-1">
-              <span :hidden="cCommonData.hiddenMainText" class="col-2 m-0 mt-2 p-1 pt-3">長文</span>
-              <b-form-textarea v-model="page.mainText" :hidden="cCommonData.hiddenMainText" class="col-10" required placeholder="空欄でもOK。 入力した内容は画像クリックで閲覧できます。" rows="3" max-rows="6"></b-form-textarea>
+              <span :hidden="cCommonData.hiddenMainText" class="col-3 m-0 mt-2 p-1 pt-3">長文</span>
+              <b-form-textarea v-model="page.mainText" :hidden="cCommonData.hiddenMainText" class="col-9" required placeholder="空欄でもOK。 入力した内容は画像クリックで閲覧できます。" rows="3" max-rows="6"></b-form-textarea>
             </div>
 
             <!-- 詳細情報へのリンク登録（必須ではない） -->
@@ -577,13 +730,13 @@
             <!-- 画像添付 start-->
             <div class="mx-2 pb-2">
               <p class="mb-0">画像を変更する場合は、「画像変更」ボタンをクリックしてください。</p>
-              <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageListEdit()">画像変更</button>
-              <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageTorikesi()">変更取消</button>
-              <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageCancel()">添付しない</button>
+              <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageListEdit()">画像変更</button>
+              <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageTorikesi()">変更取消</button>
+              <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageCancel()">添付しない</button>
             </div>
 
             <!-- <div v-show="showImageFlg" class="col-12"> -->
-            <!-- <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageList()">画像リスト表示</button> -->
+            <!-- <button :size="myCommon.selectedBtnSize" class="ml-2" @click="imageList()">画像リスト表示</button> -->
             <div v-show="toggleShow">
               <!-- <div class="m-2">
                 下の画像から選択してください。: <strong>{{ selected }}</strong>
@@ -632,124 +785,6 @@
         </div>
         <!-- 編集 End -->
 
-        <!-- =========== 新規登録 start -->
-        <div v-show="showReg" class="col-12 m-0 p-0">
-          <div class="m-0 p-0 mt-2" style="background-color: lightblue">
-            <h4 class="mx-2 mb-0 p-0 pt-1">新規登録</h4>
-            <b-form @submit="onSubmit" @reset="onReset">
-              <b-button :size="commonData.selectedBtnSize" type="submit" variant="primary" class="m-1 ml-2 px-1 py-0">登録</b-button>
-              <b-button :size="commonData.selectedBtnSize" type="reset" variant="dark" class="m-1 px-1 py-0">リセット</b-button>
-
-              <!-- タイトル -->
-              <div class="row p-0 pt-2 m-0 mr-2">
-                <!-- <b-form-group label="タイトル(必須)" class="col-sm-3 m-0 mt-1 p-0 px-1" /> -->
-                <b-form-group label="タイトル(必須)" class="col-sm-3 m-0 mt-1 p-0 px-1" />
-                <div class="col-sm-9 m-0 p-0">
-                  <b-form-input v-model="page.titleName" class="border" required placeholder="入力しないと登録できません。" />
-                </div>
-              </div>
-
-              <!-- 日付 & Sort -->
-              <div class="row p-0 pt-2 m-0 mr-2">
-                <b-form-group label="日付(必須)" class="col-3 m-0 px-1 pt-2"> </b-form-group>
-                <div class="col-9 m-0 p-0">
-                  <b-form-datepicker v-model="page.mainDate" class="mb-1"></b-form-datepicker>
-                </div>
-              </div>
-            </b-form>
-
-            <!-- 短文1 -->
-            <div class="row p-0 pt-2 m-0 mr-2">
-              <b-form-group :hidden="cCommonData.hiddenText1" class="col-3 m-0 px-1 pt-2">{{ cCommonData.text1name }}</b-form-group>
-              <div class="col-9 m-0 p-0">
-                <b-form-input v-model="page.text1" :hidden="cCommonData.hiddenText1" class="border" required placeholder="空欄でもOK" />
-              </div>
-            </div>
-
-            <!-- 短文2 -->
-            <div class="row p-0 pt-2 m-0 mr-2">
-              <b-form-group :hidden="cCommonData.hiddenText2" class="col-3 m-0 px-1 pt-2">{{ cCommonData.text2name }}</b-form-group>
-              <div class="col-9 m-0 p-0">
-                <b-form-input v-model="page.text2" :hidden="cCommonData.hiddenText2" class="border" required placeholder="空欄でもOK" />
-              </div>
-            </div>
-
-            <!-- 短文3 -->
-            <div class="row p-0 pt-2 m-0 mr-2">
-              <b-form-group :hidden="cCommonData.hiddenText3" class="col-3 m-0 px-1 pt-2">{{ cCommonData.text3name }}</b-form-group>
-              <div class="col-9 m-0 p-0">
-                <b-form-input v-model="page.text3" :hidden="cCommonData.hiddenText3" class="border" required placeholder="空欄でもOK" />
-              </div>
-            </div>
-
-            <!-- 本文登録（必須ではない） -->
-            <div class="row p-0 pt-2 m-0 mr-1">
-              <span :hidden="cCommonData.hiddenMainText" class="col-2 m-0 mt-2 p-1 pt-3">長文</span>
-              <b-form-textarea v-model="page.mainText" :hidden="cCommonData.hiddenMainText" class="col-10" required placeholder="空欄でもOK。 入力した内容は画像クリックで閲覧できます。" rows="3" max-rows="6"></b-form-textarea>
-            </div>
-
-            <!-- 詳細情報へのリンク登録（必須ではない） -->
-            <div v-show="!cCommonData.hiddenLink" class="row p-0 pt-2 m-0 mr-2">
-              <div class="col-3 m-0 px-1 pt-2">リンク先:</div>
-              <div class="col-9 m-0 p-0">
-                <b-form-input v-model="page.myLink" class="border" required placeholder="関連情報へのジャンプ先を入力  <例> /a41" />
-              </div>
-            </div>
-
-            <hr />
-
-            <!-- 画像添付 start-->
-            <div class="mx-2 pb-2">
-              <p class="mb-0">画像を添付する場合は、「画像添付」ボタンをクリックしてください。</p>
-              <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageListReg()">画像添付</button>
-              <button :size="commonData.selectedBtnSize" class="ml-2" @click="imageCancel()">添付しない</button>
-            </div>
-
-            <div v-show="toggleShow">
-              <div class="m-2">下の画像から選択してください。</div>
-              <div class="m-2">
-                <strong>{{ selectedFile }}</strong>
-              </div>
-
-              <!-- <div class="row no-gutters">
-                <b-form-group v-for="(myImage, index2) in myImages" :key="myImage.id" class="col-4">
-                  <div class="image_box" @click="selImage(myImage.url, index2)">
-                    <b-embed v-model="selected" :src="myImage.url" fluid type="embed" class="m-0 p-1" alt="file"> </b-embed>
-                    <b-form-radio v-model="selected" :value="'No.' + ++index2" class="positionRadioBtn ml-4 p-0"> </b-form-radio>
-                  </div>
-                </b-form-group>
-              </div> -->
-
-              <div class="row no-gutters">
-                <b-form-group v-for="(dbFile, index2) in dbFiles" :key="dbFile.id" class="col-4">
-                  <div class="image_box border m-1 p-0 pt-1" style="background-color: whitesmoke" @click="selImage(dbFile, index2)">
-                    <span class="m-1 p-0">{{ dbFile.fileItem.name }}</span>
-                    <!-- +++++++ 画像等のファイル表示 start -->
-                    <div v-if="dbFile.fileItem.displayType === 'image'" class="m-0 p-0">
-                      <b-embed :src="dbFile.fileItem.httpUrl" class="m-0" type="embed" alt="file" fluid />
-                    </div>
-                    <div v-else-if="dbFile.fileItem.displayType === 'googleDocViewer'" class="m-0 p-0">
-                      <b-embed :src="dbFile.fileItem.googleUrl" class="m-0" type="embed" alt="file" fluid />
-                    </div>
-                    <div v-else class="m-0 p-0">
-                      <p class="m-0 p-0">表示未対応のファイル形式です。</p>
-                      <p class="m-0 p-0">下の「ダウンロード」ボタンからダウンロードして、ご利用ください。</p>
-                      <br />
-                    </div>
-                    <!-- +++++++ 画像等のファイル表示 end -->
-                    <b-form-radio v-model="selected" :value="++index2" class="positionRadioBtn ml-0 p-0"> </b-form-radio>
-                  </div>
-                </b-form-group>
-              </div>
-
-              <!-- 以下の float-cb について： 上記の float-left の解除ができないので、style で設定 -->
-              <div class="float-cb p-2">以下の「画像新規登録・削除」から、新たに画像を追加したり、 不要な画像を削除することができます。</div>
-            </div>
-            <!-- 画像添付 end -->
-          </div>
-        </div>
-        <!-- 新規登録 End -->
-
         <!-- =========== 画像登録、編集、削除 start -->
         <!-- <div class="col-12 m-0 p-0"> -->
         <!-- <div class="m-0 p-3 mt-3" style="background-color: midnightblue"> -->
@@ -765,8 +800,8 @@
         <!-- 画像削除 Start -->
         <!-- <div class="col-12 m-0 p-2 mt-2" style="background-color: honeydew">
               <h5>画像削除</h5>
-              <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-0 ml-2 px-1 py-0" @click="imageDelete()">画像リスト表示</b-button>
-              <b-button :size="commonData.selectedBtnSize" class="m-0 ml-2 px-1 py-0" @click="imageDeleteCancel()">閉じる</b-button>
+              <b-button :size="myCommon.selectedBtnSize" variant="primary" class="m-0 ml-2 px-1 py-0" @click="imageDelete()">画像リスト表示</b-button>
+              <b-button :size="myCommon.selectedBtnSize" class="m-0 ml-2 px-1 py-0" @click="imageDeleteCancel()">閉じる</b-button>
             </div> -->
 
         <!-- 画像リスト表示 -->
@@ -776,7 +811,7 @@
                   <div v-for="myImage in myImages" :key="myImage.id" class="m-0 p-1 col-4">
                     <div class="border m-0 p-0">
                       <b-embed :src="myImage.url" fluid class="m-0" type="embed" alt="file" />
-                      <b-button :size="commonData.selectedBtnSize" class="m-1 ml-2 px-1 py-0 d-flex" @click="deleteImage(myImage.name, myImage.url)">削除</b-button>
+                      <b-button :size="myCommon.selectedBtnSize" class="m-1 ml-2 px-1 py-0 d-flex" @click="deleteImage(myImage.name, myImage.url)">削除</b-button>
                     </div>
                   </div>
                 </div>
@@ -799,8 +834,8 @@
             <!-- 画像削除 Start -->
             <div class="col-12 m-0 p-2 mt-2" style="background-color: honeydew">
               <h5>画像削除</h5>
-              <b-button :size="commonData.selectedBtnSize" variant="primary" class="m-0 ml-2 px-1 py-0" @click="imageListDel()">画像リスト表示</b-button>
-              <b-button :size="commonData.selectedBtnSize" class="m-0 ml-2 px-1 py-0" @click="imageListDelCancel()">閉じる</b-button>
+              <b-button :size="myCommon.selectedBtnSize" variant="primary" class="m-0 ml-2 px-1 py-0" @click="imageListDel()">画像リスト表示</b-button>
+              <b-button :size="myCommon.selectedBtnSize" class="m-0 ml-2 px-1 py-0" @click="imageListDelCancel()">閉じる</b-button>
             </div>
 
             <!-- 画像リスト表示 start -->
@@ -822,7 +857,7 @@
                         <br />
                       </div>
                       <!-- +++++++ 画像等のファイル表示 end -->
-                      <b-button :size="commonData.selectedBtnSize" class="m-1 ml-2 px-1 py-0" @click="deleteImage(dbFile.id, dbFile.fileItem.name, dbFile.fileItem.httpUrl)">削除</b-button>
+                      <b-button :size="myCommon.selectedBtnSize" class="m-1 ml-2 px-1 py-0" @click="deleteImage(dbFile.id, dbFile.fileItem.name, dbFile.fileItem.httpUrl)">削除</b-button>
                       <span class="m-0 p-0">{{ dbFile.fileItem.name }}</span>
                     </div>
                   </div>
@@ -834,6 +869,12 @@
         </div>
         <!-- =========== 画像登録、編集、削除 end -->
       </div>
+      <!-- <b-button class="m-0 ml-1 my-1 p-0 px-1 text-body" style="background-color: honeydew" @click="test1()"></b-button> -->
+
+      <!-- <div class="p-3 bg-secondary progress-bar-striped" style="min-height: 170px">
+        <b-button class="mb-2" variant="primary" @click="$bvToast.show('example-toast')"> Show toast </b-button>
+        <b-toast id="example-toast" title="BootstrapVue" static no-auto-hide> Hello, world! This is a toast message. </b-toast>
+      </div> -->
     </div>
     <p>{{ todaySet() }}</p>
     <p>{{ myDataSet() }}</p>
@@ -866,13 +907,15 @@ export default {
       showEdit: false,
       showReg: true,
       editId: '',
-      myData: {},
-      commonData: {},
+      myMenu: {},
+      myCommon: {},
       cCommon: {},
 
       layout: {
+        retsuSuu: 3,
+        retsuData: ['col-12', 'col-12', 'col-md-6', 'col-sm-6 col-md-4', 'col-sm-4 col-md-3 col-lg-2'],
         type: 0,
-        fileUrl: [],
+        fileUrl: ['https://firebasestorage.googleapis.com/v0/b/yoshimine-dev.appspot.com/o/layout%2Flayout-b1.png?alt=media&token=5b60e7ae-ea46-488f-9efd-477d473504ea', 'https://firebasestorage.googleapis.com/v0/b/yoshimine-dev.appspot.com/o/layout%2Flayout-b2.png?alt=media&token=c1baf4b8-b4d5-429d-84c1-308fa83b5f2d'],
       },
       layoutInput: {},
 
@@ -880,22 +923,22 @@ export default {
       selectedFile: '選択されていません。',
 
       cCommonData: {
-        hiddenDate: false,
-        hiddenText1: false,
-        hiddenText2: false,
-        hiddenText3: false,
-        hiddenMainText: false,
-        hiddenBtn: false,
-        hiddenLink: false,
-        hiddenNewTab: false,
-        hiddenDownload: false,
-        text1name: '価格',
-        text2name: '生年月日',
-        text3name: '性別',
-        btnName: '拡大',
-        linkName: '関連情報',
-        newTab: '画像を拡大',
-        download: 'Fileを保存',
+        // hiddenDate: false,
+        // hiddenText1: false,
+        // hiddenText2: false,
+        // hiddenText3: false,
+        // hiddenMainText: false,
+        // hiddenBtn: false,
+        // hiddenLink: false,
+        // hiddenNewTab: false,
+        // hiddenDownload: false,
+        // text1name: '価格',
+        // text2name: '生年月日',
+        // text3name: '性別',
+        // btnName: '拡大',
+        // linkName: '関連情報',
+        // newTab: '画像を拡大',
+        // download: 'Fileを保存',
       },
       cCommonWork: {
         // hiddenDate: false,
@@ -980,7 +1023,8 @@ export default {
     },
 
     dbHeaders() {
-      return this.$store.getters['storeheader/orderdDbHeaders']
+      // return this.$store.getters['storeheader/orderdDbHeaders']
+      return this.$store.getters['storeheader/getDbHeadersById']('menu')
     },
 
     // 以下は b31File コレクション用
@@ -1002,17 +1046,17 @@ export default {
 
     // 下記の storeheader は store/storeheader.js のファイル名
     this.$store.dispatch('storeheader/init')
-
-    this.$nuxt.$on('mydata', (myData) => {
-      this.myData = myData
-    })
   },
 
   // ③ mounted はelementへのマウントが行われた後処理される。
   // SSR(Firebase等)では使えない。
   mounted() {
-    this.$nuxt.$on('commondata', (commonData) => {
-      this.commonData = commonData
+    this.$nuxt.$on('mycommon', (myCommon) => {
+      this.myCommon = myCommon
+    })
+
+    this.$nuxt.$on('mymenu', (myMenu) => {
+      this.myMenu = myMenu
     })
   },
 
@@ -1037,10 +1081,9 @@ export default {
   // ⑨ methods は呼び出される度に実行
   // データが変更された時、反映したくない場合はmethodsを利用
   methods: {
-    // test1() {
-    //   this.$store.dispatch('bbb/updateCommon', this.cCommonWork)
-    //   this.toastFileUpdate('登録', '登録しました。')
-    // },
+    test1() {
+      this.toastFileUpdate('登録', '登録しました。')
+    },
 
     selnum(num) {
       this.$nuxt.$emit('selnum', num)
@@ -1129,14 +1172,12 @@ export default {
     // },
 
     showModal1() {
-      this.layoutInput = JSON.parse(JSON.stringify(this.dbEachPage.layout))
-      // console.log('3-10 layout ------ showModal(): ', this.layoutInput)
-      // this.cCommonWork = JSON.parse(JSON.stringify(this.cCommonData))
-      // this.layout = this.dbEachPage
-      // console.log('1-1 layout ----------- : ', this.layout)
-      // console.log('1-2 type ----------- : ', this.layout.type)
-      // console.log('1-3 fileUrl[0] ----------- : ', this.layout.fileUrl[0])
-      // console.log('1-3 fileUrl[1] ----------- : ', this.layout.fileUrl[1])
+      if (typeof this.dbEachPage !== 'undefined') {
+        this.layoutInput = JSON.parse(JSON.stringify(this.dbEachPage.layout))
+      } else {
+        this.layoutInput = JSON.parse(JSON.stringify(this.layout))
+      }
+
       this.$refs['modal-1'].show()
     },
 
@@ -1163,6 +1204,7 @@ export default {
           if (value === 'regOK') {
             this.toastFileUpdate('登録', '登録しました。')
             this.layout.type = this.layoutInput.type
+            this.layout.retsuSuu = this.layoutInput.retsuSuu
           } else {
             alert('***** error ***** 登録に失敗しました。\n 管理者用アカウントでログインしていますか？')
           }

@@ -4,10 +4,11 @@
     <!-- <b-container fluid class="p-4 bg-dark"> -->
     <div class="row m-0 p-0">
       <div class="col-12 m-0 p-1 bg-info">
-        <div v-for="dbHeader in dbHeaders" :key="dbHeader.id" class="m-0 p-0">
-          <h5 class="text-light bg-info text-center m-0 p-1">{{ dbHeader.myData.mArchiveDB }}</h5>
-          <!-- <h3 class="text-light text-center m-0 p-0">資料データベース</h3> -->
-        </div>
+        <!-- <div v-for="dbHeader in dbHeaders" :key="dbHeader.id" class="m-0 p-0"> -->
+        <!-- <h5 class="text-light bg-info text-center m-0 p-1">{{ dbHeader.myData.mArchiveDB }}</h5> -->
+        <h5 class="text-light bg-info text-center m-0 p-1">{{ myCommon.mArchiveDB }}</h5>
+        <!-- <h3 class="text-light text-center m-0 p-0">資料データベース</h3> -->
+        <!-- </div> -->
         <p class="text-light text-center m-0 p-0">各種ファイル、写真、ビデオ等をDBに保存したり、DBからダウンロードできます。</p>
       </div>
 
@@ -29,13 +30,13 @@
           <div v-show="showSel">
             <div class="d-flex flex-row">
               <!-- <div class="float-left">
-                <b-button :size="commonData.selectedBtnSize" class="ml-3 mt-1 p-1" @click="cancelImage()">Cancel</b-button>
+                <b-button :size="myCommon.selectedBtnSize" class="ml-3 mt-1 p-1" @click="cancelImage()">Cancel</b-button>
               </div> -->
               <canvas ref="thumbnail" :width="0" :height="0" class="mt-1 ml-1" />
 
               <div class="float-left mt-1 ml-2" style="background-color: white">
-                <!-- <b-button :size="commonData.selectedBtnSize" class="ml-2 mt-1 p-1" variant="primary" @click="changeSize()">ファイル圧縮</b-button> -->
-                <!-- <b-button :size="commonData.selectedBtnSize" class="ml-2 mt-1 p-1" variant="primary" @change="changeSize()"> -->
+                <!-- <b-button :size="myCommon.selectedBtnSize" class="ml-2 mt-1 p-1" variant="primary" @click="changeSize()">ファイル圧縮</b-button> -->
+                <!-- <b-button :size="myCommon.selectedBtnSize" class="ml-2 mt-1 p-1" variant="primary" @change="changeSize()"> -->
                 <b-form-select v-model="selectedSize" :options="options" @change="changeSize()"></b-form-select>
                 <!-- <b-form-select :options="options" @change="changeSize()"></b-form-select> -->
                 <!-- </b-button> -->
@@ -55,8 +56,8 @@
             <p class="m-0">アップロードファイル名： {{ imageName }}</p>
             <!-- 選択した画像をリセットするためのボタン -->
             <!-- アップロードボタン -->
-            <b-button :size="commonData.selectedBtnSize" class="ml-2 p-1" variant="primary" @click="uploadImage()">Upload</b-button>
-            <b-button :size="commonData.selectedBtnSize" class="ml-2 p-1" @click="cancelImage()">Cancel</b-button>
+            <b-button :size="myCommon.selectedBtnSize" class="ml-2 p-1" variant="primary" @click="uploadImage()">Upload</b-button>
+            <b-button :size="myCommon.selectedBtnSize" class="ml-2 p-1" @click="cancelImage()">Cancel</b-button>
             <!-- upload()の最後で、リスト表示 -->
           </div>
         </div>
@@ -66,9 +67,9 @@
         <div class="col-12 m-0 p-2 mt-2" style="background-color: lightsteelblue">
           <!-- <div style="background-color:darkcyan;"> -->
           <h5>Download / Delete</h5>
-          <!-- <button :size="commonData.selectedBtnSize" class="pb-0 ml-2" @click="imageDelete()">画像一覧表示</button> -->
-          <b-button :size="commonData.selectedBtnSize" class="p-1 ml-1" variant="primary" @click="imageList()">画像一覧表示</b-button>
-          <b-button :size="commonData.selectedBtnSize" class="p-1 ml-1" @click="imageListCancel()">Close</b-button>
+          <!-- <button :size="myCommon.selectedBtnSize" class="pb-0 ml-2" @click="imageDelete()">画像一覧表示</button> -->
+          <b-button :size="myCommon.selectedBtnSize" class="p-1 ml-1" variant="primary" @click="imageList()">画像一覧表示</b-button>
+          <b-button :size="myCommon.selectedBtnSize" class="p-1 ml-1" @click="imageListCancel()">Close</b-button>
           <!-- <p>{{ fileSize }}</p> -->
           <!-- <div v-show="toggleDel" class="m-0"> -->
           <div v-show="imageListShow" class="m-0">
@@ -80,13 +81,13 @@
                 <!-- <area class="m-0 ml-1 px-1 py-0 float-left" href="https://firebasestorage.googleapis.com/v0/b/nb01-d6ef5.appspot.com/o/images%2F20200428-172147-anya-potsiadlo-P8_RmeffU-w-unsplash.jpg?alt=media&token=93b0a09d-ce0e-49e2-a542-ac64d104b12b" download="sample.pdf" variant="primary" /> -->
                 <!-- <b-embed type="iframe" src="https://unsplash.com/photos/P7yYuaR2AYg" allowfullscreen></b-embed> -->
                 <!-- </b-button> -->
-                <b-button :size="commonData.selectedBtnSize" class="m-0 ml-1 px-1 py-0 float-left" variant="primary" @click="downloadImage(myImage)">Download</b-button>
+                <b-button :size="myCommon.selectedBtnSize" class="m-0 ml-1 px-1 py-0 float-left" variant="primary" @click="downloadImage(myImage)">Download</b-button>
                 <!-- <a class="m-0 ml-1 px-1 py-0 float-left" :href="myImage.url" download="sample.jpg" variant="primary">Download</a> -->
-                <!-- <b-button :size="commonData.selectedBtnSize" class="m-0 ml-1 px-1 py-0 float-left" href="https://firebasestorage.googleapis.com/v0/b/nb01-d6ef5.appspot.com/o/images%2F20200428-172147-anya-potsiadlo-P8_RmeffU-w-unsplash.jpg?alt=media&token=93b0a09d-ce0e-49e2-a542-ac64d104b12b" download="sample.pdf" variant="primary">Download</b-button> -->
+                <!-- <b-button :size="myCommon.selectedBtnSize" class="m-0 ml-1 px-1 py-0 float-left" href="https://firebasestorage.googleapis.com/v0/b/nb01-d6ef5.appspot.com/o/images%2F20200428-172147-anya-potsiadlo-P8_RmeffU-w-unsplash.jpg?alt=media&token=93b0a09d-ce0e-49e2-a542-ac64d104b12b" download="sample.pdf" variant="primary">Download</b-button> -->
                 <!-- <area class="m-0 ml-1 px-1 py-0 float-left" href="https://firebasestorage.googleapis.com/v0/b/nb01-d6ef5.appspot.com/o/images%2F20200428-172147-anya-potsiadlo-P8_RmeffU-w-unsplash.jpg?alt=media&token=93b0a09d-ce0e-49e2-a542-ac64d104b12b" download="sample.pdf" variant="primary" /> -->
                 <!-- <area href="URL" alt="代替テキスト" download="ファイル名.拡張子"> -->
                 <!-- <object data="https://firebasestorage.googleapis.com/v0/b/nb01-d6ef5.appspot.com/o/images%2F20200428-172147-anya-potsiadlo-P8_RmeffU-w-unsplash.jpg?alt=media&token=93b0a09d-ce0e-49e2-a542-ac64d104b12b">Download</object> -->
-                <b-button :size="commonData.selectedBtnSize" class="m-0 ml-1 px-1 py-0 d-flex" @click="deleteImage(myImage.path)">Del</b-button>
+                <b-button :size="myCommon.selectedBtnSize" class="m-0 ml-1 px-1 py-0 d-flex" @click="deleteImage(myImage.path)">Del</b-button>
               </div>
             </div>
           </div>
@@ -108,8 +109,8 @@
           <div v-show="reserve">
             <p class="m-0">アップロードファイル名： {{ fileName }}</p>
             <!-- アップロードボタン -->
-            <b-button :size="commonData.selectedBtnSize" class="ml-2 p-1" variant="primary" @click="uploadFile()">Upload</b-button>
-            <b-button :size="commonData.selectedBtnSize" class="ml-2 p-1" @click="cancelFile()">Cancel</b-button>
+            <b-button :size="myCommon.selectedBtnSize" class="ml-2 p-1" variant="primary" @click="uploadFile()">Upload</b-button>
+            <b-button :size="myCommon.selectedBtnSize" class="ml-2 p-1" @click="cancelFile()">Cancel</b-button>
           </div>
         </div>
         <!-- ファイル登録 End -->
@@ -118,8 +119,8 @@
         <div class="col-12 m-0 p-2 mt-2" style="background-color: lightsteelblue">
           <!-- <div style="background-color:darkcyan;"> -->
           <h5>Download / Delete</h5>
-          <b-button :size="commonData.selectedBtnSize" class="p-1 ml-1" variant="primary" @click="fileList()">ファイル一覧表示</b-button>
-          <b-button :size="commonData.selectedBtnSize" class="p-1 ml-1" @click="fileListCancel()">Close</b-button>
+          <b-button :size="myCommon.selectedBtnSize" class="p-1 ml-1" variant="primary" @click="fileList()">ファイル一覧表示</b-button>
+          <b-button :size="myCommon.selectedBtnSize" class="p-1 ml-1" @click="fileListCancel()">Close</b-button>
           <!-- <p>{{ fileSize }}</p> -->
           <!-- <div v-show="toggleDel" class="m-0"> -->
           <div v-show="fileListShow" class="m-0">
@@ -130,10 +131,10 @@
             <!-- <div v-for="myFile in myFiles" :key="myFile.id" class="border mt-3 float-left"> -->
             <div v-for="myFile in myFiles" :key="myFile.id" class="m-0">
               <div class="m-0 mt-1 d-flex flex-row">
-                <!-- <b-button :size="commonData.selectedBtnSize" class="m-0 px-1 py-0 float-left" variant="primary" @click="downloadFile(myFile)">格納</b-button> -->
-                <!-- <b-button :size="commonData.selectedBtnSize" class="m-0 ml-1 px-1 py-0 d-flex" @click="deleteFile(myFile.name)">削除</b-button> -->
-                <b-button :size="commonData.selectedBtnSize" class="m-0 p-0" variant="primary" @click="downloadFile(myFile)">格納</b-button>
-                <b-button :size="commonData.selectedBtnSize" class="m-0 ml-1 p-0" @click="deleteFile(myFile.path)">削除</b-button>
+                <!-- <b-button :size="myCommon.selectedBtnSize" class="m-0 px-1 py-0 float-left" variant="primary" @click="downloadFile(myFile)">格納</b-button> -->
+                <!-- <b-button :size="myCommon.selectedBtnSize" class="m-0 ml-1 px-1 py-0 d-flex" @click="deleteFile(myFile.name)">削除</b-button> -->
+                <b-button :size="myCommon.selectedBtnSize" class="m-0 p-0" variant="primary" @click="downloadFile(myFile)">格納</b-button>
+                <b-button :size="myCommon.selectedBtnSize" class="m-0 ml-1 p-0" @click="deleteFile(myFile.path)">削除</b-button>
                 <span class="m-0 ml-1 pr-1">{{ myFile.name }}</span>
                 <span class="m-0 ml-1 pr-1 text-primary">{{ myFile.size | addComma }}KB</span>
               </div>
@@ -187,7 +188,7 @@ export default {
       ],
 
       selectedWidth: 0,
-      commonData: {},
+      myCommon: {},
       hihyouji: false,
       showImageFlg: false,
       show: true,
@@ -239,7 +240,8 @@ export default {
   // firestore DB からのデータ取得
   computed: {
     dbHeaders() {
-      return this.$store.getters['storeheader/orderdDbHeaders']
+      // return this.$store.getters['storeheader/orderdDbHeaders']
+      return this.$store.getters['storeheader/getDbHeadersById']('menu')
     },
   },
   created() {
@@ -252,8 +254,8 @@ export default {
   // elementへのマウントが行われた後処理される。
   // SSR(Firebase等)では使えない。
   mounted() {
-    this.$nuxt.$on('commondata', (commonData) => {
-      this.commonData = commonData
+    this.$nuxt.$on('mycommon', (myCommon) => {
+      this.myCommon = myCommon
     })
   },
 

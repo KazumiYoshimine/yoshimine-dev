@@ -15,19 +15,20 @@ export const actions = {
   init: firestoreAction(({ bindFirestoreRef }) => {
     bindFirestoreRef('dbCommon', dbCommonRef)
   }),
-  add: firestoreAction((context, { id, myData }) => {
+  add: firestoreAction((context, { id, myCommon }) => {
     dbCommonRef.doc(id).set({
-      myData,
+      myCommon,
     })
   }),
-  set: firestoreAction((context, { id, myData }) => {
+  set: firestoreAction((context, { id, myCommon }) => {
+    // console.log('commonDB-1 --- id ---: ', id)
     dbCommonRef.doc(id).set({
-      myData,
+      myCommon,
     })
   }),
-  update: firestoreAction((context, { id, myData }) => {
-    dbCommonRef.doc(id).set({
-      myData,
+  update: firestoreAction((context, { id, myCommon }) => {
+    dbCommonRef.doc(id).update({
+      myCommon,
     })
   }),
   addAccess: firestoreAction((context, mapUrl) => {
