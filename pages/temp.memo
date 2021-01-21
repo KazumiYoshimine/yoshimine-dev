@@ -1,23 +1,12 @@
 /*
+fileUrlSmall:  gs://yoshimine-dev.appspot.com/general/general12/grovemade-vfIx29EsLHA-unsplash.jpg
+fileUrlSmall:  gs://yoshimine-dev.appspot.com/general/general12/grovemade-vfIx29EsLHA-unsplash.jpg
+               gs://yoshimine-dev.appspot.com/general/general12
 
-以下の２行は、layout パターンのimageUrl
-https://firebasestorage.googleapis.com/v0/b/yoshimine-dev.appspot.com/o/layout%2Flayout-b1.png?alt=media&token=5b60e7ae-ea46-488f-9efd-477d473504ea
-https://firebasestorage.googleapis.com/v0/b/yoshimine-dev.appspot.com/o/layout%2Flayout-b2.png?alt=media&token=c1baf4b8-b4d5-429d-84c1-308fa83b5f2d
-
-
-
-開発者のホームページ：mail@yoshimine.dev
-https://www.pref.fukuoka.lg.jp/
-
-問合せ先：mail@yoshimine.dev
-mailto:mail@yoshimine.dev?subject=問合せ
-wufvarrcgfryddhs
-kzpsikoqgtfhjatk
-
-
-
-https://demo2b.web.app/
-
-
+gs://yoshimine-dev.appspot.com/general/general12
+FB_STORAGE_BUCKET + fileRef.fullPath
+gs://yoshimine-dev.appspot.com/general/general12/thumbs
+https://firebasestorage.googleapis.com/v0/b/yoshimine-dev.appspot.com/o/general%2Fgeneral12%2Fthumbs%2Fgrovemade-vfIx29EsLHA-unsplash_256x192.jpg?alt=media&token=95add6ed-fff0-486f-9fd8-d05c50ced04f
+filePath:  general/general12/thumbs/grovemade-vfIx29EsLHA-unsplash_256x192.jpg
 
  */

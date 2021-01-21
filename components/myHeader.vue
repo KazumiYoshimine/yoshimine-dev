@@ -1,10 +1,8 @@
 <template>
   <div class="container-fluid no-gutters">
-    <!-- <div class="header m-0 p-0"> -->
-    <!-- <div class="m-0 p-0"> -->
     <div class="row m-0 p-0">
       <div class="col-12 d-flex justify-content-between align-items-center" :style="myCommon.buttonHeaderRGB">
-        <b-link to="/home" class="d-flex flex-row align-items-center m-0 p-0" @click="selnum(0)">
+        <b-link to="/home" class="d-flex flex-row align-items-center m-0 p-0" @click="selMenu(-1, 0, 'home', 0)">
           <!-- ロゴ set start -->
           <div v-if="myCommon.logoRadio === 'selfRegFile'" class="m-0 p-0">
             <img :src="myCommon.headerLogo" alt="Header image" width="36" height="36" title="building" />
@@ -30,193 +28,50 @@
       <b-navbar toggleable="md" type="light" class="d-flex justify-content-between m-0 p-1" :style="myCommon.buttonBarRGB">
         <div class="d-flex flex-row m-0 p-0">
           <!-- HOME ボタン -->
-          <b-button id="idBorder" to="/home" :variant="myCommon.selectedMenuBtnColor" :size="myCommon.selectedBtnSize" :class="isBorder2(0, myCommon.myBorder)" class="m-1 p-1" @click="selnum(0)">{{ myCommon.mHome1 }}</b-button>
+          <!-- <b-button id="idBorder" to="/home" :variant="myCommon.selectedMenuBtnColor" :size="myCommon.selectedBtnSize" :class="isBorderColor(-1, myCommon.myBorder)" class="m-1 p-1" @click="selMenu(-1, 0)">{{ myCommon.mHome1 }}</b-button> -->
+          <b-button to="/home" :variant="myCommon.selectedMenuBtnColor" :size="myCommon.selectedBtnSize" :class="isBorderColor(-1, myCommon.myBorder)" class="m-1 p-1" @click="selMenu(-1, 0, 'home', 0)">{{ myCommon.mHome1 }}</b-button>
 
           <b-navbar-toggle target="nav-collapse" />
           <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
-              <!-- HOME ボタン -->
-              <!-- <b-button id="idBorder" to="/home" :variant="myCommon.selectedMenuBtnColor" :size="myCommon.selectedBtnSize" :class="isBorder2(0, myCommon.myBorder)" class="m-1 p-1" @click="selnum(0)">{{ myCommon.mHome1 }}</b-button> -->
-
-              <!-- 1 -->
-              <div class="m-0 p-0" @mouseover="onOver(1)" @mouseleave="onLeave(1)">
-                <div v-show="myMenu.chkMenu1">
-                  <b-dropdown id="dropdown-menu-1" ref="dropdown1" :size="myCommon.selectedBtnSize" :text="myMenu.m1" :variant="myCommon.selectedMenuBtnColor" :class="isBorder2(1, myCommon.myBorder)" class="m-1 p-0">
-                    <div v-show="myMenu.chkMenu11">
-                      <b-dropdown-item to="/b11" :active="isSelected(11)">{{ myMenu.m11 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu12">
-                      <b-dropdown-item to="/b12" :active="isSelected(12)">{{ myMenu.m12 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu13">
-                      <b-dropdown-item to="/b13" :active="isSelected(13)">{{ myMenu.m13 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu14">
-                      <b-dropdown-item to="/b14" :active="isSelected(14)">{{ myMenu.m14 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu15">
-                      <b-dropdown-item to="/b15" :active="isSelected(15)">{{ myMenu.m15 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu16">
-                      <b-dropdown-item to="/b16" :active="isSelected(16)">{{ myMenu.m16 }}</b-dropdown-item>
-                    </div>
-                  </b-dropdown>
+              <!-- Group menu ++++++++++ start -->
+              <!-- <div v-for="(dbGroup, indexGroup) in dbGroups" :key="dbGroup.id" class="col-4"> -->
+              <!-- <div v-for="(dbGroup, indexGroup) in dbGroups" :key="dbGroup.id"> -->
+              <div v-for="(dbGroup, indexGroup) in dbGroups" :key="dbGroup.id">
+                <!-- <div v-for="dbGroup in dbGroups" :key="dbGroup.id"> -->
+                <!-- <div class="m-0 p-0"> -->
+                <div v-show="dbGroup.myMenu.myGroup.isGroup">
+                  <div class="m-0 p-0" @mouseover="onOver(indexGroup)" @mouseleave="onLeave(indexGroup)">
+                    <!-- <b-dropdown id="dropdown-menu-1" ref="dropdown1" :size="myCommon.selectedBtnSize" :text="dbGroup.myMenu.myGroup.groupName" :variant="myCommon.selectedMenuBtnColor" :class="isBorderColor(indexGroup, myCommon.myBorder)" class="m-1 p-0"> -->
+                    <b-dropdown :ref="'dropdown' + indexGroup" :size="myCommon.selectedBtnSize" :text="dbGroup.myMenu.myGroup.groupName" :variant="myCommon.selectedMenuBtnColor" :class="isBorderColor(indexGroup, myCommon.myBorder)" class="m-1 p-0">
+                      <!-- <b-dropdown :size="myCommon.selectedBtnSize" :text="dbGroup.myMenu.myGroup.groupName" :variant="myCommon.selectedMenuBtnColor" :class="isBorderColor(indexGroup, myCommon.myBorder)" class="m-1 p-0 visible"> -->
+                      <div v-for="(myPage, indexPage) in dbGroup.myMenu.myPage" :key="myPage.id">
+                        <div v-show="myPage.isPage">
+                          <!-- <b-dropdown-item :to="'/' + myPage.pageTemplate + '/' + myPage.pageNo" :active="isSelectedItem(11)" @click="setMenuIndex(indexGroup, indexPage)">{{ myPage.pageName }}</b-dropdown-item> -->
+                          <b-dropdown-item :to="'/' + myPage.pageTemplate + '/' + myPage.pageNo" :active="isSelectedItem(indexGroup, indexPage)" @click="setMenuIndex(indexGroup, indexPage, myPage)">{{ myPage.pageName }}</b-dropdown-item>
+                        </div>
+                      </div>
+                    </b-dropdown>
+                  </div>
                 </div>
+                <!-- Group menu ++++++++++ end -->
               </div>
 
-              <!-- 2 -->
-              <div @mouseover="onOver(2)" @mouseleave="onLeave(2)">
-                <div v-show="myMenu.chkMenu2">
-                  <b-dropdown id="dropdown-menu-2" ref="dropdown2" :size="myCommon.selectedBtnSize" :text="myMenu.m2" :variant="myCommon.selectedMenuBtnColor" :class="isBorder2(2, myCommon.myBorder)" class="m-1">
-                    <div v-show="myMenu.chkMenu21">
-                      <b-dropdown-item to="/b21" :active="isSelected(21)">{{ myMenu.m21 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu22">
-                      <b-dropdown-item to="/b22" :active="isSelected(22)">{{ myMenu.m22 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu23">
-                      <b-dropdown-item to="/b23" :active="isSelected(23)">{{ myMenu.m23 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu24">
-                      <b-dropdown-item to="/b24" :active="isSelected(24)">{{ myMenu.m24 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu25">
-                      <b-dropdown-item to="/b25" :active="isSelected(25)">{{ myMenu.m25 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu26">
-                      <b-dropdown-item to="/b26" :active="isSelected(26)">{{ myMenu.m26 }}</b-dropdown-item>
-                    </div>
-                  </b-dropdown>
-                </div>
-              </div>
-
-              <!-- 3 -->
-              <div @mouseover="onOver(3)" @mouseleave="onLeave(3)">
-                <div v-show="myMenu.chkMenu3">
-                  <b-dropdown id="dropdown-menu-3" ref="dropdown3" :size="myCommon.selectedBtnSize" :text="myMenu.m3" :variant="myCommon.selectedMenuBtnColor" :class="isBorder2(3, myCommon.myBorder)" class="m-1">
-                    <div v-show="myMenu.chkMenu31">
-                      <b-dropdown-item to="/b31" :active="isSelected(31)">{{ myMenu.m31 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu32">
-                      <b-dropdown-item to="/b32" :active="isSelected(32)">{{ myMenu.m32 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu33">
-                      <b-dropdown-item to="/b33" :active="isSelected(33)">{{ myMenu.m33 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu34">
-                      <b-dropdown-item to="/b34" :active="isSelected(34)">{{ myMenu.m34 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu35">
-                      <b-dropdown-item to="/b35" :active="isSelected(35)">{{ myMenu.m35 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu36">
-                      <b-dropdown-item to="/b36" :active="isSelected(36)">{{ myMenu.m36 }}</b-dropdown-item>
-                    </div>
-                  </b-dropdown>
-                </div>
-              </div>
-
-              <!-- 4 -->
-              <div @mouseover="onOver(4)" @mouseleave="onLeave(4)">
-                <div v-show="myMenu.chkMenu4">
-                  <b-dropdown id="dropdown-menu-4" ref="dropdown4" :size="myCommon.selectedBtnSize" :text="myMenu.m4" :variant="myCommon.selectedMenuBtnColor" :class="isBorder2(4, myCommon.myBorder)" class="m-1">
-                    <div v-show="myMenu.chkMenu41">
-                      <b-dropdown-item to="/b41" :active="isSelected(41)">{{ myMenu.m41 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu42">
-                      <b-dropdown-item to="/b42" :active="isSelected(42)">{{ myMenu.m42 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu43">
-                      <b-dropdown-item to="/b43" :active="isSelected(43)">{{ myMenu.m43 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu44">
-                      <b-dropdown-item to="/b44" :active="isSelected(44)">{{ myMenu.m44 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu45">
-                      <b-dropdown-item to="/b45" :active="isSelected(45)">{{ myMenu.m45 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu46">
-                      <b-dropdown-item to="/b46" :active="isSelected(46)">{{ myMenu.m46 }}</b-dropdown-item>
-                    </div>
-                  </b-dropdown>
-                </div>
-              </div>
-
-              <!-- 5 動画コレクション用 -->
-              <div @mouseover="onOver(5)" @mouseleave="onLeave(5)">
-                <div v-show="myMenu.chkMenu5">
-                  <b-dropdown id="dropdown-menu-5" ref="dropdown5" :size="myCommon.selectedBtnSize" :text="myMenu.m5" :variant="myCommon.selectedMenuBtnColor" :class="isBorder2(5, myCommon.myBorder)" class="m-1">
-                    <div v-show="myMenu.chkMenu51">
-                      <b-dropdown-item to="/a51" :active="isSelected(51)">{{ myMenu.m51 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu52">
-                      <b-dropdown-item to="/a52" :active="isSelected(52)">{{ myMenu.m52 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu53">
-                      <b-dropdown-item to="/a53" :active="isSelected(53)">{{ myMenu.m53 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu54">
-                      <b-dropdown-item to="/a54" :active="isSelected(54)">{{ myMenu.m54 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu55">
-                      <b-dropdown-item to="/a55" :active="isSelected(55)">{{ myMenu.m55 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu56">
-                      <b-dropdown-item to="/a56" :active="isSelected(56)">{{ myMenu.m56 }}</b-dropdown-item>
-                    </div>
-                  </b-dropdown>
-                </div>
-              </div>
-
-              <!-- 6 カスタマイズ -->
-              <div @mouseover="onOver(6)" @mouseleave="onLeave(6)">
-                <div v-show="myMenu.chkMenu6">
-                  <b-dropdown id="dropdown-menu-6" ref="dropdown6" :size="myCommon.selectedBtnSize" :text="myMenu.m6" :variant="myCommon.selectedMenuBtnColor" :class="isBorder2(6, myCommon.myBorder)" class="m-1">
-                    <div v-show="myMenu.chkMenu61">
-                      <b-dropdown-item to="/myQA" :active="isSelected(61)">{{ myMenu.m61 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu62">
-                      <!-- <b-dropdown-item to="/myQuestion" :active="isSelected(62)">{{ myMenu.m62 }}</b-dropdown-item> -->
-                      <b-dropdown-item to="/myQuestion" :active="isSelected(62)" @click="selnum(62)">{{ myMenu.m62 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu63">
-                      <b-dropdown-item to="/myAbout" :active="isSelected(63)">{{ myMenu.m63 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu64">
-                      <b-dropdown-item to="/myLink" :active="isSelected(64)">{{ myMenu.m64 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu65">
-                      <b-dropdown-item to="/myAccess" :active="isSelected(65)">{{ myMenu.m65 }}</b-dropdown-item>
-                    </div>
-                    <div v-show="myMenu.chkMenu66">
-                      <b-dropdown-item to="/myParking" :active="isSelected(66)">{{ myMenu.m66 }}</b-dropdown-item>
-                    </div>
-                  </b-dropdown>
-                </div>
-              </div>
+              <!-- <b-button :variant="myCommon.selectedMenuBtnColor" :size="myCommon.selectedBtnSize" class="m-1 p-1" :class="isBorderColor(-2, myCommon.myBorder)" @click="selMenu(-2, 0), testDispInfo()">test-dispInfo</b-button> -->
             </b-navbar-nav>
-
-            <!-- <b-navbar-nav class="ml-auto">
-            <b-nav-item-dropdown right>
-              <template v-slot:button-content>
-                <em>User</em>
-              </template>
-              <b-dropdown-item href="#">Profile</b-dropdown-item>
-              <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-            </b-nav-item-dropdown>
-          </b-navbar-nav> -->
           </b-collapse>
         </div>
 
         <div>
           <!-- ------------------ Sideber start -->
-          <!-- <span v-show="dbSides.mySide.chkSideMenu" class="m-0 p-0"> -->
-          <span v-if="dbSides" v-show="dbSides.mySide.chkSideMenu" class="m-0 p-0">
+          <span v-show="nowIsSideMenu" class="m-0 p-0">
             <b-button v-b-toggle.sidebar-footer :variant="myCommon.selectedMenuBtnColor" :size="myCommon.selectedBtnSize" class="m-0 p-1">Side Menu</b-button>
           </span>
           <!-- Sideber の位置： 左 -->
           <!-- <b-sidebar id="sidebar-footer" aria-label="Sidebar with custom footer" no-header shadow> -->
-          <b-sidebar id="sidebar-footer" aria-label="Sidebar with custom footer" title="Side Menu" bg-variant="dark" text-variant="light">
+          <!-- <b-sidebar id="sidebar-footer" aria-label="Sidebar with custom footer" title="Side Menu" bg-variant="dark" text-variant="light"> -->
+          <!-- <b-sidebar id="sidebar-footer" class="m-0 p-0" title="Side Menu" bg-variant="dark" text-variant="light"> -->
+          <b-sidebar id="sidebar-footer" class="m-0 p-0" title="Side Menu" bg-variant="dark" text-variant="light">
             <!-- Sideber の位置： 右 -->
             <!-- <b-sidebar id="sidebar-footer" aria-label="Sidebar with custom footer" title="Side Menu" bg-variant="dark" text-variant="light" right> -->
             <template #footer="{ hide }">
@@ -225,91 +80,33 @@
                 <b-button size="sm" @click="hide">Close</b-button>
               </div>
             </template>
-            <div class="px-3 py-2">
-              <!-- <p>テストです。</p> -->
-              <!-- <b-img src="https://picsum.photos/500/500/?image=54" fluid thumbnail></b-img> -->
-              <!-- <p>{{ sideData() }}</p> -->
 
-              <!-- ================ PR動画 start ==== -->
-              <!-- <div v-for="dbSide in dbSides" :key="dbSide.id" class="m-0 p-0"> -->
-              <div v-if="dbSides" v-show="dbSides.mySide.chkMenu1">
+            <!-- <div class="px-3 py-2"> -->
+            <div v-for="(sideMenu, indexGroup) in getSideMenus" :key="sideMenu.id" class="m-0 p-2">
+              <div v-show="sideMenu.myMenu.myGroup.isGroup">
                 <b-list-group class="p-0">
-                  <b-list-group-item class="text-break m-0 p-1 text-center text-light bg-info font-weight-bold">{{ dbSides.mySide.v1 }}</b-list-group-item>
-                  <!-- <b-list-group-item class="text-break m-0 p-1 text-center text-light font-weight-bold" :style="myCommon.buttonColorBasicSet">{{ dbSides.mySide.v1 }}</b-list-group-item> -->
-                  <div v-show="dbSides.mySide.chkMenu11">
-                    <!-- <b-list-group-item to="/video1" class="m-0 p-1" :class="{ active: isSelected(111) }" @click="selnumSide(111)">{{ dbSides.mySide.v11 }}</b-list-group-item> -->
-                    <b-list-group-item to="/video1" class="m-0 p-1" :class="{ active: isSelected(111) }" @click="selnum(111)">{{ dbSides.mySide.v11 }}</b-list-group-item>
-                  </div>
-                  <div v-show="dbSides.mySide.chkMenu12">
-                    <b-list-group-item to="/video2" class="m-0 p-1" :class="{ active: isSelected(112) }" @click="selnum(112)">{{ dbSides.mySide.v12 }}</b-list-group-item>
-                  </div>
-                  <div v-show="dbSides.mySide.chkMenu13">
-                    <b-list-group-item to="/video3" class="m-0 p-1" :class="{ active: isSelected(113) }" @click="selnum(113)">{{ dbSides.mySide.v13 }}</b-list-group-item>
-                  </div>
-                  <div v-show="dbSides.mySide.chkMenu14">
-                    <b-list-group-item to="/video4" class="m-0 p-1" :class="{ active: isSelected(114) }" @click="selnum(114)">{{ dbSides.mySide.v14 }}</b-list-group-item>
-                  </div>
-                  <div v-show="dbSides.mySide.chkMenu15">
-                    <b-list-group-item to="/video5" class="m-0 p-1" :class="{ active: isSelected(115) }" @click="selnum(115)">{{ dbSides.mySide.v15 }}</b-list-group-item>
+                  <b-list-group-item class="text-break m-0 p-1 text-center text-light bg-info font-weight-bold">{{ sideMenu.myMenu.myGroup.groupName }}</b-list-group-item>
+
+                  <div v-for="(myPage, indexPage) in sideMenu.myMenu.myPage" :key="myPage.id">
+                    <div v-show="myPage.isPage">
+                      <!-- ================ リンク集 ==== start -->
+                      <div v-if="myPage.pageTemplate === 'link'" class="m-0 p-0">
+                        <b-list-group-item :href="myPage.linkUrl" target="_blank" class="m-0 p-1" :active="isSelectedItem('side' + indexGroup, indexPage)" @click="setMenuIndex('side' + indexGroup, indexPage, myPage)">{{ myPage.pageName }}</b-list-group-item>
+                      </div>
+                      <!-- ================ リンク集 ==== end -->
+
+                      <!-- ================ PR動画 start ==== -->
+                      <div v-else class="m-0 p-0">
+                        <b-list-group-item :to="'/' + myPage.pageTemplate + '/' + myPage.pageNo" class="m-0 p-1" :active="isSelectedItem('side' + indexGroup, indexPage)" @click="setMenuIndex('side' + indexGroup, indexPage, myPage)">{{ myPage.pageName }}</b-list-group-item>
+                      </div>
+                      <!-- ================ PR動画 end ==== -->
+                    </div>
                   </div>
                 </b-list-group>
                 <br />
               </div>
-              <!-- ================ PR動画 end ==== -->
-
-              <!-- ================ リンク集 ==== -->
-              <div v-if="dbSides" v-show="dbSides.mySide.chkMenu2">
-                <b-list-group class="p-0">
-                  <b-list-group-item class="text-break m-0 p-1 text-center text-light bg-info font-weight-bold">{{ dbSides.mySide.l1 }}</b-list-group-item>
-                  <div v-show="dbSides.mySide.chkMenu21">
-                    <!-- <b-list-group-item target="_blank" :href="dbSides.mySide.l11a" class="text-break m-0 p-1 bg-mycolor" :class="{ active: isSelected(121) }" @click="selected = 121">{{ dbSides.mySide.l11 }}</b-list-group-item> -->
-                    <!-- <b-list-group-item target="_blank" :href="dbSides.mySide.l11a" class="m-0 p-1" :class="{ active: isSelected(121) }" @click="selnumSide(121)">{{ dbSides.mySide.l11 }}</b-list-group-item> -->
-                    <b-list-group-item target="_blank" :href="dbSides.mySide.l11a" class="m-0 p-1" :class="{ active: isSelected(121) }" @click="selnum(121)">{{ dbSides.mySide.l11 }}</b-list-group-item>
-                  </div>
-                  <div v-show="dbSides.mySide.chkMenu22">
-                    <b-list-group-item target="_blank" :href="dbSides.mySide.l12a" class="m-0 p-1" :class="{ active: isSelected(122) }" @click="selnum(122)">{{ dbSides.mySide.l12 }}</b-list-group-item>
-                  </div>
-                  <div v-show="dbSides.mySide.chkMenu23">
-                    <b-list-group-item target="_blank" :href="dbSides.mySide.l13a" class="m-0 p-1" :class="{ active: isSelected(123) }" @click="selnum(123)">{{ dbSides.mySide.l13 }}</b-list-group-item>
-                  </div>
-                  <div v-show="dbSides.mySide.chkMenu24">
-                    <b-list-group-item target="_blank" :href="dbSides.mySide.l14a" class="m-0 p-1" :class="{ active: isSelected(124) }" @click="selnum(124)">{{ dbSides.mySide.l14 }}</b-list-group-item>
-                  </div>
-                  <div v-show="dbSides.mySide.chkMenu25">
-                    <b-list-group-item target="_blank" :href="dbSides.mySide.l15a" class="m-0 p-1" :class="{ active: isSelected(125) }" @click="selnum(125)">{{ dbSides.mySide.l15 }}</b-list-group-item>
-                  </div>
-                </b-list-group>
-                <br />
-              </div>
-
-              <!-- ================ アクセスマップ ==== -->
-              <div v-if="dbSides" v-show="dbSides.mySide.chkMenu3">
-                <b-list-group class="p-0">
-                  <b-list-group-item class="text-break m-0 p-1 text-center text-light bg-info font-weight-bold">{{ dbSides.mySide.m1 }}</b-list-group-item>
-                  <div v-show="dbSides.mySide.chkMenu31">
-                    <!-- <b-list-group-item target="_blank" :href="dbSides.mySide.m11a" class="text-break m-0 p-1 bg-mycolor" :class="{ active: isSelected(131) }" @click="selected = 131">{{ dbSides.mySide.m11 }}</b-list-group-item> -->
-                    <!-- <b-list-group-item target="_blank" :href="dbSides.mySide.m11a" class="text-break m-0 p-1 bg-mycolor" :class="{ active: isSelected(131) }" @click="selnumSide(131)">{{ dbSides.mySide.m11 }}</b-list-group-item> -->
-                    <b-list-group-item target="_blank" :href="dbSides.mySide.m11a" class="text-break m-0 p-1 bg-mycolor" :class="{ active: isSelected(131) }" @click="selnum(131)">{{ dbSides.mySide.m11 }}</b-list-group-item>
-                  </div>
-                  <div v-show="dbSides.mySide.chkMenu32">
-                    <b-list-group-item target="_blank" :href="dbSides.mySide.m12a" class="text-break m-0 p-1 bg-mycolor" :class="{ active: isSelected(132) }" @click="selnum(132)">{{ dbSides.mySide.m12 }}</b-list-group-item>
-                  </div>
-                  <div v-show="dbSides.mySide.chkMenu33">
-                    <b-list-group-item target="_blank" :href="dbSides.mySide.m13a" class="text-break m-0 p-1 bg-mycolor" :class="{ active: isSelected(133) }" @click="selnum(133)">{{ dbSides.mySide.m13 }}</b-list-group-item>
-                  </div>
-                  <div v-show="dbSides.mySide.chkMenu34">
-                    <b-list-group-item target="_blank" :href="dbSides.mySide.m14a" class="text-break m-0 p-1 bg-mycolor" :class="{ active: isSelected(134) }" @click="selnum(134)">{{ dbSides.mySide.m14 }}</b-list-group-item>
-                  </div>
-                  <div v-show="dbSides.mySide.chkMenu35">
-                    <b-list-group-item target="_blank" :href="dbSides.mySide.m15a" class="text-break m-0 p-1 bg-mycolor" :class="{ active: isSelected(135) }" @click="selnum(135)">{{ dbSides.mySide.m15 }}</b-list-group-item>
-                  </div>
-                </b-list-group>
-                <br />
-              </div>
-              <!-- </div> -->
             </div>
           </b-sidebar>
-          <!-- </div> -->
           <!-- ------------------ Sideber end -->
         </div>
       </b-navbar>
@@ -317,28 +114,28 @@
       <!-- 管理メニュー start -->
       <div v-show="manFlg" class="m-0 p-0">
         <b-navbar toggleable="sm" type="light" class="mt-1 p-1" style="background-color: rgba(100, 100, 100, 0.25)">
-          <!-- <b-button to="/DB" variant="dark" :size="myCommon.selectedBtnSize" :class="{ 'border border-danger rounded-lg': isBorder(90) }" class="m-1 p-1" @click="selnum(901)">{{ myCommon.mHome2 }}</b-button> -->
           <!-- 以下は ハンバーガー メニュー内 -->
           <b-navbar-toggle target="nav-collapse2"></b-navbar-toggle>
           <b-collapse id="nav-collapse2" is-nav>
             <!-- 管理 man start -->
             <div v-show="isLogin" class="m-0 p-0">
               <b-navbar-nav variant="info">
-                <b-button to="/DB" :disabled="isMainUser" variant="outline-dark" :size="myCommon.selectedBtnSize" :class="isBorder2(90, myCommon.myBorder)" class="m-1 p-1" @click="selnum(901)">{{ myCommon.mArchiveDB }}</b-button>
-                <b-button to="/man" :disabled="isMainUser" variant="outline-dark" :size="myCommon.selectedBtnSize" :class="isBorder2(91, myCommon.myBorder)" class="m-1 p-1" @click="selnum(911)">共通設定</b-button>
-                <b-button to="/man1" :disabled="isMainUser" variant="outline-dark" :size="myCommon.selectedBtnSize" :class="isBorder2(92, myCommon.myBorder)" class="m-1 p-1" @click="selnum(921)">メニュー設定</b-button>
-                <b-button to="/man2" :disabled="isMainUser" variant="outline-dark" :size="myCommon.selectedBtnSize" :class="isBorder2(93, myCommon.myBorder)" class="m-1 p-1" @click="selnum(931)">Side Menu設定</b-button>
+                <b-button to="/fileDb" :disabled="isMainUser" variant="outline-dark" :size="myCommon.selectedBtnSize" :class="isBorderColor(90, myCommon.myBorder)" class="m-1 p-1" @click="selMenu(90, 0, 'fileDb', 0)">{{ myCommon.mArchiveDB }}</b-button>
+                <b-button to="/commonSet" :disabled="isMainUser" variant="outline-dark" :size="myCommon.selectedBtnSize" :class="isBorderColor(91, myCommon.myBorder)" class="m-1 p-1" @click="selMenu(91, 0, 'commonSet', 0)">共通設定</b-button>
+                <b-button to="/menuSet" :disabled="isMainUser" variant="outline-dark" :size="myCommon.selectedBtnSize" :class="isBorderColor(92, myCommon.myBorder)" class="m-1 p-1" @click="selMenu(92, 0, 'menuSet', 0)">メニュー設定</b-button>
+                <b-button to="/sideSet" :disabled="isMainUser" variant="outline-dark" :size="myCommon.selectedBtnSize" :class="isBorderColor(93, myCommon.myBorder)" class="m-1 p-1" @click="selMenu(93, 0, 'sideSet', 0)">Side Menu設定</b-button>
+                <!-- <b-button to="/unused" :disabled="isMainUser" variant="outline-dark" :size="myCommon.selectedBtnSize" :class="isBorderColor(94, myCommon.myBorder)" class="m-1 p-1" @click="selMenu(94, 0)">未使用データの整理</b-button> -->
                 <!-- ****** 本コメント、及び下記の2行(add, set) は消すな！ -->
                 <!-- <b-button variant="dark" class="m-1 p-1" @click="add()">add</b-button> -->
                 <!-- <b-button variant="dark" class="m-1 p-1" @click="set()">set</b-button> -->
 
-                <!-- <div @mouseover="onOver(9)" @mouseleave="onLeave(9)"> -->
-                <!-- <b-dropdown id="dropdown-menu-9" ref="dropdown9" :size="myCommon.selectedBtnSize" text="管理メニュー" variant="dark" class="m-0"> -->
-                <b-dropdown-item to="/test1" @click="selnum(91)">test1</b-dropdown-item>
-                <!-- <b-dropdown-item to="/test6" @click="selnum(96)">test6</b-dropdown-item> -->
-                <!-- <b-dropdown-item to="/test7" @click="selnum(97)">test7</b-dropdown-item> -->
-                <!-- <b-dropdown-item to="/test8" @click="selnum(98)">test8</b-dropdown-item> -->
-                <!-- <b-dropdown-item to="/test9" @click="selnum(99)">test9</b-dropdown-item> -->
+                <!-- <div class="d-flex align-items-center" @mouseover="onOver(101)" @mouseleave="onLeave(101)"> -->
+                <!-- <b-dropdown ref="dropdown101" :size="myCommon.selectedBtnSize" text="開発用メニュー" variant="dark" class="m-0"> -->
+                <!-- <b-dropdown-item to="/test1" :class="isBorderColor(101, myCommon.myBorder)" @click="selMenu(101, 1)">test1</b-dropdown-item> -->
+                <!-- <b-dropdown-item to="/test6" @click="selMenu(101, 6)">test6</b-dropdown-item> -->
+                <!-- <b-dropdown-item to="/test7" @click="selMenu(101, 7)">test7</b-dropdown-item> -->
+                <!-- <b-dropdown-item to="/test8" @click="selMenu(101, 8)">test8</b-dropdown-item> -->
+                <!-- <b-dropdown-item to="/test9" @click="selMenu(101, 9)">test9</b-dropdown-item> -->
                 <!-- </b-dropdown> -->
                 <!-- </div> -->
               </b-navbar-nav>
@@ -353,30 +150,47 @@
                 <b-img right :src="loginUser.photoURL" width="32" height="32" rounded="circle" alt="no_image"></b-img>
               </div>
               <div v-else class="m-0 p-0">
-                <b-button to="/" :variant="myCommon.selectedMenuBtnColor" :size="myCommon.selectedBtnSize" class="m-1 p-1">login</b-button>
+                <!-- <b-button :variant="myCommon.selectedMenuBtnColor" :size="myCommon.selectedBtnSize" class="m-1 p-1">login</b-button> -->
+                <b-button to="/reAuth" :variant="myCommon.selectedMenuBtnColor" :size="myCommon.selectedBtnSize" class="m-1 p-1">login</b-button>
+                <!-- <b-button variant="myCommon.selectedMenuBtnColor" :size="myCommon.selectedBtnSize" class="m-1 p-1" @click="reLogin()">login</b-button> -->
               </div>
             </b-navbar-nav>
             <!-- ログイン end -->
           </b-collapse>
         </b-navbar>
       </div>
+
+      <!-- 再Login の modalウィンドウ ********** start -->
+      <!-- <b-modal id="reLoginModal" ref="reLoginModal" size="xl" title="ログイン" class="m-0 p-0">
+        <h2 class="m-0 p-0">ホームページ管理者用ログイン</h2>
+        <p class="m-0 p-0">ログイン中</p>
+        <div id="firebaseui-auth-container"></div>
+      </b-modal> -->
+      <!-- 再Login の modalウィンドウ ********** end -->
+
       <!-- 管理メニュー end -->
       <!-- <b-button class="px-1 py-0 m-1" @click="test1()">test1</b-button> -->
     </div>
-    <!-- </div> -->
     <p>{{ myMenuSet() }}</p>
-    <!-- <p>{{ myMenuSendToRightSide() }}</p> -->
-    <!-- <p>{{ myMenuSendToFooter() }}</p> -->
-    <!-- <p>{{ myMenuSendToFooter() }}</p> -->
+    <p>{{ setGroups() }}</p>
     <p>{{ myCommonUsers() }}</p>
     <!-- <b-button :size="myCommon.selectedBtnSize" variant="primary" class="m-0 ml-2 px-1 py-0" @click="test1()">test1</b-button> -->
   </div>
 </template>
 
 <script>
+// FirebaseUI読み込み
+// import firebaseui from 'firebaseui-ja'
+// import 'firebaseui-ja/dist/firebaseui.css'
+
 // IconsPlugin を使用するには、以下の Vue も import する必要がある
 import Vue from 'vue'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
+// Firebase読み込み
+// import firebase from '~/plugins/firebase'
+
+// import firebase from '~/plugins/firebase'
+// const db = firebase.firestore()
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
@@ -397,9 +211,9 @@ export default {
       // manFlg: false,
       loginUser: {},
       isMainUser: true,
-      selected: 0,
+      // selected: 0,
       numBorder: 0,
-      visible: true,
+      // isVisible: true,
       myMenu: {},
       myCommon: {},
       // dbSideData: {},
@@ -417,6 +231,17 @@ export default {
       buttonColorEdit: '',
       buttonColorDel: '',
       buttonColorCancel: '',
+
+      // myStore 用 start
+      myIndex: {
+        indexGroup: -1,
+        indexPage: 0,
+        pageTemplate: 'home',
+        pageNo: 0,
+      },
+      // myStore 用 end
+
+      nowIsSideMenu: true,
     }
   },
 
@@ -459,6 +284,26 @@ export default {
       return this.$store.getters['storeheader/getDbHeadersById']('menu')
     },
 
+    // Vuex からデータ取得 : ボタンの枠線やDoropdownの選択箇所を反転に利用
+    getMenuIndex() {
+      return this.$store.getters['myStore/getMenuIndex']
+    },
+
+    // Menu Group の全件検索
+    dbGroups() {
+      // const temp = this.$store.getters['storemenu/getGroups']
+      // console.log('dbGroups-1 --- dbGroups: ', temp)
+      return this.$store.getters['storemenu/getGroups']
+    },
+
+    // idで指定したMenu Groupの Itemを取得
+    // dbItems(id) {
+    // dbItems() {
+    //   const temp = this.$store.getters['storemenu/getItems']
+    //   console.log('dbItems-1 --- dbItems: ', temp)
+    //   return this.$store.getters['storemenu/getItems']
+    // },
+
     dbCommon() {
       return this.$store.getters['commonDB/getCommonById']('common')
     },
@@ -467,67 +312,58 @@ export default {
       return this.$store.getters['commonDB/getCommonById']('users')
     },
 
-    // dbSideById() {
-    //   try {
-    //     const getData = this.$store.getters['storeside/getSideById']('side')
+    getPageList() {
+      return this.$store.getters['myStore/getPageList']
+    },
 
-    //     if (getData === undefined) {
-    //       console.log('dbSideById = undefined +++++++++++ in dbSideById(): ')
-    //       return null
-    //     } else {
-    //       return getData
-    //     }
-    //   } catch (error) {
-    //     console.log('error ****** in dbSideById(): ', error)
-    //     return ''
-    //   }
-    // },
+    getIsSideMenu() {
+      return this.$store.getters['storeside/getSideById']('useSideMenu')
+    },
 
-    dbSides() {
-      // const temp = this.$store.getters['storeside/getSideById']('side')
-      // console.log('dbSides in myHeader.vue ---: ', temp)
-      return this.$store.getters['storeside/getSideById']('side')
+    getSideMenus() {
+      return this.$store.getters['storeside/getSideMenus']
     },
   },
 
   // watch は、値が変わるとその値に依存しているすべてのバインディングが更新される
   // computed との違いは return が不要など、
   // watch: {
-  //   // ログインユーザが mainUser であったら、this.mainUser = true
-  //   myCommonUsers() {
-  //     const usersData = this.$store.getters['commonDB/getCommonById']('users')
-  //     console.log('20201120-1-1 ------: ', usersData)
-  //     console.log('20201120-1-2 ------: ', usersData.mainUser)
-  //     console.log('20201120-1-3 ------: ', usersData.mainUser[0])
-  //     console.log('20201120-1-4 ------: ', usersData.mainUser[1])
-  //     console.log('20201120-2 ------: ', this.loginUser.email)
-  //     const resultSearch = usersData.mainUser.indexOf(this.loginUser.email)
-  //     console.log('Main User 検索結果： ', resultSearch)
-  //     if (resultSearch > -1) {
-  //       this.isMainUser = false
-  //     }
-  //   },
   // },
 
   // created は画面を開いたとき呼ばれる。
   created() {
-    // 下記の storeheader は store/storeheader.js のファイル名
+    // 以下の 'storeheader/init' は利用していないかも？
     this.$store.dispatch('storeheader/init')
 
-    // 下記の commonDB は store/commonDB.js のファイル名
+    this.$store.dispatch('storemenu/init')
     this.$store.dispatch('commonDB/init')
-
-    // 下記の storeside は store/storeside.js のファイル名
     this.$store.dispatch('storeside/init')
   },
 
   // マウント後のフックが呼び出される
   mounted() {
-    this.$nuxt.$on('selnum', (selected) => {
-      this.selected = selected
-      // console.log('header components からのデータ: ' + selected)
-    })
+    // // 以下は消すな： ユーザ認証 || Auth UI を初期化
+    // const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(firebase.auth())
+    // console.log('ui: ', ui)
 
+    // // ログインを実行し、Authenticationにユーザがなければ新規登録
+    // ui.start('#firebaseui-auth-container', uiConfig)
+
+    // // 以下は消すな： 現在ログインしているユーザーを取得
+    // firebase.auth().onAuthStateChanged((user) => {
+    //   // if (user !== null) {
+    //   if (user) {
+    //     // console.log('2-1 ++++++++++++ user: ', user)
+    //     // ログイン情報をFire
+    //     this.$store.dispatch('user/login', user)
+    //     this.$nuxt.$emit('loginuser', user)
+
+    //     // ページ遷移
+    //     // this.$router.push('/home')
+    //   }
+    // })
+
+    // loginuser名の設定
     this.$nuxt.$on('loginuser', (loginUser) => {
       this.loginUser = loginUser
       // console.log('1-1 loginUser ------ in mounte: ' + JSON.stringify(this.loginUser))
@@ -536,29 +372,19 @@ export default {
       // console.log('1-4 loginUser.photoURL ------ in mounte: ' + this.loginUser.photoURL)
     })
 
-    // this.$nuxt.$on('selnumside', (selected) => {
-    // this.selected = selected
-    // this.numBorder = Math.floor(this.selected / 10)
-    // })
-
-    // const classBorder = document.getElementsByClassName('border-danger')
-    // const classBorder = document.getElementById('myBorder')
-    // classBorder.forEach((myBorder, myIndex) => {
-    // console.log('1-1 --------- No : myBorder: ', myIndex, ' : ', myBorder)
-    // console.log('1-1 --------- myBorder: ', classBorder)
-    // classBorder[myIndex].className = 'border-warning'
-
-    // classBorder.className = 'btn m-1 p-1 nuxt-link-exact-active nuxt-link-active btn-a34-steelblue btn-md border border-warning rounded-lg'
-    // console.log('1-2 --------- myBorder: ', classBorder)
-    // })
+    // 以下の set は利用していないかも？
+    this.$store.dispatch('myStore/set', this.myIndex)
   },
+
   // beforeUpdate() {
   updated() {
-    // const classBorder = document.getElementsByClassName('border-danger')
-    // classBorder.forEach((myBorder, myIndex) => {
-    // console.log('1-2 --------- No : myBorder: ', myIndex, ' : ', myBorder)
-    // classBorder[myIndex].className = 'border-warning'
-    // })
+    // const pageLists = this.getPageList
+    // console.log('myHeader-updated-1: ', pageLists)
+    // if (pageLists.length === 0) {
+    // console.log('myHeader-updated-2: ', pageLists)
+    // this.setGroups()
+    // this.setPageList()
+    // }
 
     // console.log('0-1 --- buttonColorMenu: ', this.buttonColorMenu)
     if (!this.isInitCalorSet) {
@@ -577,8 +403,8 @@ export default {
     }
   },
   methods: {
-    // test1() {
-    //   this.myCommonUsers()
+    // testDispInfo() {
+    //   // console.log('testDispInfo-1 --- テストです。')
     // },
 
     logout() {
@@ -591,6 +417,10 @@ export default {
           // console.log('ログアウトしました')
         })
     },
+
+    // reLogin() {
+    //   this.$refs.reLoginModal.show()
+    // },
 
     // ログインユーザが mainUser であったら、this.mainUser = true
     myCommonUsers() {
@@ -608,6 +438,146 @@ export default {
       } catch (error) {
         // console.log('error ****** in myCommonUsers(): ', error)
       }
+    },
+
+    // Vuex Store への保存
+    setMenuIndex(indexGroup, indexPage, myPage) {
+      this.myIndex.indexGroup = indexGroup
+      this.myIndex.indexPage = indexPage
+      this.myIndex.pageTemplate = myPage.pageTemplate
+      this.myIndex.pageNo = myPage.pageNo
+      // console.log('setMenuIndex-1 --- myIndex: ', this.myIndex)
+      this.$store.dispatch('myStore/set', this.myIndex)
+    },
+
+    // 以下の setPageList はソートしたデータでは無いため未使用
+    // ①dbMenus と ②dbSideMenus のデータから pageLists を作成して、③myStore へ保存
+    // setPageList() {
+    //   console.log('myHeader- setPageList-0 --- getPageLists')
+    //   let templateNo = ''
+    //   let pageName = ''
+    //   let pageTemplate = ''
+    //   let pageNo = ''
+    //   // let indexGroup2 = ''
+    //   // let indexPage2 = ''
+
+    //   const pageLists = []
+
+    //   // ① dbMenus から pageLists を作成
+    //   this.$store
+    //     .dispatch('storemenu/getMenus')
+    //     .then((value) => {
+    //       console.log('myHeader- setPageList-1 --- getPageLists: ', value)
+
+    //       // 取得した menuデータの処理 ------- start
+    //       value.forEach((dbGroup, indexGroup) => {
+    //         // console.log('myHeader- setPageList-2 --- dbGroup: ', dbGroup)
+    //         dbGroup.myMenu.myPage.forEach((thisPage, indexPage) => {
+    //           // console.log('myHeader- setPageList-3 --- thisPage: ', thisPage)
+    //           templateNo = thisPage.pageTemplate + thisPage.pageNo
+    //           pageName = thisPage.pageName
+    //           pageTemplate = thisPage.pageTemplate
+    //           pageNo = thisPage.pageNo
+    //           // pageLists.push({ templateNo, indexGroup, indexPage, pageName })
+    //           pageLists.push({ templateNo, indexGroup, indexPage, pageName, pageTemplate, pageNo })
+    //         })
+    //       })
+    //       console.log('myHeader- setPageList-4 --- getPageLists: ', pageLists)
+    //       // 取得した menuデータの処理 ------- end
+    //     })
+    //     .catch((error) => {
+    //       console.log('mounted-2 *** error *** getMenus: ', error)
+    //       alert('mounted-2 *** error *** getMenus: ', error)
+    //     })
+
+    //   // ②dbSideMenus のデータから pageLists を作成
+    //   if (this.getSideMenus !== 'undefined') {
+    //     this.getSideMenus.forEach((sideMenu, indexGroup2) => {
+    //       console.log('myHeader- setPageList-5 --- thisPage: ', sideMenu)
+    //       sideMenu.myMenu.myPage.forEach((thisPage, indexPage) => {
+    //         console.log('myHeader- setPageList-6 --- thisPage: ', thisPage)
+    //         // pageLists.push(thisPage.pageTemplate + '-' + thisPage.linkUrl)
+    //         templateNo = thisPage.pageTemplate + thisPage.pageNo
+    //         pageName = thisPage.pageName
+    //         pageTemplate = thisPage.pageTemplate
+    //         pageNo = thisPage.pageNo
+    //         const indexGroup = 'side' + indexGroup2
+    //         // pageLists.push({ templateNo, indexGroup, indexPage, pageName })
+    //         pageLists.push({ templateNo, indexGroup, indexPage, pageName, pageTemplate, pageNo })
+    //       })
+    //     })
+    //   }
+
+    //   // ③ 作成した pageLists を myStore へ保存
+    //   console.log('setpageList-1 保存直前-1: ', pageLists)
+    //   this.$store.dispatch('myStore/setPageList', pageLists)
+    // },
+
+    // ①dbMenus と ②dbSideMenus のデータから pageLists を作成して、③myStore へ保存
+    setGroups() {
+      // <p>{{ setGroups2() }}</p> の場合に上記の戻り値  [object promise]  が表示されるため、
+      // <p>{{ setGroups() }}</p> として、javascript から<p>{{ setGroups2() }}</p> を呼ぶ
+      this.setGroups2()
+    },
+
+    async setGroups2() {
+      let templateNo = ''
+      let pageName = ''
+      let pageTemplate = ''
+      let pageNo = ''
+      let linkUrl = ''
+      // 以下の pageLists を使いまわしたい場合は、exportのdata()で定義すること。
+      const pageLists = []
+
+      // ① dbMenus から pageLists を作成
+      // const getPageLists = this.dbGroups
+
+      // console.log('myHeader- setGroups-1 --- getPageLists: ', getPageLists)
+
+      // 取得した menuデータの処理 ------- start
+      // getPageLists.forEach((dbGroup, indexGroup) => {
+      await this.dbGroups.forEach((dbGroup, indexGroup) => {
+        // console.log('myHeader- setGroups-2 --- dbGroup: ', dbGroup)
+        dbGroup.myMenu.myPage.forEach((thisPage, indexPage) => {
+          // console.log('myHeader- setGroups-3 --- thisPage: ', thisPage)
+          templateNo = thisPage.pageTemplate + thisPage.pageNo
+          pageName = thisPage.pageName
+          pageTemplate = thisPage.pageTemplate
+          pageNo = thisPage.pageNo
+          // pageLists.push({ templateNo, indexGroup, indexPage, pageName })
+          pageLists.push({ templateNo, indexGroup, indexPage, pageName, pageTemplate, pageNo })
+        })
+      })
+
+      // ②dbSideMenus のデータから pageLists を作成
+      // const getSideLists = this.getSideMenus
+
+      // console.log('setGroups-4 --- getSideLists: ', getSideLists)
+      // if (getSideLists.length !== 0) {
+      // getSideLists.forEach((sideMenu, indexGroup2) => {
+      await this.getSideMenus.forEach((sideMenu, indexGroup2) => {
+        // console.log('myHeader- setGroups-5 --- thisPage: ', sideMenu)
+        sideMenu.myMenu.myPage.forEach((thisPage, indexPage) => {
+          // console.log('myHeader- setGroups-6 --- thisPage: ', thisPage)
+          // pageLists.push(thisPage.pageTemplate + '-' + thisPage.linkUrl)
+          templateNo = thisPage.pageTemplate + thisPage.pageNo
+          pageName = thisPage.pageName
+          pageTemplate = thisPage.pageTemplate
+          pageNo = thisPage.pageNo
+          const indexGroup = 'side' + indexGroup2
+          linkUrl = thisPage.linkUrl
+          // pageLists.push({ templateNo, indexGroup, indexPage, pageName })
+          pageLists.push({ templateNo, indexGroup, indexPage, pageName, pageTemplate, pageNo, linkUrl })
+        })
+      })
+      // }
+
+      // ③ 作成した pageLists を myStore へ保存
+      // console.log('myHeader- setGroups-7 --- pageLists: ', pageLists)
+      // console.log('myHeader- setGroups-7 保存直前: ', pageLists)
+      // await this.$store.dispatch('myStore/setPageList', pageLists)
+      this.$store.dispatch('myStore/setPageList', pageLists)
+      // 取得した menuデータの処理 ------- end
     },
 
     // カラー設定 1 Menu
@@ -661,81 +631,75 @@ export default {
         this.buttonColorCancel = 'background-color: ' + this.myCommon.buttonColorCancel1 + ';'
       }
     },
-    selnum(num) {
-      this.selected = num
-      // console.log('header selnum selected: ' + num)
-      this.$nuxt.$emit('selnum', num)
-    },
 
-    // selnumSide(num) {
-    // this.selected = num
-    // console.log('header selnum selected: ' + num)
-    // this.$nuxt.$emit('selnumside', num)
-    // },
-
-    isSelected(i) {
-      // console.log('isSelected-i:  ' + i)
+    isSelectedItem(indexGroup, indexPage) {
+      // console.log('isSelectedItem-1 --- indexGroup: ', indexGroup)
+      // console.log('isSelectedItem-2 --- this.getMenuIndex.indexGroup: ', this.getMenuIndex.indexGroup)
       // console.log('i === selected : ', i, ' === ', this.selected)
-      return i === this.selected
-    },
-
-    isBorder(i) {
-      this.numBorder = Math.floor(this.selected / 10)
-      return i === this.numBorder
-    },
-
-    isBorder2(i, myBorder) {
-      this.numBorder = Math.floor(this.selected / 10)
-
-      if (i === this.numBorder) {
-        return 'border rounded-lg border-' + myBorder
+      if (indexGroup === this.getMenuIndex.indexGroup) {
+        if (indexPage === this.getMenuIndex.indexPage) {
+          return true
+        } else {
+          return false
+        }
       }
     },
 
-    isBorder3(i, myBorder) {
-      this.numBorder = Math.floor(this.selected / 10)
-      if (i === this.numBorder) {
-        // 以下は getElementById の利用例で、getElemetsByClassName とどちらかの方法を選ぶ
-        document.addEventListener('DOMContentLoaded', function () {
-          const idBorder = document.getElementById('idBorder')
-          idBorder.className = 'active border border-warning rounded-lg'
-        })
+    selMenu(indexGroup, indexPage, pageTemplate, pageNo) {
+      const myPage = {
+        indexGroup,
+        indexPage,
+        pageTemplate,
+        pageNo,
+      }
+      this.setMenuIndex(indexGroup, indexPage, myPage)
+    },
 
-        // 以下は getElemetsByClassName の利用例で、getElementById とどちらかの方法を選ぶ
-        // const classBorder = document.getElementsByClassName('border-danger')
-        // console.log('2-2 +++++++ classBorder.length ', classBorder.length)
-        // classBorder.forEach((myBorder, myIndex) => {
-        // classBorder[myIndex].className = 'border-warning'
-        // console.log('2-3 +++++++ No : myBorder: ', myIndex, ' : ', myBorder)
-        // })
+    // isBorderColor = is Border Color Of Selected Button
+    isBorderColor(index, myBorder) {
+      try {
+        // console.log('isBorderColor-1 --- index: ', index)
+        if (index === this.getMenuIndex.indexGroup) {
+          // console.log('isBorderColor-3 --- myBorder: ', myBorder)
+          // 以下の myBorder は色の指定（例：pink）
+          return 'border rounded-lg border-' + myBorder
+        }
+      } catch (error) {
+        // console.log('error ****** in isBorderColor(): ', error)
       }
     },
 
     onOver(num) {
-      this.$refs['dropdown' + num].visible = true
+      // console.log('noOver-1 --- num: ', num)
+      // console.log('noOver-2 --- refs: ', this.$refs)
+      // console.log('noOver-0 --- refs.dropdown0: ', this.$refs.dropdown0)
+      // console.log('noOver-1 --- refs.dropdown1: ', this.$refs.dropdown1)
+      // console.log('noOver-101 --- refs.dropdown101: ', this.$refs.dropdown101)
+
+      if (num < 100) {
+        this.$refs['dropdown' + num][0].visible = true
+      } else {
+        this.$refs['dropdown' + num].visible = true
+      }
     },
 
     onLeave(num) {
-      this.$refs['dropdown' + num].visible = false
+      // console.log('onLeave-1 --- num: ', num)
+
+      if (num < 100) {
+        this.$refs['dropdown' + num][0].visible = false
+      } else {
+        this.$refs['dropdown' + num].visible = false
+      }
     },
-    // myFooter.vueへデータを渡す
-    // myMenuSendToFooter() {
-    // console.log('in myMenuSendToFooter: ')
-    // this.$nuxt.$emit('toptitle', this.myCommon.topTitle)
-    // this.$nuxt.$emit('home1', this.myCommon.mHome1)
-    // },
-    // myMenu を rightside.vue へ渡す
-    // myMenuSendToRightSide() {
-    // this.$nuxt.$emit('mycommon', this.myCommon)
-    // },
+
     // メニューデータをFireStoreからロードしてセット
     myMenuSet() {
-      // console.log('***** Test log ***** in myMenuSet()')
       try {
         this.myMenu = this.dbHeaders.myMenu
         this.myCommon = this.dbCommon.myCommon
-        // this.myCommon = this.dbCommon.myData
-        // this.dbSideData = this.dbSideById.myMenu
+        // this.dbSideData = this.getIsSideMenu.myMenu.myPage
+        // console.log('myMenuSet-1 --- dbSideData.chkSideMenu: ', this.dbSideData.chkSideMenu)
         this.$nuxt.$emit('mymenu', this.myMenu)
         this.$nuxt.$emit('mycommon', this.myCommon)
         // console.log('Ok  =++++++++++++++ in myMenuSet(): ')
@@ -744,8 +708,20 @@ export default {
         // console.log('***** error ***** in myMenuSet(): ' + error)
       }
 
-      // this.myMenu.topTitle = 'ようこそ！'
-      // console.log('***************** dateTime in dbHeaders: ' + Date())
+      // Side Menu を利用する/しないの 情報を get
+      this.setNowIsSideMenu()
+    },
+
+    // Side Menu を利用する/しないの 情報を set
+    setNowIsSideMenu() {
+      // const getData = this.$store.getters['storeside/getSideById']('useSideMenu')
+      const getData = this.getIsSideMenu
+      // console.log('setNowIsSideMenu-1 --- getData: ', getData)
+      if (getData !== undefined) {
+        this.nowIsSideMenu = getData.page
+        this.$nuxt.$emit('nowissidemenu', getData.page)
+        // console.log('setNowIsSideMenu-2 --- nowIsSideMenu: ', this.nowIsSideMenu)
+      }
     },
 
     // 以下の add は通常、未使用かも？ ←たぶん初期登録で利用
@@ -778,10 +754,16 @@ export default {
 </script>
 
 <style scoped>
-.btn {
-  font-weight: 700;
-  /* text-transform: uppercase; */
+/* .visible {
+  visibility: visible !important;
 }
+.invisible {
+  visibility: hidden !important;
+} */
+
+/* .btn {
+  font-weight: 700;
+} */
 
 /* 大デバイス（デスクトップ, 992 以上） */
 @media (min-width: 992px) {

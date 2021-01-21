@@ -18,8 +18,6 @@ export default {
     Auth,
   },
 
-  // layout: 'sampleLayout', // レイアウトファイルを指定
-
   // head情報は {}nuxt.config.js で設定のため省略
   // head() {
   // return {
